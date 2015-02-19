@@ -1,0 +1,185 @@
+Ruby for OpenShift - Docker images
+========================================
+
+This repository contains sources of the images for building various versions
+of Ruby applications as reproducible Docker images using
+[source-to-image](https://github.com/openshift/source-to-image).
+User can choose between RHEL and CentOS based builder images.
+The resulting image can be run using [Docker](http://docker.io).
+
+
+Versions
+---------------
+Ruby versions currently supported are:
+* ruby-2.0
+
+RHEL versions currently supported are:
+* RHEL7
+
+CentOS versions currently supported are:
+* CentOS7
+
+
+Installation
+---------------
+To build Ruby image, choose between CentOS or RHEL based image:
+*  **RHEL based image**
+    This image is not available as automated build in [Docker Index](https://index.docker.io).
+
+    To build a rhel-based ruby-2.0 image, you need to run the build on properly
+    subscribed RHEL machine.
+
+    ```
+    $ git clone https://github.com/openshift/sti-ruby.git
+    $ cd sti-ruby
+    $ make build TARGET=rhel7 VERSION=2.0
+    ```
+
+*  **CentOS based image**
+    ```
+    $ git clone https://github.com/openshift/sti-ruby.git
+    $ cd sti-ruby
+    $ make build VERSION=2.0
+    ```
+
+**Notice: By omitting the `VERSION` parameter, the build/test action will be performed
+on all the supported versions of Ruby. Since we are now supporting only version `2.0`,
+you can omit this parameter.**
+
+
+Usage
+---------------------
+To build a simple [ruby-sample-app](https://github.com/jhadvig/sti-ruby-test/tree/master/2.0/test/test-app) application,
+using standalone [STI](https://github.com/openshift/source-to-image) and then run the
+resulting image with [Docker](http://docker.io) execute:
+
+*  **For RHEL based image**
+    ```
+    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/test-app/ openshift/ruby-20-rhel7 ruby-sample-app
+    $ docker run -p 9292:9292 ruby-sample-app
+    ```
+
+*  **For CentOS based image**
+    ```
+    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/test-app/ openshift/ruby-20-centos7 ruby-sample-app
+    $ docker run -p 9292:9292 ruby-sample-app
+    ```
+
+**Accessing the application:**
+```
+$ curl 127.0.0.1:9292
+```
+
+
+Test
+---------------------
+This repository also provides [STI](https://github.com/openshift/source-to-image) test framework,
+which launches tests to check functionality of a simple ruby application built on top of sti-ruby image.
+
+User can choose between testing ruby test application based on RHEL or CentOS image.
+
+*  **RHEL based image**
+
+    This image is not available as automated build in [Docker Index](https://index.docker.io).
+
+    To test a rhel7-based ruby-2.0 image, you need to run the test on a properly
+    subscribed RHEL machine.
+
+    ```
+    $ cd sti-ruby
+    $ make test TARGET=rhel7 VERSION=2.0
+    ```
+
+*  **CentOS based image**
+
+    ```
+    $ cd sti-ruby
+    $ make test VERSION=2.0
+    ```
+
+**Notice: By omitting the `VERSION` parameter, the build/test action will be performed
+on all the supported versions of Ruby. Since we are now supporting only version `2.0`
+you can omit this parameter.**
+
+
+Repository organization
+------------------------
+* **`<ruby-version>`**
+
+    * **Dockerfile**
+
+        CentOS based Dockerfile.
+
+    * **Dockerfile.rhel7**
+
+        RHEL based Dockerfile. In order to perform build or test actions on this
+        Dockerfile you need to run the action on properly subscribed RHEL machine.
+
+    * **`.sti/bin/`**
+
+        This folder contains scripts that are run by [STI](https://github.com/openshift/source-to-image):
+
+        *   **assemble**
+
+            Is used to install the sources into location from where the application
+            will be run and prepare the application for deployment (eg. installing
+            modules using npm, etc..)
+
+        *   **run**
+
+            This script is responsible for running the application, by using the
+            application web server.
+
+    * **`ruby/`**
+
+        This folder contains file with commonly used modules.
+
+    * **`test/`**
+
+        This folder is containing [STI](https://github.com/openshift/source-to-image)
+        test framework with simple Rack server.
+
+        * **`test-app/`**
+
+            Simple Rack server used for testing purposes in the [STI](https://github.com/openshift/source-to-image) test framework.
+
+        * **run**
+
+            Script that runs the [STI](https://github.com/openshift/source-to-image) test framework.
+
+* **`hack/`**
+
+    Folder contains scripts which are responsible for build and test actions performed by the `Makefile`.
+
+Image name structure
+------------------------
+##### Structure: openshift/1-2-3
+
+1. Platform name - ruby
+2. Platform version(without dots)
+3. Base builder image - centos7/rhel7
+
+Examples: `openshift/ruby-20-centos7`, `openshift/ruby-20-rhel7`
+
+
+Environment variables
+---------------------
+
+* **RACK_ENV**
+
+    This variable specifies in what environment should the ruby application be deployed - `production`, `development`, `test`.
+    Each level has different behavior in terms of logging verbosity, error pages, ruby gem installation, etc.
+
+    **Note**: The application assets are going to be compiled only if the `RACK_ENV` is set to `production`
+
+* **RAILS_ENV**
+
+    This variable specifies in what environment should the ruby application be deployed - `production`, `development`, `test`.
+    Each level has different behavior in terms of logging verbosity, error pages, ruby gem installation, etc.
+
+    **Note**: The application assets are going to be compiled only if the `RAILS_ENV` is set to `production`
+
+* **DISABLE_ASSET_COMPILATION**
+
+    This variable indicates that the process of asset compilation will be skipped. Since the process of asset compilation 
+    takes place only when the application runs in `production` environment, it should be used when assets are already compiled.
