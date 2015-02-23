@@ -1,6 +1,10 @@
 FROM openshift/base-centos7
 
-ENV STI_RUBY_VERSION 2.0
+# Image metadata
+ENV RUBY_VERSION          = "2.0" \
+    IMAGE_DESCRIPTION     = "Ruby 2.0" \
+    IMAGE_TAGS            = "ruby,ruby20" \
+    IMAGE_EXPOSE_SERVICES = "8080:http"
 
 RUN yum install -y \
     https://www.softwarecollections.org/en/scls/rhscl/v8314/epel-7-x86_64/download/rhscl-v8314-epel-7-x86_64.noarch.rpm \
@@ -15,4 +19,4 @@ USER default
 # TODO: There is a bug in Docker < 1.5 that disallows to use './..' as destination directory.
 COPY ./ruby /opt/openshift/
 
-EXPOSE 9292
+EXPOSE 8080
