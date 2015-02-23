@@ -1,0 +1,18 @@
+#!/bin/sh
+#
+# Default STI usage script for the ruby-2.0 image.
+#
+DISTRO=`cat /etc/*-release | grep ^ID= | grep -Po '".*?"' | tr -d '"'`
+
+cat <<EOF
+This is a STI ruby-2.0 ${DISTRO} base image:
+To use it, install STI: https://github.com/openshift/source-to-image
+
+Sample invocation:
+
+sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/test-app/ openshift/ruby-20-${DISTRO}7 ruby-sample-app
+
+
+You can then run the resulting image via:
+docker run -p 9292:9292 ruby-sample-app
+EOF
