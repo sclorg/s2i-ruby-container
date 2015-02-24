@@ -1,5 +1,10 @@
 FROM openshift/base-centos7
 
+# This image provides a Ruby 2.0 environment you can use to run your Ruby
+# applications.
+
+MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
+
 # Image metadata
 ENV RUBY_VERSION          = "2.0" \
     IMAGE_DESCRIPTION     = "Ruby 2.0" \
@@ -14,9 +19,5 @@ RUN yum install -y \
     yum clean all -y
 
 USER default
-
-# Copy the ruby scripts and build tools into /opt/openshift directory
-# TODO: There is a bug in Docker < 1.5 that disallows to use './..' as destination directory.
-COPY ./ruby /opt/openshift/
 
 EXPOSE 8080
