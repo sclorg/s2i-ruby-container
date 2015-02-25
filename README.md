@@ -165,6 +165,9 @@ Examples: `openshift/ruby-20-centos7`, `openshift/ruby-20-rhel7`
 Environment variables
 ---------------------
 
+To set these environment variables, you can place them into `.sti/environment`
+file inside your source code repository.
+
 * **RACK_ENV**
 
     This variable specifies in what environment should the ruby application be deployed - `production`, `development`, `test`.
