@@ -49,19 +49,19 @@ you can omit this parameter.**
 
 Usage
 ---------------------
-To build a simple [ruby-sample-app](https://github.com/jhadvig/sti-ruby-test/tree/master/2.0/test/test-app) application,
+To build a simple [ruby-sample-app](https://github.com/jhadvig/sti-ruby-test/tree/master/2.0/test/puma-test-app) application,
 using standalone [STI](https://github.com/openshift/source-to-image) and then run the
 resulting image with [Docker](http://docker.io) execute:
 
 *  **For RHEL based image**
     ```
-    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/test-app/ openshift/ruby-20-rhel7 ruby-sample-app
+    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/puma-test-app/ openshift/ruby-20-rhel7 ruby-sample-app
     $ docker run -p 9292:9292 ruby-sample-app
     ```
 
 *  **For CentOS based image**
     ```
-    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/test-app/ openshift/ruby-20-centos7 ruby-sample-app
+    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/puma-test-app/ openshift/ruby-20-centos7 ruby-sample-app
     $ docker run -p 9292:9292 ruby-sample-app
     ```
 
@@ -139,9 +139,14 @@ Repository organization
         This folder is containing [STI](https://github.com/openshift/source-to-image)
         test framework with simple Rack server.
 
-        * **`test-app/`**
+        * **`puma-test-app/`**
 
-            Simple Rack server used for testing purposes in the [STI](https://github.com/openshift/source-to-image) test framework.
+            Simple Puma web server used for testing purposes in the [STI](https://github.com/openshift/source-to-image) test framework.
+
+        * **`rack-test-app/`**
+
+            Simple Rack web server used for testing purposes in the [STI](https://github.com/openshift/source-to-image) test framework.
+
 
         * **run**
 

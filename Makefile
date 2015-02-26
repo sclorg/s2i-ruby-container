@@ -19,3 +19,4 @@ build:
 .PHONY: test
 test:
 	hack/test.sh $(OS) $(VERSION)
+

@@ -10,7 +10,7 @@ To use it, install STI: https://github.com/openshift/source-to-image
 
 Sample invocation:
 
-sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/test-app/ openshift/ruby-20-${DISTRO}7 ruby-sample-app
+sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/puma-test-app/ openshift/ruby-20-${DISTRO}7 ruby-sample-app
 
 
 You can then run the resulting image via:
