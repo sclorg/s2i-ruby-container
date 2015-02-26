@@ -22,5 +22,5 @@ if is_puma_installed; then
   exec bundle exec "puma --config ../etc/puma.cfg"
 else
   echo "You might consider adding 'puma' into your Gemfile."
-  exec bundle exec "rackup -P ../run/rack.pid --host 0.0.0.0 --port 8080"
+  exec bundle exec "rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080"
 fi
