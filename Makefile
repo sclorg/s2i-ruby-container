@@ -18,5 +18,5 @@ build:
 
 .PHONY: test
 test:
-	hack/test.sh $(OS) $(VERSION)
+	TEST_MODE=true hack/build.sh $(OS) $(VERSION)
 

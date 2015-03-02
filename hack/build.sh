@@ -1,5 +1,7 @@
 #!/bin/bash -e
 # $1 - Specifies distribution - RHEL7/CentOS7
+# $2 - Specifies Ruby version - 2.0
+# TEST_MODE - If set, build a candidate image and test it
 OS=$1
 VERSION=$2
 
@@ -32,14 +34,21 @@ fi
 
 for dir in ${dirs[@]}; do
   IMAGE_NAME=openshift/ruby-${dir//./}-${OS}
+  if [ -v TEST_MODE ]; then
+    IMAGE_NAME="${IMAGE_NAME}-candidate"
+  fi
   echo ">>>> Building ${IMAGE_NAME}"
 
   pushd ${dir} > /dev/null
 
-  if [ "$OS" == "rhel7" -o "$OS" == "rhel7-candidate" ]; then
+  if [ "$OS" == "rhel7" ]; then
     docker_build ${IMAGE_NAME} Dockerfile.rhel7
   else
     docker_build ${IMAGE_NAME}
+  fi
+
+  if [ -v TEST_MODE ]; then
+    IMAGE_NAME=${IMAGE_NAME} test/run
   fi
 
   popd > /dev/null
