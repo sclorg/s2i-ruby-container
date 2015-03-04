@@ -6,10 +6,10 @@ FROM openshift/base-rhel7
 MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
 # Image metadata
-ENV RUBY_VERSION          = "2.0" \
-    IMAGE_DESCRIPTION     = "Ruby 2.0" \
-    IMAGE_TAGS            = "ruby,ruby20" \
-    IMAGE_EXPOSE_SERVICES = "8080:http"
+ENV RUBY_VERSION          2.0
+ENV IMAGE_DESCRIPTION     Ruby 2.0
+ENV IMAGE_TAGS            ruby,ruby20
+ENV IMAGE_EXPOSE_SERVICES 8080:http
 
 RUN yum-config-manager --enable rhel-server-rhscl-7-rpms \
     yum-config-manager --enable rhel-7-server-optional-rpms && \

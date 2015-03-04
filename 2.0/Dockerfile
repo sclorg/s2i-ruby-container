@@ -6,10 +6,10 @@ FROM openshift/base-centos7
 MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
 # Image metadata
-ENV RUBY_VERSION          = "2.0" \
-    IMAGE_DESCRIPTION     = "Ruby 2.0" \
-    IMAGE_TAGS            = "ruby,ruby20" \
-    IMAGE_EXPOSE_SERVICES = "8080:http"
+ENV RUBY_VERSION          2.0
+ENV IMAGE_DESCRIPTION     Ruby 2.0
+ENV IMAGE_TAGS            ruby,ruby20
+ENV IMAGE_EXPOSE_SERVICES 8080:http
 
 RUN yum install -y \
     https://www.softwarecollections.org/en/scls/rhscl/v8314/epel-7-x86_64/download/rhscl-v8314-epel-7-x86_64.noarch.rpm \
