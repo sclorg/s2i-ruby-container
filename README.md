@@ -56,18 +56,18 @@ resulting image with [Docker](http://docker.io) execute:
 *  **For RHEL based image**
     ```
     $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/puma-test-app/ openshift/ruby-20-rhel7 ruby-sample-app
-    $ docker run -p 9292:9292 ruby-sample-app
+    $ docker run -p 8080:8080 ruby-sample-app
     ```
 
 *  **For CentOS based image**
     ```
     $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/puma-test-app/ openshift/ruby-20-centos7 ruby-sample-app
-    $ docker run -p 9292:9292 ruby-sample-app
+    $ docker run -p 8080:8080 ruby-sample-app
     ```
 
 **Accessing the application:**
 ```
-$ curl 127.0.0.1:9292
+$ curl 127.0.0.1:8080
 ```
 
 
