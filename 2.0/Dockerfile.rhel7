@@ -18,4 +18,4 @@ RUN yum-config-manager --enable rhel-server-rhscl-7-rpms \
 
 USER default
 
-EXPOSE 9292
+EXPOSE 8080
