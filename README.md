@@ -49,7 +49,7 @@ you can omit this parameter.**
 
 Usage
 ---------------------
-To build a simple [ruby-sample-app](https://github.com/jhadvig/sti-ruby-test/tree/master/2.0/test/puma-test-app) application,
+To build a simple [ruby-sample-app](https://github.com/openshift/sti-ruby/tree/master/2.0/test/puma-test-app) application,
 using standalone [STI](https://github.com/openshift/source-to-image) and then run the
 resulting image with [Docker](http://docker.io) execute:
 
@@ -189,5 +189,5 @@ file inside your source code repository.
 
 * **DISABLE_ASSET_COMPILATION**
 
-    This variable indicates that the process of asset compilation will be skipped. Since the process of asset compilation 
+    This variable indicates that the process of asset compilation will be skipped. Since the process of asset compilation
     takes place only when the application runs in `production` environment, it should be used when assets are already compiled.
