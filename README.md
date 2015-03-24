@@ -55,13 +55,13 @@ resulting image with [Docker](http://docker.io) execute:
 
 *  **For RHEL based image**
     ```
-    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/puma-test-app/ openshift/ruby-20-rhel7 ruby-sample-app
+    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=2.0/test/puma-test-app/ openshift/ruby-20-rhel7 ruby-sample-app
     $ docker run -p 8080:8080 ruby-sample-app
     ```
 
 *  **For CentOS based image**
     ```
-    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=/2.0/test/puma-test-app/ openshift/ruby-20-centos7 ruby-sample-app
+    $ sti build https://github.com/openshift/sti-ruby.git --contextDir=2.0/test/puma-test-app/ openshift/ruby-20-centos7 ruby-sample-app
     $ docker run -p 8080:8080 ruby-sample-app
     ```
 
@@ -123,14 +123,14 @@ Repository organization
 
             Is used to install the sources into location from where the application
             will be run and prepare the application for deployment (eg. installing
-            modules using npm, etc..)
+            modules using bundler, etc.)
 
         *   **run**
 
             This script is responsible for running the application, by using the
             application web server.
 
-    * **`ruby/`**
+    * **`contrib/`**
 
         This folder contains file with commonly used modules.
 
