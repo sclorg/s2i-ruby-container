@@ -24,7 +24,6 @@ Installation
 ---------------
 To build Ruby image, choose between CentOS or RHEL based image:
 *  **RHEL based image**
-    This image is not available as automated build in [Docker Index](https://index.docker.io).
 
     To build a rhel-based ruby-2.0 image, you need to run the build on properly
     subscribed RHEL machine.
@@ -79,8 +78,6 @@ which launches tests to check functionality of a simple ruby application built o
 User can choose between testing ruby test application based on RHEL or CentOS image.
 
 *  **RHEL based image**
-
-    This image is not available as automated build in [Docker Index](https://index.docker.io).
 
     To test a rhel7-based ruby-2.0 image, you need to run the test on a properly
     subscribed RHEL machine.
