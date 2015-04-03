@@ -1,7 +1,5 @@
 #!/bin/sh
-#
-# Default STI usage script for the ruby-2.0 image.
-#
+
 DISTRO=`cat /etc/*-release | grep ^ID= | grep -Po '".*?"' | tr -d '"'`
 
 cat <<EOF

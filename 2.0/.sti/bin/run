@@ -1,22 +1,15 @@
-#!/bin/bash -e
-#
-# Default STI run script for the ruby-2.0 image.
-#
+#!/bin/bash
+
 function is_puma_installed() {
   [ ! -f Gemfile.lock ] && return 1
   grep ' puma ' Gemfile.lock >/dev/null
 }
 
+source scl_source enable ruby200 ror40
+set -e
+
 export RACK_ENV=${RACK_ENV:-"production"}
 export RAILS_ENV=${RAILS_ENV:-"${RACK_ENV}"}
-
-# TODO: Nuke this hack when SCL-2.0 are out
-# For now this is the only way how to prevent
-# shebang from spawning a new bash process.
-set +e
-export X_SCLS="ruby200 ror40"
-source /opt/rh/ruby200/enable
-source /opt/rh/ror40/enable
 
 if is_puma_installed; then
   exec bundle exec "puma --config ../etc/puma.cfg"

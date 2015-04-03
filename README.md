@@ -10,7 +10,7 @@ The resulting image can be run using [Docker](http://docker.io).
 
 Versions
 ---------------
-Ruby versions currently supported are:
+Ruby versions currently provided are:
 * ruby-2.0
 
 RHEL versions currently supported are:
@@ -35,6 +35,15 @@ To build Ruby image, choose between CentOS or RHEL based image:
     ```
 
 *  **CentOS based image**
+
+    This image is available on DockerHub. To download it use:
+
+    ```
+    $ docker pull openshift/ruby-20-centos7
+    ```
+
+    To build Ruby image from scratch use:
+
     ```
     $ git clone https://github.com/openshift/sti-ruby.git
     $ cd sti-ruby
@@ -42,7 +51,7 @@ To build Ruby image, choose between CentOS or RHEL based image:
     ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
-on all the supported versions of Ruby. Since we are now supporting only version `2.0`,
+on all provided versions of Ruby. Since we are now providing only version `2.0`,
 you can omit this parameter.**
 
 
@@ -79,7 +88,7 @@ User can choose between testing ruby test application based on RHEL or CentOS im
 
 *  **RHEL based image**
 
-    To test a rhel7-based ruby-2.0 image, you need to run the test on a properly
+    To test a rhel7-based ruby-2.0 image, you need to run the test on properly
     subscribed RHEL machine.
 
     ```
@@ -95,7 +104,7 @@ User can choose between testing ruby test application based on RHEL or CentOS im
     ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
-on all the supported versions of Ruby. Since we are now supporting only version `2.0`
+on all the provided versions of Ruby. Since we are now providing only version `2.0`
 you can omit this parameter.**
 
 
@@ -127,6 +136,10 @@ Repository organization
             This script is responsible for running the application, by using the
             application web server.
 
+        *   **usage***
+
+            This script prints the usage of this image.
+
     * **`contrib/`**
 
         This folder contains file with commonly used modules.
@@ -144,7 +157,6 @@ Repository organization
 
             Simple Rack web server used for testing purposes in the [STI](https://github.com/openshift/source-to-image) test framework.
 
-
         * **run**
 
             Script that runs the [STI](https://github.com/openshift/source-to-image) test framework.
@@ -152,6 +164,7 @@ Repository organization
 * **`hack/`**
 
     Folder contains scripts which are responsible for build and test actions performed by the `Makefile`.
+
 
 Image name structure
 ------------------------

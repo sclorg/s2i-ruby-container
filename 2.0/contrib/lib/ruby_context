@@ -1,7 +1,0 @@
-# Since the bundler is officially part of ror40 SCL
-# all the bundle commands will have to be prefixed by 
-# this function.
-
-function ruby_context {
-  scl enable ruby200 ror40 "$1"
-}
