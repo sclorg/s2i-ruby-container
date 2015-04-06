@@ -5,7 +5,9 @@ function is_puma_installed() {
   grep ' puma ' Gemfile.lock >/dev/null
 }
 
-source scl_source enable ruby200 ror40
+# For SCL enablement
+source .bashrc
+
 set -e
 
 export RACK_ENV=${RACK_ENV:-"production"}
