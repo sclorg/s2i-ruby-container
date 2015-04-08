@@ -25,7 +25,7 @@ Installation
 To build Ruby image, choose between CentOS or RHEL based image:
 *  **RHEL based image**
 
-    To build a rhel-based ruby-2.0 image, you need to run the build on properly
+    To build a rhel-based ruby-2.0 image, you need to run the build on a properly
     subscribed RHEL machine.
 
     ```
@@ -88,7 +88,7 @@ User can choose between testing ruby test application based on RHEL or CentOS im
 
 *  **RHEL based image**
 
-    To test a rhel7-based ruby-2.0 image, you need to run the test on properly
+    To test a rhel7-based ruby-2.0 image, you need to run the test on a properly
     subscribed RHEL machine.
 
     ```
@@ -119,7 +119,7 @@ Repository organization
     * **Dockerfile.rhel7**
 
         RHEL based Dockerfile. In order to perform build or test actions on this
-        Dockerfile you need to run the action on properly subscribed RHEL machine.
+        Dockerfile you need to run the action on a properly subscribed RHEL machine.
 
     * **`.sti/bin/`**
 
