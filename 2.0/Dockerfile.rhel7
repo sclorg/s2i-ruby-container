@@ -11,9 +11,7 @@ ENV IMAGE_DESCRIPTION     Ruby 2.0
 ENV IMAGE_TAGS            ruby,ruby20
 ENV IMAGE_EXPOSE_SERVICES 8080:http
 
-RUN yum-config-manager --enable rhel-server-rhscl-7-rpms \
-    yum-config-manager --enable rhel-7-server-optional-rpms && \
-    yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler ror40-rubygem-rack && \
+RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler ror40-rubygem-rack && \
     yum clean all -y
 
 EXPOSE 8080
