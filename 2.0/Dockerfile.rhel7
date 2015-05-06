@@ -6,15 +6,10 @@ FROM openshift/base-rhel7
 MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
 
 # Image metadata
-ENV RUBY_VERSION          2.0
-ENV IMAGE_DESCRIPTION     Ruby 2.0
-ENV IMAGE_TAGS            ruby,ruby20
-ENV IMAGE_EXPOSE_SERVICES 8080:http
-
-RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler ror40-rubygem-rack && \
-    yum clean all -y
-
-EXPOSE 8080
+ENV RUBY_VERSION=2.0 \
+    IMAGE_DESCRIPTION="Ruby 2.0" \
+    IMAGE_TAGS=ruby,ruby20 \
+    IMAGE_EXPOSE_SERVICES=8080:http
 
 # Copy the STI scripts from the specific language image to /usr/local/sti
 COPY ./.sti/bin/ /usr/local/sti
@@ -23,7 +18,11 @@ COPY ./.sti/bin/ /usr/local/sti
 # run and build the applications.
 COPY ./contrib/ /opt/openshift
 
-RUN chown -R default:default /opt/openshift
+RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler ror40-rubygem-rack && \
+    yum clean all -y && \
+    chown -R default:default /opt/openshift
+
+EXPOSE 8080
 
 USER default
 
