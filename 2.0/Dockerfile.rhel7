@@ -20,7 +20,7 @@ COPY ./.sti/bin/ /usr/local/sti
 # run and build the applications.
 COPY ./contrib/ /opt/openshift
 
-RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler ror40-rubygem-rack && \
+RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler ror40-rubygem-rack nodejs010 && \
     yum clean all -y && \
     chown -R default:default /opt/openshift
 
