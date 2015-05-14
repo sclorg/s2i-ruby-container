@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function rake_assets_precompile() {
-  [ -n $DISABLE_ASSET_COMPILATION ] && return
+  [ -n "$DISABLE_ASSET_COMPILATION" ] && return
   [ ! -f Gemfile ] && return
   [ ! -f Rakefile ] && return
   ! grep " rails " Gemfile.lock >/dev/null && return
@@ -16,6 +16,9 @@ function rake_assets_precompile() {
 source .bashrc
 
 set -e
+
+export RACK_ENV=${RACK_ENV:-"production"}
+export RAILS_ENV=${RAILS_ENV:-"${RACK_ENV}"}
 
 echo "---> Installing application source"
 cp -Rf /tmp/src/* ./
