@@ -128,7 +128,7 @@ for server in ${WEB_SERVERS[@]}; do
 
   # Since we built the candidate image locally, we don't want STI attempt to pull
   # it from Docker hub
-  sti_args="--forcePull=false"
+  sti_args="--force-pull=false"
 
   prepare ${server}
   run_sti_build ${server}
