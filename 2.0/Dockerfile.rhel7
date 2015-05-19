@@ -24,7 +24,7 @@ RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-ru
     yum clean all -y && \
     chown -R default:default /opt/openshift
 
-USER default
+USER 1001
 
 # Set the default CMD to print the usage of the language image
 CMD ["usage"]
