@@ -21,7 +21,7 @@ export RACK_ENV=${RACK_ENV:-"production"}
 export RAILS_ENV=${RAILS_ENV:-"${RACK_ENV}"}
 
 echo "---> Installing application source"
-cp -Rf /tmp/src/* ./
+cp -Rf /tmp/src/. ./
 
 echo "---> Building your Ruby application from source"
 if [ -f Gemfile ]; then
