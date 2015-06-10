@@ -8,7 +8,8 @@
 #
 IMAGE_NAME=${IMAGE_NAME-openshift/ruby-20-centos7-candidate}
 
-declare -a WEB_SERVERS=(puma rack)
+declare -a WEB_SERVERS=(db puma rack)
+#declare -a WEB_SERVERS=(db)
 
 # TODO: Make command compatible for Mac users
 test_dir="$(readlink -zf $(dirname "${BASH_SOURCE[0]}"))"
@@ -57,7 +58,7 @@ run_test_application() {
 }
 
 cleanup() {
-  info "Cleaning up the test application image"
+  info "Cleaning up the test application image $1"
   if [ -f $cid_file ]; then
     if container_exists; then
       docker stop $(cat $cid_file)
@@ -67,6 +68,9 @@ cleanup() {
     docker rmi -f ${IMAGE_NAME}-testapp
   fi
   rm -rf ${test_dir}/${1}-test-app/.git
+  if [[ $1 == "db" ]]; then
+    rm -rf ${test_dir}/db-test-app
+  fi
 }
 
 check_result() {
@@ -122,6 +126,11 @@ test_connection() {
   done
   return $result
 }
+
+pushd ${test_dir}
+git clone git://github.com/openshift/ruby-hello-world
+mv ruby-hello-world db-test-app
+popd
 
 for server in ${WEB_SERVERS[@]}; do
   cid_file=$(mktemp -u --suffix=.cid)
