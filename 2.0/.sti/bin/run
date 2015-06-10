@@ -5,9 +5,6 @@ function is_puma_installed() {
   grep ' puma ' Gemfile.lock >/dev/null
 }
 
-# For SCL enablement
-source .bashrc
-
 set -e
 
 export RACK_ENV=${RACK_ENV:-"production"}
