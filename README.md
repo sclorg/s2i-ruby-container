@@ -1,10 +1,10 @@
 Ruby for OpenShift - Docker images
 ========================================
 
-This repository contains sources of the images for building various versions
-of Ruby applications as reproducible Docker images using
+This repository contains the source for building various versions of
+the Ruby application as a reproducible Docker image using
 [source-to-image](https://github.com/openshift/source-to-image).
-User can choose between RHEL and CentOS based builder images.
+Users can choose between RHEL and CentOS based builder images.
 The resulting image can be run using [Docker](http://docker.io).
 
 
@@ -22,10 +22,10 @@ CentOS versions currently supported are:
 
 Installation
 ---------------
-To build Ruby image, choose between CentOS or RHEL based image:
+To build a Ruby image, choose either the CentOS or RHEL based image:
 *  **RHEL based image**
 
-    To build a rhel-based ruby-2.0 image, you need to run the build on a properly
+    To build a RHEL based Ruby-2.0 image, you need to run the build on a properly
     subscribed RHEL machine.
 
     ```
@@ -36,13 +36,13 @@ To build Ruby image, choose between CentOS or RHEL based image:
 
 *  **CentOS based image**
 
-    This image is available on DockerHub. To download it use:
+    This image is available on DockerHub. To download it run:
 
     ```
     $ docker pull openshift/ruby-20-centos7
     ```
 
-    To build Ruby image from scratch use:
+    To build a Ruby image from scratch run:
 
     ```
     $ git clone https://github.com/openshift/sti-ruby.git
@@ -51,13 +51,13 @@ To build Ruby image, choose between CentOS or RHEL based image:
     ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
-on all provided versions of Ruby. Since we are now providing only version `2.0`,
+on all provided versions of Ruby. Since we are currently providing only version `2.0`,
 you can omit this parameter.**
 
 
 Usage
 ---------------------
-To build a simple [ruby-sample-app](https://github.com/openshift/sti-ruby/tree/master/2.0/test/puma-test-app) application,
+To build a simple [ruby-sample-app](https://github.com/openshift/sti-ruby/tree/master/2.0/test/puma-test-app) application
 using standalone [STI](https://github.com/openshift/source-to-image) and then run the
 resulting image with [Docker](http://docker.io) execute:
 
@@ -81,14 +81,14 @@ $ curl 127.0.0.1:8080
 
 Test
 ---------------------
-This repository also provides [STI](https://github.com/openshift/source-to-image) test framework,
-which launches tests to check functionality of a simple ruby application built on top of sti-ruby image.
+This repository also provides a [S2I](https://github.com/openshift/source-to-image) test framework,
+which launches tests to check functionality of a simple Ruby application built on top of the sti-ruby image.
 
-User can choose between testing ruby test application based on RHEL or CentOS image.
+Users can choose between testing a Ruby test application based on a RHEL or CentOS image.
 
 *  **RHEL based image**
 
-    To test a rhel7-based ruby-2.0 image, you need to run the test on a properly
+    To test a RHEL7-based Ruby-2.0 image, you need to run the test on a properly
     subscribed RHEL machine.
 
     ```
@@ -104,7 +104,7 @@ User can choose between testing ruby test application based on RHEL or CentOS im
     ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
-on all the provided versions of Ruby. Since we are now providing only version `2.0`
+on all the provided versions of Ruby. Since we are currently providing only version `2.0`
 you can omit this parameter.**
 
 
@@ -127,13 +127,13 @@ Repository organization
 
         *   **assemble**
 
-            Is used to install the sources into location from where the application
+            Used to install the sources into the location where the application
             will be run and prepare the application for deployment (eg. installing
             modules using bundler, etc.)
 
         *   **run**
 
-            This script is responsible for running the application, by using the
+            This script is responsible for running the application by using the
             application web server.
 
         *   **usage***
@@ -142,36 +142,36 @@ Repository organization
 
     * **`contrib/`**
 
-        This folder contains file with commonly used modules.
+        This folder contains a file with commonly used modules.
 
     * **`test/`**
 
-        This folder is containing [STI](https://github.com/openshift/source-to-image)
-        test framework with simple Rack server.
+        This folder contains a [S2I](https://github.com/openshift/source-to-image)
+        test framework with a simple Rack server.
 
         * **`puma-test-app/`**
 
-            Simple Puma web server used for testing purposes in the [STI](https://github.com/openshift/source-to-image) test framework.
+            Simple Puma web server used for testing purposes by the [S2I](https://github.com/openshift/source-to-image) test framework.
 
         * **`rack-test-app/`**
 
-            Simple Rack web server used for testing purposes in the [STI](https://github.com/openshift/source-to-image) test framework.
+            Simple Rack web server used for testing purposes by the [S2I](https://github.com/openshift/source-to-image) test framework.
 
         * **run**
 
-            Script that runs the [STI](https://github.com/openshift/source-to-image) test framework.
+            Script that runs the [S2I](https://github.com/openshift/source-to-image) test framework.
 
 * **`hack/`**
 
-    Folder contains scripts which are responsible for build and test actions performed by the `Makefile`.
+    Folder containing scripts which are responsible for build and test actions performed by the `Makefile`.
 
 
 Image name structure
 ------------------------
 ##### Structure: openshift/1-2-3
 
-1. Platform name - ruby
-2. Platform version(without dots)
+1. Platform name (lowercase) - ruby
+2. Platform version(without dots) - 20
 3. Base builder image - centos7/rhel7
 
 Examples: `openshift/ruby-20-centos7`, `openshift/ruby-20-rhel7`
@@ -180,24 +180,24 @@ Examples: `openshift/ruby-20-centos7`, `openshift/ruby-20-rhel7`
 Environment variables
 ---------------------
 
-To set these environment variables, you can place them into `.sti/environment`
+To set these environment variables, you can place them as a key value pair into a `.sti/environment`
 file inside your source code repository.
 
 * **RACK_ENV**
 
-    This variable specifies in what environment should the ruby application be deployed - `production`, `development`, `test`.
-    Each level has different behavior in terms of logging verbosity, error pages, ruby gem installation, etc.
+    This variable specifies the environment where the Ruby application will be deployed (unless overwritten) - `production`, `development`, `test`.
+    Each level has different behaviors in terms of logging verbosity, error pages, ruby gem installation, etc.
 
-    **Note**: The application assets are going to be compiled only if the `RACK_ENV` is set to `production`
+    **Note**: Application assets will be compiled only if the `RACK_ENV` is set to `production`
 
 * **RAILS_ENV**
 
-    This variable specifies in what environment should the ruby application be deployed - `production`, `development`, `test`.
-    Each level has different behavior in terms of logging verbosity, error pages, ruby gem installation, etc.
+    This variable specifies the environment where the Ruby application will be deployed (unless overwritten) - `production`, `development`, `test`.
+    Each level has different behaviors in terms of logging verbosity, error pages, ruby gem installation, etc.
 
-    **Note**: The application assets are going to be compiled only if the `RAILS_ENV` is set to `production`
+    **Note**: Application assets will be compiled only if the `RAILS_ENV` is set to `production`
 
 * **DISABLE_ASSET_COMPILATION**
 
-    This variable indicates that the process of asset compilation will be skipped. Since the process of asset compilation
-    takes place only when the application runs in `production` environment, it should be used when assets are already compiled.
+    This variable indicates that the asset compilation process will be skipped. Since this only takes place
+    when the application is run in the `production` environment, it should only be used when assets are already compiled.
