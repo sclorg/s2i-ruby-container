@@ -27,9 +27,9 @@ COPY ./.sti/bin/ /usr/local/sti
 
 # Each language image can have 'contrib' a directory with extra files needed to
 # run and build the applications.
-COPY ./contrib/ /opt/openshift
+COPY ./contrib/ /opt/app-root
 
-RUN chown -R 1001:1001 /opt/openshift
+RUN chown -R 1001:1001 /opt/app-root
 
 USER 1001
 
