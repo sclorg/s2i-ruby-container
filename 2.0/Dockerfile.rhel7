@@ -20,10 +20,11 @@ LABEL k8s.io/description="Platform for building and running Ruby 2.0 application
       openshift.io/tags="builder,ruby,ruby20"
 
 # Labels consumed by Red Hat build service
-LABEL Component="ruby20" \
+LABEL BZComponent="openshift-sti-ruby-docker" \
       Name="openshift3/ruby-20-rhel7" \
       Version="2.0" \
-      Release="1"
+      Release="2" \
+      Architecture="x86_64"
 
 RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler ror40-rubygem-rack nodejs010 && \
     yum clean all -y
