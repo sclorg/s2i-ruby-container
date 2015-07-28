@@ -15,7 +15,6 @@ function rake_assets_precompile() {
 set -e
 
 export RACK_ENV=${RACK_ENV:-"production"}
-export RAILS_ENV=${RAILS_ENV:-"${RACK_ENV}"}
 
 echo "---> Installing application source"
 cp -Rf /tmp/src/. ./
