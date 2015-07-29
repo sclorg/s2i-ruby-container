@@ -8,7 +8,7 @@ function rake_assets_precompile() {
   ! grep " execjs " Gemfile.lock >/dev/null && return
   ! bundle exec 'rake -T' | grep "assets:precompile" >/dev/null && return
 
-  echo "---> Starting asset compilation."
+  echo "---> Starting asset compilation ..."
   bundle exec rake assets:precompile
 }
 
@@ -17,10 +17,10 @@ set -e
 export RACK_ENV=${RACK_ENV:-"production"}
 export RAILS_ENV=${RAILS_ENV:-"${RACK_ENV}"}
 
-echo "---> Installing application source"
+echo "---> Installing application source ..."
 cp -Rf /tmp/src/. ./
 
-echo "---> Building your Ruby application from source"
+echo "---> Building your Ruby application from source ..."
 if [ -f Gemfile ]; then
   ADDTL_BUNDLE_ARGS=""
   if [ -f Gemfile.lock ]; then
@@ -35,10 +35,10 @@ if [ -f Gemfile ]; then
     BUNDLE_WITHOUT=${BUNDLE_WITHOUT:-"development:test"}
   fi
 
-  echo "---> Running 'bundle install ${ADDTL_BUNDLE_ARGS}'"
+  echo "---> Running 'bundle install ${ADDTL_BUNDLE_ARGS}' ..."
   bundle install --path ./bundle ${ADDTL_BUNDLE_ARGS}
 
-  echo "---> Cleaning up unused ruby gems"
+  echo "---> Cleaning up unused ruby gems ..."
   bundle clean -V
 fi
 
