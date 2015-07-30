@@ -12,6 +12,7 @@ Versions
 ---------------
 Ruby versions currently provided are:
 * ruby-2.0
+* ruby-2.2
 
 RHEL versions currently supported are:
 * RHEL7
@@ -25,7 +26,7 @@ Installation
 To build a Ruby image, choose either the CentOS or RHEL based image:
 *  **RHEL based image**
 
-    To build a RHEL based Ruby-2.0 image, you need to run the build on a properly
+    To build a RHEL based Ruby image, you need to run the build on a properly
     subscribed RHEL machine.
 
     ```
@@ -51,8 +52,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
-on all provided versions of Ruby. Since we are currently providing only version `2.0`,
-you can omit this parameter.**
+on all provided versions of Ruby.**
 
 
 Usage
@@ -104,8 +104,7 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
     ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
-on all the provided versions of Ruby. Since we are currently providing only version `2.0`
-you can omit this parameter.**
+on all the provided versions of Ruby.**
 
 
 Repository organization
