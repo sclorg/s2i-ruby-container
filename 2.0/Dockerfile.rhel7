@@ -14,11 +14,6 @@ LABEL io.k8s.description="Platform for building and running Ruby 2.0 application
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,ruby,ruby20"
 
-LABEL k8s.io/description="Platform for building and running Ruby 2.0 applications" \
-      k8s.io/display-name="Ruby 2.0" \
-      openshift.io/expose-services="8080:http" \
-      openshift.io/tags="builder,ruby,ruby20"
-
 # Labels consumed by Red Hat build service
 LABEL BZComponent="openshift-sti-ruby-docker" \
       Name="openshift3/ruby-20-rhel7" \
