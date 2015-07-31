@@ -8,7 +8,6 @@ function is_puma_installed() {
 set -e
 
 export RACK_ENV=${RACK_ENV:-"production"}
-export RAILS_ENV=${RAILS_ENV:-"${RACK_ENV}"}
 
 if is_puma_installed; then
   exec bundle exec "puma --config ../etc/puma.cfg"

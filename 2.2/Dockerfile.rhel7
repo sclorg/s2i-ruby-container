@@ -19,7 +19,7 @@ LABEL BZComponent="rh-ruby22" \
       Release="1" \
       Architecture="x86_64"
 
-RUN yum install -y --setopt=tsflags=nodocs rh-ruby22 rh-ruby22-ruby-devel rh-ruby22-rubygem-rake v8314 rh-ruby22-rubygem-bundler rh-ror41-rubygem-rack nodejs010 && \
+RUN yum install -y --setopt=tsflags=nodocs rh-ruby22 rh-ruby22-ruby-devel rh-ruby22-rubygem-rake v8314 rh-ruby22-rubygem-bundler nodejs010 && \
     yum clean all -y
 
 # Copy the STI scripts from the specific language image to /usr/local/sti
