@@ -21,7 +21,7 @@ LABEL BZComponent="openshift-sti-ruby-docker" \
       Release="2" \
       Architecture="x86_64"
 
-RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler ror40-rubygem-rack nodejs010 && \
+RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler nodejs010 && \
     yum clean all -y
 
 # Copy the STI scripts from the specific language image to /usr/local/sti

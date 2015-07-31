@@ -189,13 +189,6 @@ file inside your source code repository.
 
     **Note**: Application assets will be compiled only if the `RACK_ENV` is set to `production`
 
-* **RAILS_ENV**
-
-    This variable specifies the environment where the Ruby application will be deployed (unless overwritten) - `production`, `development`, `test`.
-    Each level has different behaviors in terms of logging verbosity, error pages, ruby gem installation, etc.
-
-    **Note**: Application assets will be compiled only if the `RAILS_ENV` is set to `production`
-
 * **DISABLE_ASSET_COMPILATION**
 
     This variable indicates that the asset compilation process will be skipped. Since this only takes place
