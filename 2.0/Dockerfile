@@ -3,7 +3,7 @@ FROM openshift/base-centos7
 # This image provides a Ruby 2.0 environment you can use to run your Ruby
 # applications.
 
-MAINTAINER Jakub Hadvig <jhadvig@redhat.com>
+MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
 
 EXPOSE 8080
 
