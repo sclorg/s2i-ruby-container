@@ -58,18 +58,18 @@ on all provided versions of Ruby.**
 Usage
 ---------------------
 To build a simple [ruby-sample-app](https://github.com/openshift/sti-ruby/tree/master/2.0/test/puma-test-app) application
-using standalone [STI](https://github.com/openshift/source-to-image) and then run the
+using standalone [S2I](https://github.com/openshift/source-to-image) and then run the
 resulting image with [Docker](http://docker.io) execute:
 
 *  **For RHEL based image**
     ```
-    $ sti build https://github.com/openshift/sti-ruby.git --context-dir=2.0/test/puma-test-app/ openshift/ruby-20-rhel7 ruby-sample-app
+    $ s2i build https://github.com/openshift/sti-ruby.git --context-dir=2.0/test/puma-test-app/ openshift/ruby-20-rhel7 ruby-sample-app
     $ docker run -p 8080:8080 ruby-sample-app
     ```
 
 *  **For CentOS based image**
     ```
-    $ sti build https://github.com/openshift/sti-ruby.git --context-dir=2.0/test/puma-test-app/ openshift/ruby-20-centos7 ruby-sample-app
+    $ s2i build https://github.com/openshift/sti-ruby.git --context-dir=2.0/test/puma-test-app/ openshift/ruby-20-centos7 ruby-sample-app
     $ docker run -p 8080:8080 ruby-sample-app
     ```
 
@@ -122,7 +122,7 @@ Repository organization
 
     * **`s2i/bin/`**
 
-        This folder contains scripts that are run by [STI](https://github.com/openshift/source-to-image):
+        This folder contains scripts that are run by [S2I](https://github.com/openshift/source-to-image):
 
         *   **assemble**
 
