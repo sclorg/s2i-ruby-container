@@ -18,6 +18,8 @@ export RACK_ENV=${RACK_ENV:-"production"}
 
 echo "---> Installing application source ..."
 cp -Rf /tmp/src/. ./
+chgrp -R 0 ./
+chmod -R g+rw ./
 
 echo "---> Building your Ruby application from source ..."
 if [ -f Gemfile ]; then
@@ -51,6 +53,6 @@ fi
 # The ./db folder has to be writeable as well because when Rails complete the
 # migration it writes the schema version into ./db/schema.db
 set +e
-[[ -d ./tmp ]] && chmod -R go+rw ./tmp
-[[ -d ./db ]] && chmod -R go+rw ./db
+[[ -d ./tmp ]] && chgrp -R 0 ./tmp && chmod -R g+rw ./tmp
+[[ -d ./db ]] && chgrp -R 0 ./db && chmod -R g+rw ./db
 set -e
