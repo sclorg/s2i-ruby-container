@@ -13,9 +13,15 @@ if is_puma_installed; then
   exec bundle exec "puma --config ../etc/puma.cfg"
 else
   echo "You might consider adding 'puma' into your Gemfile."
-  if [ -f Gemfile ]; then
-    exec bundle exec "rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080"
+
+  if bundle exec rackup -h &>/dev/null; then
+    if [ -f Gemfile ]; then
+      exec bundle exec "rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080"
+    else
+      exec rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080
+    fi
   else
-    exec rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080
+    echo "ERROR: Rubygem Rack is not installed in the present image."
+    echo "       Add rack to your Gemfile in order to start the web server."
   fi
 fi

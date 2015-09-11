@@ -43,6 +43,11 @@ if [ -f Gemfile ]; then
   bundle clean -V
 fi
 
+if ! bundle exec rackup -h &>/dev/null; then
+  echo "WARNING: Rubygem Rack is not installed in the present image."
+  echo "         Add rack to your Gemfile in order to start the web server."
+fi
+
 if [[ "$RAILS_ENV" == "production" || "$RACK_ENV" == "production" ]]; then
   rake_assets_precompile
 fi
