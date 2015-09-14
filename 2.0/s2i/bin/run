@@ -16,12 +16,13 @@ else
 
   if bundle exec rackup -h &>/dev/null; then
     if [ -f Gemfile ]; then
-      exec bundle exec "rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080"
+      exec bundle exec "rackup -E ${RAILS_ENV:-$RACK_ENV} -P /tmp/rack.pid --host 0.0.0.0 --port 8080"
     else
-      exec rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080
+      exec rackup -E "${RAILS_ENV:-$RACK_ENV}" -P /tmp/rack.pid --host 0.0.0.0 --port 8080
     fi
   else
     echo "ERROR: Rubygem Rack is not installed in the present image."
     echo "       Add rack to your Gemfile in order to start the web server."
   fi
 fi
+
