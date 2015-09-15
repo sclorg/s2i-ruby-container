@@ -3,8 +3,6 @@ FROM openshift/base-rhel7
 # This image provides a Ruby 2.2 environment you can use to run your Ruby
 # applications.
 
-MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
-
 EXPOSE 8080
 
 ENV RUBY_VERSION 2.2
