@@ -191,7 +191,7 @@ file inside your source code repository.
 
 * **DISABLE_ASSET_COMPILATION**
 
-    This variable indicates that the asset compilation process will be skipped. Since this only takes place
+    This variable set to `true` indicates that the asset compilation process will be skipped. Since this only takes place
     when the application is run in the `production` environment, it should only be used when assets are already compiled.
 
 Hot deploy
