@@ -7,17 +7,18 @@ EXPOSE 8080
 
 ENV RUBY_VERSION 2.2
 
-LABEL io.k8s.description="Platform for building and running Ruby 2.2 applications" \
+LABEL summary="Platform for building and running Ruby 2.2 applications" \
+      io.k8s.description="Platform for building and running Ruby 2.2 applications" \
       io.k8s.display-name="Ruby 2.2" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,ruby,ruby22"
 
 # Labels consumed by Red Hat build service
-LABEL Name="rhscl/ruby-22-rhel7" \
-      BZComponent="rh-ruby22-docker" \
-      Version="2.2" \
-      Release="1" \
-      Architecture="x86_64"
+LABEL name="rhscl/ruby-22-rhel7" \
+      com.redhat.component="rh-ruby22-docker" \
+      version="2.2" \
+      release="1" \
+      architecture="x86_64"
 
 RUN yum install -y --setopt=tsflags=nodocs rh-ruby22 rh-ruby22-ruby-devel rh-ruby22-rubygem-rake v8314 rh-ruby22-rubygem-bundler nodejs010 && \
     yum clean all -y
