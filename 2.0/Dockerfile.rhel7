@@ -7,17 +7,18 @@ EXPOSE 8080
 
 ENV RUBY_VERSION 2.0
 
-LABEL io.k8s.description="Platform for building and running Ruby 2.0 applications" \
+LABEL summary="Platform for building and running Ruby 2.0 applications" \
+      io.k8s.description="Platform for building and running Ruby 2.0 applications" \
       io.k8s.display-name="Ruby 2.0" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,ruby,ruby20"
 
 # Labels consumed by Red Hat build service
-LABEL BZComponent="openshift-sti-ruby-docker" \
-      Name="openshift3/ruby-20-rhel7" \
-      Version="2.0" \
-      Release="2" \
-      Architecture="x86_64"
+LABEL com.redhat.component="openshift-sti-ruby-docker" \
+      name="openshift3/ruby-20-rhel7" \
+      version="2.0" \
+      release="2" \
+      architecture="x86_64"
 
 RUN yum install -y --setopt=tsflags=nodocs ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler nodejs010 && \
     yum clean all -y
