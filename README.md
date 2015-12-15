@@ -7,6 +7,7 @@ the Ruby application as a reproducible Docker image using
 Users can choose between RHEL and CentOS based builder images.
 The resulting image can be run using [Docker](http://docker.io).
 
+[![Build Status](https://ci.openshift.redhat.com/jenkins/buildStatus/icon?job=sti-ruby)](https://ci.openshift.redhat.com/jenkins/job/sti-ruby/)
 
 Versions
 ---------------
