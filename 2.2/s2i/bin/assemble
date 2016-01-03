@@ -50,6 +50,11 @@ if [[ "$RAILS_ENV" == "production" || "$RACK_ENV" == "production" ]]; then
   rake_assets_precompile
 fi
 
+if [[ ! -z "${RUN_TEST}" ]]; then
+  echo "---> Running tests using '$RUN_TEST' ..."
+  $RUN_TEST
+fi
+
 # Fix source directory permissions
 fix-permissions ./
 

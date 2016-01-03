@@ -92,6 +92,14 @@ Environment variables
 To set these environment variables, you can place them as a key value pair into a `.sti/environment`
 file inside your source code repository.
 
+* **RUN_TEST**
+
+    This variable allows you to define a command used to execute the test suite
+    as part of the "assemble" process. Setting this to `rake test` will execute
+    this command after all dependencies are successfully installed.
+    Note that all environment variables specified for the build (`assemble`) are
+    passed to the command defined in `RUN_TEST`.
+
 * **RACK_ENV**
 
     This variable specifies the environment where the Ruby application will be deployed (unless overwritten) - `production`, `development`, `test`.
