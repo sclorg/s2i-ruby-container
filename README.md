@@ -22,6 +22,8 @@ RHEL versions currently supported are:
 CentOS versions currently supported are:
 * CentOS7
 
+A Ruby 1.9 image can be built from [this repository](https://github.com/getupcloud/sti-ruby/).  (This repository is not maintained by the RedHat or the OpenShift project).
+
 
 Installation
 ---------------
