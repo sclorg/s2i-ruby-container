@@ -14,13 +14,15 @@ LABEL summary="Platform for building and running Ruby 2.2 applications" \
       io.openshift.tags="builder,ruby,ruby22"
 
 # Labels consumed by Red Hat build service
-LABEL name="rhscl/ruby-22-rhel7" \
-      com.redhat.component="rh-ruby22-docker" \
-      version="2.2" \
-      release="1" \
-      architecture="x86_64"
+LABEL BZComponent="rh-ruby22-docker" \
+      Name="rhscl/ruby-22-rhel7" \
+      Version="2.2" \
+      Release="1" \
+      Architecture="x86_64"
 
-RUN INSTALL_PKGS="rh-ruby22 rh-ruby22-ruby-devel rh-ruby22-rubygem-rake v8314 rh-ruby22-rubygem-bundler nodejs010" && \
+RUN yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+    yum-config-manager --enable rhel-7-server-optional-rpms && \
+    INSTALL_PKGS="rh-ruby22 rh-ruby22-ruby-devel rh-ruby22-rubygem-rake v8314 rh-ruby22-rubygem-bundler nodejs010" && \
     yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && rpm -V $INSTALL_PKGS && \
     yum clean all -y
 

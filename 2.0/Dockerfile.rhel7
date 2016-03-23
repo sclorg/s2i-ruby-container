@@ -14,14 +14,16 @@ LABEL summary="Platform for building and running Ruby 2.0 applications" \
       io.openshift.tags="builder,ruby,ruby20"
 
 # Labels consumed by Red Hat build service
-LABEL com.redhat.component="openshift-sti-ruby-docker" \
-      name="openshift3/ruby-20-rhel7" \
-      version="2.0" \
-      release="2" \
-      architecture="x86_64"
+LABEL BZComponent="openshift-sti-ruby-docker" \
+      Name="openshift3/ruby-20-rhel7" \
+      Version="2.0" \
+      Release="2" \
+      Architecture="x86_64"
 
-RUN INSTALL_PKGS="ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler nodejs010" && \
-  yum install -y --setopt=tsflags=nodocs  $INSTALL_PKGS && rpm -V $INSTALL_PKGS && \
+RUN yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+    yum-config-manager --enable rhel-7-server-optional-rpms && \
+    INSTALL_PKGS="ruby200 ruby200-ruby-devel ruby200-rubygem-rake v8314 ror40-rubygem-bundler nodejs010" && \
+    yum install -y --setopt=tsflags=nodocs  $INSTALL_PKGS && rpm -V $INSTALL_PKGS && \
     yum clean all -y
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
