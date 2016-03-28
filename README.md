@@ -1,6 +1,9 @@
 Ruby Docker images
 ==================
 
+[![Build Status](https://travis-ci.org/openshift/sti-ruby.svg?branch=master)](https://travis-ci.org/openshift/sti-ruby)
+
+
 This repository contains the source for building various versions of
 the Ruby application as a reproducible Docker image using
 [source-to-image](https://github.com/openshift/source-to-image).
