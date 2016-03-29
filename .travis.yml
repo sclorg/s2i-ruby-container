@@ -14,4 +14,4 @@ install:
   - hack/build-go.sh
   - popd
 
-script: make test TARGET=centos7
+script: SKIP_SQUASH=1 make test TARGET=centos7
