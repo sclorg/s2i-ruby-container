@@ -38,6 +38,10 @@ run_s2i_build() {
   s2i build ${s2i_args} file://${test_dir}/${1}-test-app ${IMAGE_NAME} ${IMAGE_NAME}-testapp
 }
 
+run_s2i_build_with_test() {
+  s2i build -e RUN_TEST="bundle exec rake test" ${s2i_args} file://${test_dir}/${1}-test-app ${IMAGE_NAME} ${IMAGE_NAME}-testapp
+}
+
 prepare() {
   if ! image_exists ${IMAGE_NAME}; then
     echo "ERROR: The image ${IMAGE_NAME} must exist before this script is executed."
@@ -161,7 +165,11 @@ for server in ${WEB_SERVERS[@]}; do
   s2i_args="--force-pull=false"
 
   prepare ${server}
-  run_s2i_build ${server}
+  if [[ "${server}" == "puma" ]]; then
+    run_s2i_build_with_test ${server}
+  else
+    run_s2i_build ${server}
+  fi
   check_result $?
 
   # Verify the 'usage' script is working properly when running the base image with 's2i usage ...'
