@@ -10,19 +10,19 @@ The resulting image can be run using [Docker](http://docker.io).
 
 Usage
 ---------------------
-To build a simple [ruby-sample-app](https://github.com/openshift/sti-ruby/tree/master/2.2/test/puma-test-app) application
+To build a simple [ruby-sample-app](https://github.com/openshift/s2i-ruby/tree/master/2.2/test/puma-test-app) application
 using standalone [S2I](https://github.com/openshift/source-to-image) and then run the
 resulting image with [Docker](http://docker.io) execute:
 
 *  **For RHEL based image**
     ```
-    $ s2i build https://github.com/openshift/sti-ruby.git --context-dir=2.2/test/puma-test-app/ rhscl/ruby-22-rhel7 ruby-sample-app
+    $ s2i build https://github.com/openshift/s2i-ruby.git --context-dir=2.2/test/puma-test-app/ rhscl/ruby-22-rhel7 ruby-sample-app
     $ docker run -p 8080:8080 ruby-sample-app
     ```
 
 *  **For CentOS based image**
     ```
-    $ s2i build https://github.com/openshift/sti-ruby.git --context-dir=2.2/test/puma-test-app/ centos/ruby-22-centos7 ruby-sample-app
+    $ s2i build https://github.com/openshift/s2i-ruby.git --context-dir=2.2/test/puma-test-app/ centos/ruby-22-centos7 ruby-sample-app
     $ docker run -p 8080:8080 ruby-sample-app
     ```
 
