@@ -1,7 +1,7 @@
 Ruby Docker images
 ==================
 
-[![Build Status](https://travis-ci.org/openshift/sti-ruby.svg?branch=master)](https://travis-ci.org/openshift/sti-ruby)
+[![Build Status](https://travis-ci.org/openshift/s2i-ruby.svg?branch=master)](https://travis-ci.org/openshift/s2i-ruby)
 
 
 This repository contains the source for building various versions of
@@ -25,7 +25,7 @@ RHEL versions currently supported are:
 CentOS versions currently supported are:
 * CentOS7
 
-A Ruby 1.9 image can be built from [this third party repository](https://github.com/getupcloud/sti-ruby/).
+A Ruby 1.9 image can be built from [this third party repository](https://github.com/getupcloud/s2i-ruby/).
 It is not maintained by Red Hat nor is part of the OpenShift project.
 
 
@@ -38,8 +38,8 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     subscribed RHEL machine.
 
     ```
-    $ git clone https://github.com/openshift/sti-ruby.git
-    $ cd sti-ruby
+    $ git clone https://github.com/openshift/s2i-ruby.git
+    $ cd s2i-ruby
     $ make build TARGET=rhel7 VERSION=2.0
     ```
 
@@ -54,8 +54,8 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     To build a Ruby image from scratch run:
 
     ```
-    $ git clone https://github.com/openshift/sti-ruby.git
-    $ cd sti-ruby
+    $ git clone https://github.com/openshift/s2i-ruby.git
+    $ cd s2i-ruby
     $ make build VERSION=2.0
     ```
 
@@ -77,7 +77,7 @@ see [usage documentation](2.2/README.md).
 Test
 ---------------------
 This repository also provides a [S2I](https://github.com/openshift/source-to-image) test framework,
-which launches tests to check functionality of a simple Ruby application built on top of the sti-ruby image.
+which launches tests to check functionality of a simple Ruby application built on top of the s2i-ruby image.
 
 Users can choose between testing a Ruby test application based on a RHEL or CentOS image.
 
@@ -87,14 +87,14 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
     subscribed RHEL machine.
 
     ```
-    $ cd sti-ruby
+    $ cd s2i-ruby
     $ make test TARGET=rhel7 VERSION=2.0
     ```
 
 *  **CentOS based image**
 
     ```
-    $ cd sti-ruby
+    $ cd s2i-ruby
     $ make test VERSION=2.0
     ```
 
