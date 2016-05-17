@@ -26,7 +26,7 @@ COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 # run and build the applications.
 COPY ./contrib/ /opt/app-root
 
-RUN chown -R 1001:0 /opt/app-root
+RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
 
 USER 1001
 
