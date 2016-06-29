@@ -112,6 +112,10 @@ file inside your source code repository.
 
     This variable indicate the number of worker processes that will be launched. See documentation on Puma's [clustered mode](https://github.com/puma/puma#clustered-mode).
 
+* **RUBYGEM_MIRROR**
+
+    Set this variable to use a custom RubyGems mirror URL to download required gem packages during build process.
+
 Hot deploy
 ---------------------
 In order to dynamically pick up changes made in your application source code, you need to make following steps:
