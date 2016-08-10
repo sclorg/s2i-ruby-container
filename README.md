@@ -1,7 +1,7 @@
 Ruby Docker images
 ==================
 
-[![Build Status](https://travis-ci.org/openshift/s2i-ruby.svg?branch=master)](https://travis-ci.org/openshift/s2i-ruby)
+[![Build Status](https://travis-ci.org/sclorg/s2i-ruby-container.svg?branch=master)](https://travis-ci.org/sclorg/s2i-ruby-container)
 
 
 This repository contains the source for building various versions of
