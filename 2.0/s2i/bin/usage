@@ -8,7 +8,7 @@ To use it, install S2I: https://github.com/openshift/source-to-image
 
 Sample invocation:
 
-s2i build https://github.com/openshift/s2i-ruby.git --context-dir=2.0/test/puma-test-app/ openshift/ruby-20-${DISTRO}7 ruby-sample-app
+s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.0/test/puma-test-app/ openshift/ruby-20-${DISTRO}7 ruby-sample-app
 
 
 You can then run the resulting image via:
