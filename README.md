@@ -38,7 +38,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     subscribed RHEL machine.
 
     ```
-    $ git clone https://github.com/openshift/s2i-ruby.git
+    $ git clone https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby
     $ make build TARGET=rhel7 VERSION=2.0
     ```
@@ -54,7 +54,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     To build a Ruby image from scratch run:
 
     ```
-    $ git clone https://github.com/openshift/s2i-ruby.git
+    $ git clone https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby
     $ make build VERSION=2.0
     ```
