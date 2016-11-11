@@ -14,11 +14,11 @@ LABEL summary="Platform for building and running Ruby 2.2 applications" \
       io.openshift.tags="builder,ruby,ruby22"
 
 # Labels consumed by Red Hat build service
-LABEL BZComponent="rh-ruby22-docker" \
-      Name="rhscl/ruby-22-rhel7" \
-      Version="2.2" \
-      Release="1" \
-      Architecture="x86_64"
+LABEL com.redhat.component="rh-ruby22-docker" \
+      name="rhscl/ruby-22-rhel7" \
+      version="2.2" \
+      release="1" \
+      architecture="x86_64"
 
 # To use subscription inside container yum command has to be run first (before yum-config-manager)
 # https://access.redhat.com/solutions/1443553
