@@ -18,6 +18,7 @@ Versions
 Ruby versions currently provided are:
 * ruby-2.0
 * ruby-2.2
+* ruby-2.3
 
 RHEL versions currently supported are:
 * RHEL7
@@ -72,6 +73,9 @@ see [usage documentation](2.0/README.md).
 
 For information about usage of Dockerfile for Ruby 2.2,
 see [usage documentation](2.2/README.md).
+
+For information about usage of Dockerfile for Ruby 2.3,
+see [usage documentation](2.3/README.md).
 
 
 Test
