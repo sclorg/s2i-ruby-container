@@ -39,6 +39,10 @@ if [ -f Gemfile ]; then
     BUNDLE_WITHOUT=${BUNDLE_WITHOUT:-"development:test"}
   fi
 
+  if [ -n "$BUNDLE_WITHOUT" ]; then
+    ADDTL_BUNDLE_ARGS+=" --without $BUNDLE_WITHOUT"
+  fi
+
   echo "---> Running 'bundle install ${ADDTL_BUNDLE_ARGS}' ..."
   bundle install --path ./bundle ${ADDTL_BUNDLE_ARGS}
 
