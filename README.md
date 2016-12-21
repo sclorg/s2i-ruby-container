@@ -16,7 +16,6 @@ official [OpenShift Documentation](https://docs.openshift.org/latest/using_image
 Versions
 ---------------
 Ruby versions currently provided are:
-* ruby-2.0
 * ruby-2.2
 * ruby-2.3
 
@@ -41,7 +40,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby
-    $ make build TARGET=rhel7 VERSION=2.0
+    $ make build TARGET=rhel7 VERSION=2.3
     ```
 
 *  **CentOS based image**
@@ -49,7 +48,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     This image is available on DockerHub. To download it run:
 
     ```
-    $ docker pull openshift/ruby-20-centos7
+    $ docker pull centos/ruby-23-centos7
     ```
 
     To build a Ruby image from scratch run:
@@ -57,7 +56,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby
-    $ make build VERSION=2.0
+    $ make build TARGET=centos7 VERSION=2.3
     ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
@@ -67,9 +66,6 @@ on all provided versions of Ruby.**
 
 Usage
 ---------------------------------
-
-For information about usage of Dockerfile for Ruby 2.0,
-see [usage documentation](2.0/README.md).
 
 For information about usage of Dockerfile for Ruby 2.2,
 see [usage documentation](2.2/README.md).
@@ -87,19 +83,19 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
 
 *  **RHEL based image**
 
-    To test a RHEL7-based Ruby-2.0 image, you need to run the test on a properly
+    To test a RHEL7-based Ruby image, you need to run the test on a properly
     subscribed RHEL machine.
 
     ```
     $ cd s2i-ruby
-    $ make test TARGET=rhel7 VERSION=2.0
+    $ make test TARGET=rhel7 VERSION=2.3
     ```
 
 *  **CentOS based image**
 
     ```
     $ cd s2i-ruby
-    $ make test VERSION=2.0
+    $ make test TARGET=centos7 VERSION=2.3
     ```
 
 **Notice: By omitting the `VERSION` parameter, the build/test action will be performed
@@ -119,10 +115,9 @@ Repository organization
 
 Image name structure
 ------------------------
-##### Structure: openshift/1-2-3
 
 1. Platform name (lowercase) - ruby
-2. Platform version(without dots) - 20
+2. Platform version(without dots) - 23
 3. Base builder image - centos7/rhel7
 
-Examples: `openshift/ruby-20-centos7`, `openshift/ruby-20-rhel7`
+Examples: `ruby-23-centos7`, `ruby-23-rhel7`
