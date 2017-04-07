@@ -1,5 +1,5 @@
-Ruby Docker image
-=================
+Ruby 2.2 platform for building and running applications
+=======================================================
 
 This repository contains the source for building various versions of
 the Ruby application as a reproducible Docker image using
