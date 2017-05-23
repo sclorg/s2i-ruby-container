@@ -22,9 +22,8 @@ RUN INSTALL_PKGS="rh-ruby22 rh-ruby22-ruby-devel rh-ruby22-rubygem-rake v8314 rh
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 
-# Each language image can have 'contrib' a directory with extra files needed to
-# run and build the applications.
-COPY ./contrib/ /opt/app-root
+# Copy extra files to the image.
+COPY ./root/ /
 
 RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
 
