@@ -3,17 +3,28 @@ FROM centos/s2i-base-centos7
 # This image provides a Ruby 2.3 environment you can use to run your Ruby
 # applications.
 
-MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
-
 EXPOSE 8080
 
 ENV RUBY_VERSION 2.3
 
-LABEL summary="Platform for building and running Ruby 2.3 applications" \
-      io.k8s.description="Platform for building and running Ruby 2.3 applications" \
+ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
+    DESCRIPTION="Ruby $RUBY_VERSION available as docker container is a base platform for \
+building and running various Ruby $RUBY_VERSION applications and frameworks. \
+Ruby is the interpreted scripting language for quick and easy object-oriented programming. \
+It has many features to process text files and to do system management tasks (as in Perl). \
+It is simple, straight-forward, and extensible."
+
+LABEL summary="$SUMMARY" \
+      description="$DESCRIPTION" \
+      io.k8s.description="$SUMMARY" \
       io.k8s.display-name="Ruby 2.3" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="builder,ruby,ruby23,rh-ruby23"
+      io.openshift.tags="builder,ruby,ruby23,rh-ruby23" \
+      com.redhat.component="rh-ruby23-docker" \
+      name="centos/ruby-23-centos7" \
+      version="2.3" \
+      release="1" \
+      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 RUN yum install -y centos-release-scl && \
     yum-config-manager --enable centos-sclo-rh-testing && \
