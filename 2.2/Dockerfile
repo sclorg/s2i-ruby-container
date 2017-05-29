@@ -3,16 +3,28 @@ FROM centos/s2i-base-centos7
 # This image provides a Ruby 2.2 environment you can use to run your Ruby
 # applications.
 
-MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
-
 EXPOSE 8080
 
 ENV RUBY_VERSION 2.2
 
-LABEL io.k8s.description="Platform for building and running Ruby 2.2 applications" \
+ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
+    DESCRIPTION="Ruby $RUBY_VERSION available as docker container is a base platform for \
+building and running various Ruby $RUBY_VERSION applications and frameworks. \
+Ruby is the interpreted scripting language for quick and easy object-oriented programming. \
+It has many features to process text files and to do system management tasks (as in Perl). \
+It is simple, straight-forward, and extensible."
+
+LABEL summary="$SUMMARY" \
+      description="$DESCRIPTION" \
+      io.k8s.description="$SUMMARY" \
       io.k8s.display-name="Ruby 2.2" \
       io.openshift.expose-services="8080:http" \
-      io.openshift.tags="builder,ruby,ruby22"
+      io.openshift.tags="builder,ruby,ruby22" \
+      com.redhat.component="rh-ruby22-docker" \
+      name="centos/ruby-22-centos7" \
+      version="2.2" \
+      release="1" \
+      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 RUN INSTALL_PKGS="rh-ruby22 rh-ruby22-ruby-devel rh-ruby22-rubygem-rake v8314 rh-ruby22-rubygem-bundler nodejs010" && \
     yum install -y centos-release-scl && \
