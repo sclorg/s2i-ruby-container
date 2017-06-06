@@ -16,7 +16,7 @@ set -e
 
 export RACK_ENV=${RACK_ENV:-"production"}
 
-if [ -n "$RUBYGEM_MIRROR" ]; then
+if [ ! -z "$RUBYGEM_MIRROR" ]; then
   bundle config mirror.https://rubygems.org $RUBYGEM_MIRROR
 fi
 
