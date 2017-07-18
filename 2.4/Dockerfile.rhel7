@@ -16,7 +16,7 @@ It is simple, straight-forward, and extensible."
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
-      io.k8s.description="$SUMMARY" \
+      io.k8s.description="$DESCRIPTION" \
       io.k8s.display-name="Ruby 2.4" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,ruby,ruby24,rh-ruby24" \
