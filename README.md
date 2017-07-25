@@ -39,7 +39,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
 
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
-    $ cd s2i-ruby
+    $ cd s2i-ruby-container
     $ make build TARGET=rhel7 VERSION=2.3
     ```
 
@@ -55,7 +55,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
 
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
-    $ cd s2i-ruby
+    $ cd s2i-ruby-container
     $ make build TARGET=centos7 VERSION=2.3
     ```
 
@@ -87,14 +87,14 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
     subscribed RHEL machine.
 
     ```
-    $ cd s2i-ruby
+    $ cd s2i-ruby-container
     $ make test TARGET=rhel7 VERSION=2.3
     ```
 
 *  **CentOS based image**
 
     ```
-    $ cd s2i-ruby
+    $ cd s2i-ruby-container
     $ make test TARGET=centos7 VERSION=2.3
     ```
 
