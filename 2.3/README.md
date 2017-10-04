@@ -1,12 +1,22 @@
-Ruby 2.3 platform for building and running applications
-=======================================================
+Ruby 2.3 Docker image
+=================
 
-This repository contains the source for building various versions of
-the Ruby application as a reproducible Docker image using
-[source-to-image](https://github.com/openshift/source-to-image).
+This container image includes Ruby 2.3 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.3 applications.
 Users can choose between RHEL and CentOS based builder images.
+The RHEL image is available in the [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhscl/ruby-23-rhel7)
+as registry.access.redhat.com/rhscl/ruby-23-rhel7.
+The CentOS image is then available on [Docker Hub](https://hub.docker.com/r/centos/ruby-23-centos7/)
+as centos/ruby-23-centos7. 
 The resulting image can be run using [Docker](http://docker.io).
 
+Description
+-----------
+
+Ruby 2.3 available as docker container is a base platform for 
+building and running various Ruby 2.3 applications and frameworks. 
+Ruby is the interpreted scripting language for quick and easy object-oriented programming. 
+It has many features to process text files and to do system management tasks (as in Perl). 
+It is simple, straight-forward, and extensible.
 
 Usage
 ---------------------
@@ -30,61 +40,6 @@ resulting image with [Docker](http://docker.io) execute:
 ```
 $ curl 127.0.0.1:8080
 ```
-
-
-Repository organization
-------------------------
-* **`<ruby-version>`**
-
-    * **Dockerfile**
-
-        CentOS based Dockerfile.
-
-    * **Dockerfile.rhel7**
-
-        RHEL based Dockerfile. In order to perform build or test actions on this
-        Dockerfile you need to run the action on a properly subscribed RHEL machine.
-
-    * **`s2i/bin/`**
-
-        This folder contains scripts that are run by [S2I](https://github.com/openshift/source-to-image):
-
-        *   **assemble**
-
-            Used to install the sources into the location where the application
-            will be run and prepare the application for deployment (eg. installing
-            modules using bundler, etc.)
-
-        *   **run**
-
-            This script is responsible for running the application by using the
-            application web server.
-
-        *   **usage***
-
-            This script prints the usage of this image.
-
-    * **`contrib/`**
-
-        This folder contains a file with commonly used modules.
-
-    * **`test/`**
-
-        This folder contains a [S2I](https://github.com/openshift/source-to-image)
-        test framework with a simple Rack server.
-
-        * **`puma-test-app/`**
-
-            Simple Puma web server used for testing purposes by the [S2I](https://github.com/openshift/source-to-image) test framework.
-
-        * **`rack-test-app/`**
-
-            Simple Rack web server used for testing purposes by the [S2I](https://github.com/openshift/source-to-image) test framework.
-
-        * **run**
-
-            Script that runs the [S2I](https://github.com/openshift/source-to-image) test framework.
-
 
 Environment variables
 ---------------------
@@ -177,3 +132,10 @@ $ docker run -e PUMA_MAX_THREADS=32 --memory=300m -p 8080:8080 sinatra-app
 If memory is more limiting then the number of available cores, the number of
 workers is scaled down accordingly to fit the above formula. The number of
 workers can also be set explicitly by setting `PUMA_WORKERS`.
+
+
+See also
+--------
+Dockerfile and other sources are available on https://github.com/sclorg/s2i-ruby-container.
+In that repository you also can find another versions of Python environment Dockerfiles.
+Dockerfile for CentOS is called Dockerfile, Dockerfile for RHEL is called Dockerfile.rhel7.
