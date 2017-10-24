@@ -42,6 +42,9 @@ COPY ./root/ /
 
 RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
 
+# Reset permissions of filesystem to default values
+RUN rpm-file-permissions
+
 USER 1001
 
 # Set the default CMD to print the usage of the language image
