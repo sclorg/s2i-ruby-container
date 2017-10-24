@@ -38,10 +38,8 @@ COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 # Copy extra files to the image.
 COPY ./root/ /
 
-RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root
-
-# Reset permissions of filesystem to default values
-RUN rpm-file-permissions
+RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root && \
+    rpm-file-permissions
 
 USER 1001
 
