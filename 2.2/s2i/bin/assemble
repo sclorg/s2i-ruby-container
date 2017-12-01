@@ -25,9 +25,9 @@ mv /tmp/src/* ./
 
 echo "---> Building your Ruby application from source ..."
 if [ -f Gemfile ]; then
-  ADDTL_BUNDLE_ARGS=""
+  ADDTL_BUNDLE_ARGS="--retry 2"
   if [ -f Gemfile.lock ]; then
-    ADDTL_BUNDLE_ARGS="--deployment"
+    ADDTL_BUNDLE_ARGS+=" --deployment"
   fi
 
   if [[ "$RAILS_ENV" == "development" || "$RACK_ENV" == "development" ]]; then
