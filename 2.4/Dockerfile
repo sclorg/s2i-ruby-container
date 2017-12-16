@@ -23,7 +23,7 @@ LABEL summary="$SUMMARY" \
       com.redhat.component="rh-ruby24-docker" \
       name="centos/ruby-24-centos7" \
       version="2.4" \
-      release="1" \
+      usage="s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.4/test/puma-test-app/ centos/ruby-24-centos7 ruby-sample-app" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 # To use subscription inside container yum command has to be run first (before yum-config-manager)
@@ -39,7 +39,8 @@ COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 # Copy extra files to the image.
 COPY ./root/ /
 
-RUN chown -R 1001:0 /opt/app-root && chmod -R ug+rwx /opt/app-root && \
+# Drop the root user and make the content of /opt/app-root owned by user 1001
+RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
     rpm-file-permissions
 
 USER 1001
