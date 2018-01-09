@@ -38,21 +38,6 @@ run_s2i_build() {
   s2i build ${s2i_args} file://${test_dir}/${1}-test-app ${IMAGE_NAME} ${IMAGE_NAME}-testapp
 }
 
-prepare() {
-  if ! image_exists ${IMAGE_NAME}; then
-    echo "ERROR: The image ${IMAGE_NAME} must exist before this script is executed."
-    exit 1
-  fi
-  # TODO: S2I build require the application is a valid 'GIT' repository, we
-  # should remove this restriction in the future when a file:// is used.
-  info "Build the test application image"
-  pushd ${test_dir}/${1}-test-app >/dev/null
-  git init
-  git config user.email "build@localhost" && git config user.name "builder"
-  git add -A && git commit -m "Sample commit"
-  popd >/dev/null
-}
-
 run_test_application() {
   docker run --user=100001 --rm --cidfile=${cid_file} ${IMAGE_NAME}-testapp
 }
@@ -160,7 +145,6 @@ for server in ${WEB_SERVERS[@]}; do
   # it from Docker hub
   s2i_args="--pull-policy=never"
 
-  prepare ${server}
   run_s2i_build ${server}
   check_result $?
 
