@@ -28,7 +28,7 @@ LABEL summary="$SUMMARY" \
 
 RUN INSTALL_PKGS="rh-ruby22 rh-ruby22-ruby-devel rh-ruby22-rubygem-rake v8314 rh-ruby22-rubygem-bundler nodejs010 nodejs010-npm" && \
     yum install -y centos-release-scl && \
-    yum remove -y rh-nodejs6\* && \
+    yum remove -y $NODEJS_SCL\* && \
     yum install -y --setopt=tsflags=nodocs  $INSTALL_PKGS && rpm -V $INSTALL_PKGS && \
     yum clean all -y
 
