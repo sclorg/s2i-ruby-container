@@ -1,11 +1,11 @@
-Ruby Docker images
+Ruby container images
 ==================
 
 [![Build Status](https://travis-ci.org/sclorg/s2i-ruby-container.svg?branch=master)](https://travis-ci.org/sclorg/s2i-ruby-container)
 
 
 This repository contains the source for building various versions of
-the Ruby application as a reproducible Docker image using
+the Ruby application as a reproducible container image using
 [source-to-image](https://github.com/openshift/source-to-image).
 Users can choose between RHEL and CentOS based builder images.
 The resulting image can be run using [Docker](http://docker.io).
