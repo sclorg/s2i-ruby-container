@@ -1,4 +1,4 @@
-Ruby 2.4 Docker image
+Ruby 2.4 container image
 =================
 
 This container image includes Ruby 2.4 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.4 applications.
