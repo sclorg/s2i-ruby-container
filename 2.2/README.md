@@ -12,7 +12,7 @@ The resulting image can be run using [Docker](http://docker.io).
 Description
 -----------
 
-Ruby 2.2 available as docker container is a base platform for 
+Ruby 2.2 available as container is a base platform for 
 building and running various Ruby 2.2 applications and frameworks. 
 Ruby is the interpreted scripting language for quick and easy object-oriented programming. 
 It has many features to process text files and to do system management tasks (as in Perl). 

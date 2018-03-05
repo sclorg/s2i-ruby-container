@@ -12,7 +12,7 @@ ENV NAME=ruby \
     ARCH=x86_64
 
 ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
-    DESCRIPTION="Ruby $RUBY_VERSION available as docker container is a base platform for \
+    DESCRIPTION="Ruby $RUBY_VERSION available as container is a base platform for \
 building and running various Ruby $RUBY_VERSION applications and frameworks. \
 Ruby is the interpreted scripting language for quick and easy object-oriented programming. \
 It has many features to process text files and to do system management tasks (as in Perl). \
