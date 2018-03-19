@@ -1,6 +1,6 @@
 # Variables are documented in common/build.sh.
 BASE_IMAGE_NAME = ruby
-VERSIONS = 2.2 2.3 2.4
+VERSIONS = 2.2 2.3 2.4 2.5
 OPENSHIFT_NAMESPACES = 2.0
 
 # HACK:  Ensure that 'git pull' for old clones doesn't cause confusion.
