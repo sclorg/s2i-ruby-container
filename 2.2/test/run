@@ -181,7 +181,7 @@ for server in ${WEB_SERVERS[@]}; do
   test_connection
   check_result $?
 
-  test_scl_usage "ruby --version" "ruby 2.2.2"
+  test_scl_usage "ruby --version" "ruby 2.2."
   check_result $?
 
   info "All tests for the ${server}-test-app finished successfully."
