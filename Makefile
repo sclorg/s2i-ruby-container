@@ -2,6 +2,7 @@
 BASE_IMAGE_NAME = ruby
 VERSIONS = 2.3 2.4 2.5
 OPENSHIFT_NAMESPACES = 2.0
+CONU_IMAGE := docker.io/usercont/conu:0.6.2
 
 # HACK:  Ensure that 'git pull' for old clones doesn't cause confusion.
 # New clones should use '--recursive'.
