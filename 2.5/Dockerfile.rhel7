@@ -34,7 +34,7 @@ LABEL summary="$SUMMARY" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 RUN yum install -y yum-utils && \
-    prepare-yum-repositories rhel-server-rhscl-7-rpms rhel-server-rhscl-7-beta-rpms && \
+    prepare-yum-repositories rhel-server-rhscl-7-rpms && \
     INSTALL_PKGS=" \
 ${RUBY_SCL} \
 ${RUBY_SCL}-ruby-devel \
