@@ -35,7 +35,6 @@ LABEL summary="$SUMMARY" \
 RUN INSTALL_PKGS="bsdtar \
     bzip2 \
     cmake \
-    community-mysql-devel \
     findutils \
     gcc-c++ \
     gd-devel \
