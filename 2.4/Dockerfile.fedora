@@ -52,7 +52,7 @@ RUN INSTALL_PKGS="bsdtar \
     patch \
     postgresql-devel \
     procps-ng \
-    python \
+    python2 \
     redhat-rpm-config \
     ruby \
     ruby-devel \
