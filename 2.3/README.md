@@ -18,6 +18,11 @@ Ruby is the interpreted scripting language for quick and easy object-oriented pr
 It has many features to process text files and to do system management tasks (as in Perl). 
 It is simple, straight-forward, and extensible.
 
+This container image includes an npm utility, so users can use it to install JavaScript
+modules for their web applications. There is no guarantee for any specific npm or nodejs
+version, that is included in the image; those versions can be changed anytime and
+the nodejs itself is included just to make the npm work.
+
 Usage
 ---------------------
 To build a simple [ruby-sample-app](https://github.com/sclorg/s2i-ruby-container/tree/master/2.3/test/puma-test-app) application
