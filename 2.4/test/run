@@ -15,6 +15,8 @@ declare -a WEB_SERVERS=(db puma rack)
 test_dir="$(readlink -zf $(dirname "${BASH_SOURCE[0]}"))"
 image_dir=$(readlink -zf ${test_dir}/..)
 
+source "${test_dir}/test-lib.sh"
+
 # Read exposed port from image meta data
 test_port="$(docker inspect --format='{{range $key, $value := .Config.ExposedPorts }}{{$key}}{{end}}' ${IMAGE_NAME} | sed 's/\/.*//')"
 
@@ -171,5 +173,9 @@ for server in ${WEB_SERVERS[@]}; do
   info "All tests for the ${server}-test-app finished successfully."
   cleanup ${server}
 done
+
+info "Testing npm availibility"
+ct_npm_works
+check_result $?
 
 info "All tests finished successfully."
