@@ -20,7 +20,7 @@ LABEL summary="$SUMMARY" \
       io.k8s.display-name="Ruby 2.4" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,ruby,ruby24,rh-ruby24" \
-      com.redhat.component="rh-ruby24-docker" \
+      com.redhat.component="rh-ruby24-container" \
       name="centos/ruby-24-centos7" \
       version="2.4" \
       usage="s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.4/test/puma-test-app/ centos/ruby-24-centos7 ruby-sample-app" \
