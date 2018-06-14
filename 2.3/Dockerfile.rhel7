@@ -20,7 +20,7 @@ LABEL summary="$SUMMARY" \
       io.k8s.display-name="Ruby 2.3" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,ruby,ruby23,rh-ruby23" \
-      com.redhat.component="rh-ruby23-docker" \
+      com.redhat.component="rh-ruby23-container" \
       name="rhscl/ruby-23-rhel7" \
       version="2.3" \
       usage="s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.4/test/puma-test-app/ rhscl/ruby-23-rhel7 ruby-sample-app" \
