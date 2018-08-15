@@ -42,7 +42,7 @@
         },
         "from": {
           "kind": "DockerImage",
-          "name": "registry.access.redhat.com/openshift3/ruby-20-rhel7:latest"
+          "name": "registry.redhat.io/openshift3/ruby-20-rhel7:latest"
         },
         "referencePolicy": {
           "type": "Local"
@@ -62,7 +62,7 @@
         },
         "from": {
           "kind": "DockerImage",
-          "name": "registry.access.redhat.com/rhscl/ruby-22-rhel7:latest"
+          "name": "registry.redhat.io/rhscl/ruby-22-rhel7:latest"
         },
         "referencePolicy": {
           "type": "Local"
@@ -82,7 +82,7 @@
         },
         "from": {
           "kind": "DockerImage",
-          "name": "registry.access.redhat.com/rhscl/ruby-23-rhel7:latest"
+          "name": "registry.redhat.io/rhscl/ruby-23-rhel7:latest"
         },
         "referencePolicy": {
           "type": "Local"
@@ -102,7 +102,7 @@
         },
         "from": {
           "kind": "DockerImage",
-          "name": "registry.access.redhat.com/rhscl/ruby-24-rhel7:latest"
+          "name": "registry.redhat.io/rhscl/ruby-24-rhel7:latest"
         },
         "referencePolicy": {
           "type": "Local"
@@ -122,7 +122,7 @@
         },
         "from": {
           "kind": "DockerImage",
-          "name": "registry.access.redhat.com/rhscl/ruby-25-rhel7:latest"
+          "name": "registry.redhat.io/rhscl/ruby-25-rhel7:latest"
         },
         "referencePolicy": {
           "type": "Local"
