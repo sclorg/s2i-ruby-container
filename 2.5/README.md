@@ -2,11 +2,15 @@ Ruby 2.5 container image
 =================
 
 This container image includes Ruby 2.5 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.5 applications.
-Users can choose between RHEL and CentOS based builder images.
+Users can choose between RHEL, CentOS and Fedora based builder images.
 The RHEL image is available in the [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhscl/ruby-25-rhel7)
 as registry.access.redhat.com/rhscl/ruby-25-rhel7.
 The CentOS image is then available on [Docker Hub](https://hub.docker.com/r/centos/ruby-25-centos7/)
 as centos/ruby-25-centos7.
+The Fedora image can be built with:
+    ```
+    $ docker build -t ruby25-f28 -f Dockerfile.fedora .
+    ```
 The resulting image can be run using [Docker](http://docker.io).
 
 Description
@@ -38,6 +42,12 @@ resulting image with [Docker](http://docker.io) execute:
 *  **For CentOS based image**
     ```
     $ s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.5/test/puma-test-app/ centos/ruby-25-centos7 ruby-sample-app
+    $ docker run -p 8080:8080 ruby-sample-app
+    ```
+
+*  **For Fedora based image**
+    ```
+    $ s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.5/test/puma-test-app/ ruby25-f28 ruby-sample-app
     $ docker run -p 8080:8080 ruby-sample-app
     ```
 
