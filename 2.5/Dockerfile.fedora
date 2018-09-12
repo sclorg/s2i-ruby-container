@@ -8,7 +8,6 @@ EXPOSE 8080
 ENV NAME=ruby \
     RUBY_VERSION=2.5 \
     VERSION=0 \
-    RELEASE=1 \
     ARCH=x86_64
 
 ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
@@ -21,7 +20,6 @@ It is simple, straight-forward, and extensible."
 LABEL summary="$SUMMARY" \
       name="$FGC/$NAME" \
       com.redhat.component="$NAME" \
-      release="RELEASE.$DISTTAG" \
       architecture="$ARCH" \
       description="$DESCRIPTION" \
       io.k8s.description="$DESCRIPTION" \
