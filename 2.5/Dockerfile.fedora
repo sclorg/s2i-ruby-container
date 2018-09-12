@@ -25,10 +25,10 @@ LABEL summary="$SUMMARY" \
       architecture="$ARCH" \
       description="$DESCRIPTION" \
       io.k8s.description="$DESCRIPTION" \
-      io.k8s.display-name="Ruby 2.4" \
+      io.k8s.display-name="Ruby 2.5" \
       io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,ruby,ruby25,rh-ruby25" \
-      usage="s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.4/test/puma-test-app/ registry.fedoraproject.org/$FGC/ruby ruby-sample-app" \
+      usage="s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.5/test/puma-test-app/ registry.fedoraproject.org/$FGC/ruby ruby-sample-app" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 # Install required packages
