@@ -18,7 +18,7 @@
           "iconClass": "icon-ruby",
           "tags": "builder,ruby",
           "supports": "ruby",
-          "sampleRepo": "https://github.com/openshift/ruby-ex.git"
+          "sampleRepo": "https://github.com/sclorg/ruby-ex.git"
         },
         "from": {
           "kind": "ImageStreamTag",
@@ -38,7 +38,7 @@
           "tags": "hidden,builder,ruby",
           "supports": "ruby:2.0,ruby",
           "version": "2.0",
-          "sampleRepo": "https://github.com/openshift/ruby-ex.git"
+          "sampleRepo": "https://github.com/sclorg/ruby-ex.git"
         },
         "from": {
           "kind": "DockerImage",
@@ -58,7 +58,7 @@
           "tags": "hidden,builder,ruby",
           "supports": "ruby:2.2,ruby",
           "version": "2.2",
-          "sampleRepo": "https://github.com/openshift/ruby-ex.git"
+          "sampleRepo": "https://github.com/sclorg/ruby-ex.git"
         },
         "from": {
           "kind": "DockerImage",
@@ -78,7 +78,7 @@
           "tags": "builder,ruby",
           "supports": "ruby:2.3,ruby",
           "version": "2.3",
-          "sampleRepo": "https://github.com/openshift/ruby-ex.git"
+          "sampleRepo": "https://github.com/sclorg/ruby-ex.git"
         },
         "from": {
           "kind": "DockerImage",
@@ -98,7 +98,7 @@
           "tags": "builder,ruby",
           "supports": "ruby:2.4,ruby",
           "version": "2.4",
-          "sampleRepo": "https://github.com/openshift/ruby-ex.git"
+          "sampleRepo": "https://github.com/sclorg/ruby-ex.git"
         },
         "from": {
           "kind": "DockerImage",

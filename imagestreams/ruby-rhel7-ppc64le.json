@@ -18,7 +18,7 @@
           "iconClass": "icon-ruby",
           "tags": "builder,ruby,ppc64le",
           "supports": "ruby",
-          "sampleRepo": "https://github.com/openshift/ruby-ex.git"
+          "sampleRepo": "https://github.com/sclorg/ruby-ex.git"
         },
         "from": {
           "kind": "ImageStreamTag",
