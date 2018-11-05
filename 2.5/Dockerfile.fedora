@@ -25,6 +25,7 @@ LABEL summary="$SUMMARY" \
       io.openshift.tags="builder,ruby,ruby${RUBY_SHORT_VER}" \
       com.redhat.component="$NAME" \
       name="$FGC/$NAME" \
+      version="$VERSION" \
       usage="s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.4/test/puma-test-app/ registry.fedoraproject.org/$FGC/ruby ruby-sample-app" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
