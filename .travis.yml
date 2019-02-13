@@ -5,7 +5,7 @@ services:
 
 language: go
 
-go: latest
+go: stable
 
 before_install:
   - sudo apt-get -qq update
