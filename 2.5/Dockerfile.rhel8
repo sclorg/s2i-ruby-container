@@ -1,4 +1,4 @@
-FROM rhel8/s2i-base
+FROM ubi8/s2i-base
 
 # This image provides a Ruby environment you can use to run your Ruby
 # applications.
@@ -12,7 +12,7 @@ ENV RUBY_VERSION="${RUBY_MAJOR_VERSION}.${RUBY_MINOR_VERSION}" \
     RUBY_SCL_NAME_VERSION="${RUBY_MAJOR_VERSION}${RUBY_MINOR_VERSION}"
 
 ENV RUBY_SCL="ruby-${RUBY_SCL_NAME_VERSION}" \
-    IMAGE_NAME="rhel8/ruby-${RUBY_SCL_NAME_VERSION}" \
+    IMAGE_NAME="ubi8/ruby-${RUBY_SCL_NAME_VERSION}" \
     SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
     DESCRIPTION="Ruby $RUBY_VERSION available as container is a base platform for \
 building and running various Ruby $RUBY_VERSION applications and frameworks. \
@@ -29,6 +29,7 @@ LABEL summary="$SUMMARY" \
       com.redhat.component="${RUBY_SCL}-container" \
       name="${IMAGE_NAME}" \
       version="1" \
+      com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI" \
       usage="s2i build https://github.com/sclorg/s2i-ruby-container.git \
 --context-dir=${RUBY_VERSION}/test/puma-test-app/ ${IMAGE_NAME} ruby-sample-app" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
