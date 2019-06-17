@@ -16,7 +16,6 @@ official [OpenShift Documentation](https://docs.okd.io/latest/using_images/s2i_i
 Versions
 ---------------
 Ruby versions currently provided are:
-* [Ruby 2.3](2.3/README.md)
 * [Ruby 2.4](2.4/README.md)
 * [Ruby 2.5](2.5/README.md)
 
@@ -76,9 +75,6 @@ on all provided versions of Ruby.**
 
 Usage
 ---------------------------------
-
-For information about usage of Dockerfile for Ruby 2.3,
-see [usage documentation](2.3/README.md).
 
 For information about usage of Dockerfile for Ruby 2.4,
 see [usage documentation](2.4/README.md).
