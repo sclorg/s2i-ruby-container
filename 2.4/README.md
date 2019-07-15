@@ -1,6 +1,5 @@
 Ruby 2.4 container image
 =================
-
 This container image includes Ruby 2.4 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.4 applications.
 Users can choose between RHEL, CentOS and Fedora based builder images.
 The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/),
@@ -101,7 +100,7 @@ In order to dynamically pick up changes made in your application source code, yo
 
 To change your source code in running container, use Podman's [exec](https://github.com/containers/libpod) command:
 ```
-podman exec -it <CONTAINER_ID> /bin/bash
+$ podman exec -it <CONTAINER_ID> /bin/bash
 ```
 
 After you [podman exec](https://github.com/containers/libpod) into the running container, your current
@@ -141,6 +140,6 @@ workers can also be set explicitly by setting `PUMA_WORKERS`.
 See also
 --------
 Dockerfile and other sources are available on https://github.com/sclorg/s2i-ruby-container.
-In that repository you also can find another versions of Python environment Dockerfiles.
+In that repository you also can find another versions of Ruby environment Dockerfiles.
 Dockerfile for CentOS is called `Dockerfile`, Dockerfile for RHEL7 is called `Dockerfile.rhel7`,
 for RHEL8 it's `Dockerfile.rhel8` and the Fedora Dockerfile is called Dockerfile.fedora.
