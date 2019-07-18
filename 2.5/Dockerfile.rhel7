@@ -43,7 +43,7 @@ ${RUBY_SCL}-rubygem-rake \
 ${RUBY_SCL}-rubygem-bundler \
 " && \
     yum install -y --setopt=tsflags=nodocs ${INSTALL_PKGS} && \
-    yum clean all -y && \
+    yum -y clean all --enablerepo='*' && \
     rpm -V ${INSTALL_PKGS}
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
