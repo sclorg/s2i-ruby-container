@@ -1,4 +1,4 @@
-FROM ubi8/s2i-base
+FROM ubi8/s2i-base:rhel8.1
 
 # This image provides a Ruby environment you can use to run your Ruby
 # applications.
@@ -6,7 +6,7 @@ FROM ubi8/s2i-base
 EXPOSE 8080
 
 ENV RUBY_MAJOR_VERSION=2 \
-    RUBY_MINOR_VERSION=5
+    RUBY_MINOR_VERSION=6
 
 ENV RUBY_VERSION="${RUBY_MAJOR_VERSION}.${RUBY_MINOR_VERSION}" \
     RUBY_SCL_NAME_VERSION="${RUBY_MAJOR_VERSION}${RUBY_MINOR_VERSION}"
@@ -43,7 +43,7 @@ RUN yum -y module enable ruby:$RUBY_VERSION && \
     redhat-rpm-config \
     " && \
     yum install -y --setopt=tsflags=nodocs ${INSTALL_PKGS} && \
-    yum -y clean all --enablerepo='*' && \
+    yum clean all -y && \
     rpm -V ${INSTALL_PKGS}
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH

@@ -6,7 +6,7 @@ FROM centos/s2i-base-centos7
 EXPOSE 8080
 
 ENV RUBY_MAJOR_VERSION=2 \
-    RUBY_MINOR_VERSION=5
+    RUBY_MINOR_VERSION=6
 
 ENV RUBY_VERSION="${RUBY_MAJOR_VERSION}.${RUBY_MINOR_VERSION}" \
     RUBY_SCL_NAME_VERSION="${RUBY_MAJOR_VERSION}${RUBY_MINOR_VERSION}"
@@ -34,8 +34,8 @@ LABEL summary="$SUMMARY" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 RUN yum install -y centos-release-scl-rh && \
-    yum-config-manager --add-repo https://cbs.centos.org/repos/sclo7-rh-ruby25-rh-candidate/x86_64/os/ && \
-    echo gpgcheck=0 >> /etc/yum.repos.d/cbs.centos.org_repos_sclo7-rh-ruby25-rh-candidate_x86_64_os_.repo && \
+    yum-config-manager --add-repo https://cbs.centos.org/repos/sclo7-rh-ruby26-rh-candidate/x86_64/os/ && \
+    echo gpgcheck=0 >> /etc/yum.repos.d/cbs.centos.org_repos_sclo7-rh-ruby26-rh-candidate_x86_64_os_.repo && \
     INSTALL_PKGS=" \
 ${RUBY_SCL} \
 ${RUBY_SCL}-ruby-devel \

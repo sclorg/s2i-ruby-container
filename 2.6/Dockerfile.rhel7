@@ -6,7 +6,7 @@ FROM rhscl/s2i-base-rhel7:1
 EXPOSE 8080
 
 ENV RUBY_MAJOR_VERSION=2 \
-    RUBY_MINOR_VERSION=5
+    RUBY_MINOR_VERSION=6
 
 ENV RUBY_VERSION="${RUBY_MAJOR_VERSION}.${RUBY_MINOR_VERSION}" \
     RUBY_SCL_NAME_VERSION="${RUBY_MAJOR_VERSION}${RUBY_MINOR_VERSION}"
@@ -29,7 +29,6 @@ LABEL summary="$SUMMARY" \
       com.redhat.component="${RUBY_SCL}-container" \
       name="${IMAGE_NAME}" \
       version="${RUBY_VERSION}" \
-      com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI" \
       usage="s2i build https://github.com/sclorg/s2i-ruby-container.git \
 --context-dir=${RUBY_VERSION}/test/puma-test-app/ ${IMAGE_NAME} ruby-sample-app" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
