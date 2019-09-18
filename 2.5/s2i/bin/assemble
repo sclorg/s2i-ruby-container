@@ -23,6 +23,9 @@ shopt -s dotglob
 echo "---> Installing application source ..."
 mv /tmp/src/* ./
 
+# Fix source directory permissions
+fix-permissions ./
+
 echo "---> Building your Ruby application from source ..."
 if [ -f Gemfile ]; then
   ADDTL_BUNDLE_ARGS="--retry 2"
@@ -60,12 +63,3 @@ fi
 
 # Fix source directory permissions
 fix-permissions ./
-
-# Make the ./tmp folder world writeable as Rails or other frameworks might use
-# it to store temporary data (uploads/cache/sessions/etcd).
-# The ./db folder has to be writeable as well because when Rails complete the
-# migration it writes the schema version into ./db/schema.db
-set +e
-[[ -d ./tmp ]] && chgrp -R 0 ./tmp && chmod -R g+rw ./tmp
-[[ -d ./db ]] && chgrp -R 0 ./db && chmod -R g+rw ./db
-set -e
