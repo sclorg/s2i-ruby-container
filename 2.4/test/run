@@ -137,6 +137,7 @@ test_scl_usage() {
 
 pushd ${test_dir}
 git clone git://github.com/openshift/ruby-hello-world
+cd ruby-hello-world && git checkout d6857ea547c9f7d19d31cfc0355303b059412359 && cd -
 mv ruby-hello-world db-test-app
 popd
 
