@@ -135,9 +135,11 @@ test_scl_usage() {
   fi
 }
 
-pushd ${test_dir}
-git clone git://github.com/openshift/ruby-hello-world
-mv ruby-hello-world db-test-app
+mkdir -p ${test_dir}/db-test-app
+pushd ${test_dir}/db-test-app
+git clone git://github.com/openshift/ruby-hello-world .
+# Switch to commit which works with ruby-2.4
+git reset --hard d6857ea547c9f7d19d31cfc0355303b059412359
 popd
 
 for server in ${WEB_SERVERS[@]}; do
