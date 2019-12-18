@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DISTRO=`cat /etc/*-release | grep ^ID= | grep -Po '".*?"' | tr -d '"'`
+DISTRO="`grep ^ID= /etc/*-release | cut -d'"' -f2`"
 
 cat <<EOF
 This is a S2I ruby-${RUBY_VERSION} ${DISTRO} base image:
