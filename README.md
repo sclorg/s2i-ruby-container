@@ -18,6 +18,7 @@ Versions
 Ruby versions currently provided are:
 * [Ruby 2.4](2.4/README.md)
 * [Ruby 2.5](2.5/README.md)
+* [Ruby 2.6](2.6/README.md)
 
 RHEL versions currently supported are:
 * RHEL7
@@ -47,7 +48,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=rhel7 VERSIONS=2.5
+    $ make build TARGET=rhel7 VERSIONS=2.6
     ```
 
 *  **CentOS based image**
@@ -63,7 +64,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=centos7 VERSIONS=2.5
+    $ make build TARGET=centos7 VERSIONS=2.6
     ```
 
 Note: while the installation steps are calling `podman`, you can replace any such calls by `docker` with the same arguments.
@@ -82,6 +83,9 @@ see [usage documentation](2.4/README.md).
 For information about usage of Dockerfile for Ruby 2.5,
 see [usage documentation](2.5/README.md).
 
+For information about usage of Dockerfile for Ruby 2.6,
+see [usage documentation](2.6/README.md).
+
 
 Test
 ---------------------
@@ -97,14 +101,14 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=rhel7 VERSIONS=2.5
+    $ make test TARGET=rhel7 VERSIONS=2.6
     ```
 
 *  **CentOS based image**
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=centos7 VERSIONS=2.5
+    $ make test TARGET=centos7 VERSIONS=2.6
     ```
 
 **Notice: By omitting the `VERSIONS` parameter, the build/test action will be performed
