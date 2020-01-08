@@ -175,12 +175,11 @@ for server in ${WEB_SERVERS[@]}; do
   test_scl_usage "ruby --version" "ruby ${RUBY_VERSION}."
   check_result $?
 
+  ct_npm_works
+  check_result $?
+
   info "All tests for the ${server}-test-app finished successfully."
   cleanup ${server}
 done
-
-info "Testing npm availibility"
-ct_npm_works
-check_result $?
 
 info "All tests finished successfully."
