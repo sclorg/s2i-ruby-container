@@ -112,7 +112,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "ruby:2.3"
+              "name": "ruby:2.5"
             },
             "env": [
               {
@@ -356,7 +356,7 @@
               "from": {
                 "kind": "ImageStreamTag",
                 "namespace": "${NAMESPACE}",
-                "name": "postgresql:9.5"
+                "name": "postgresql:10"
               }
             }
           },
