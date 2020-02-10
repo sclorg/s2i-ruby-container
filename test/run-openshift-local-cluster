@@ -12,7 +12,9 @@ THISDIR=$(dirname ${BASH_SOURCE[0]})
 
 source ${THISDIR}/test-lib-ruby.sh
 
-set -eo nounset
+set -exo nounset
+
+ct_os_enable_print_logs
 
 trap ct_os_cleanup EXIT SIGINT
 
@@ -24,14 +26,22 @@ ct_os_cluster_up
 test_ruby_integration "${IMAGE_NAME}" "${VERSION}" ruby
 
 # test with a released image and an integrated template
+fail_not_released=true
 if [ "${OS}" == "rhel7" ] ; then
-  PUBLIC_IMAGE_NAME=${PUBLIC_IMAGE_NAME:-${REGISTRY:-registry.access.redhat.com/}rhscl/${BASE_IMAGE_NAME}-${VERSION//./}-rhel7}
+  PUBLIC_IMAGE_NAME=${PUBLIC_IMAGE_NAME:-${REGISTRY:-registry.redhat.io/}rhscl/${BASE_IMAGE_NAME}-${VERSION//./}-rhel7}
 else
   PUBLIC_IMAGE_NAME=${PUBLIC_IMAGE_NAME:-${REGISTRY:-}centos/${BASE_IMAGE_NAME}-${VERSION//./}-centos7}
+  fail_not_released=false
 fi
 
 export CT_SKIP_UPLOAD_IMAGE=true
-test_ruby_integration ruby "${VERSION}" "${PUBLIC_IMAGE_NAME}"
+# Try pulling the image first to see if it is accessible
+if docker pull "${PUBLIC_IMAGE_NAME}"; then
+  test_ruby_integration ruby "${VERSION}" "${PUBLIC_IMAGE_NAME}"
+else
+  echo "Warning: ${PUBLIC_IMAGE_NAME} could not be downloaded via 'docker'"
+  ! $fail_not_released || false "ERROR: Failed to pull image"
+fi
 
 OS_TESTSUITE_RESULT=0
 
