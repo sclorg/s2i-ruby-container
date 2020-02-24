@@ -14,8 +14,6 @@ source ${THISDIR}/test-lib-ruby.sh
 
 set -exo nounset
 
-ct_os_enable_print_logs
-
 trap ct_os_cleanup EXIT SIGINT
 
 ct_os_check_compulsory_vars
@@ -23,7 +21,7 @@ ct_os_check_compulsory_vars
 ct_os_cluster_up
 
 # test with the just built image and an integrated template
-test_ruby_integration "${IMAGE_NAME}" "${VERSION}" ruby
+test_ruby_integration "${IMAGE_NAME}" "${VERSION}" "${IMAGE_NAME}:${VERSION}"
 
 # test with a released image and an integrated template
 fail_not_released=true
@@ -34,7 +32,7 @@ else
   fail_not_released=false
 fi
 
-export CT_SKIP_UPLOAD_IMAGE=true
+export CT_SKIP_UPLOAD_IMAGE=false
 # Try pulling the image first to see if it is accessible
 if docker pull "${PUBLIC_IMAGE_NAME}"; then
   test_ruby_integration ruby "${VERSION}" "${PUBLIC_IMAGE_NAME}"
