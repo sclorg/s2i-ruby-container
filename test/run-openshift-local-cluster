@@ -32,7 +32,7 @@ else
   fail_not_released=false
 fi
 
-export CT_SKIP_UPLOAD_IMAGE=false
+export CT_SKIP_UPLOAD_IMAGE=true
 # Try pulling the image first to see if it is accessible
 if docker pull "${PUBLIC_IMAGE_NAME}"; then
   test_ruby_integration ruby "${VERSION}" "${PUBLIC_IMAGE_NAME}"
