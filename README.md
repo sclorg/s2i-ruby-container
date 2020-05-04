@@ -16,7 +16,6 @@ official [OpenShift Documentation](https://docs.okd.io/latest/using_images/s2i_i
 Versions
 ---------------
 Ruby versions currently provided are:
-* [Ruby 2.4](2.4/README.md)
 * [Ruby 2.5](2.5/README.md)
 * [Ruby 2.6](2.6/README.md)
 
@@ -35,11 +34,12 @@ Installation
 To build a Ruby image, choose either the CentOS or RHEL based image:
 *  **RHEL based image**
 
-    These images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhscl/ruby-24-rhel7).
+    These images are available in the
+    [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhscl/ruby-26-rhel7).
     To download it run:
 
     ```
-    $ podman pull registry.access.redhat.com/rhscl/ruby-24-rhel7
+    $ podman pull registry.access.redhat.com/rhscl/ruby-26-rhel7
     ```
 
     To build a RHEL based Ruby image, you need to run the build on a properly
@@ -56,7 +56,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     This image is available on DockerHub. To download it run:
 
     ```
-    $ podman pull centos/ruby-24-centos7
+    $ podman pull centos/ruby-26-centos7
     ```
 
     To build a Ruby image from scratch run:
@@ -76,9 +76,6 @@ on all provided versions of Ruby.**
 
 Usage
 ---------------------------------
-
-For information about usage of Dockerfile for Ruby 2.4,
-see [usage documentation](2.4/README.md).
 
 For information about usage of Dockerfile for Ruby 2.5,
 see [usage documentation](2.5/README.md).
@@ -123,17 +120,18 @@ Repository organization
 
 * **`common/`**
 
-    Folder containing scripts which are responsible for build and test actions performed by the `Makefile`. It is a github sub-module pointing to https://github.com/sclorg/container-common-scripts.
+    Folder containing scripts which are responsible for build and test actions performed by the `Makefile`.
+    It is a github sub-module pointing to https://github.com/sclorg/container-common-scripts.
 
 
 Image name structure
 ------------------------
 
 1. Platform name (lowercase) - ruby
-2. Platform version(without dots) - 24
+2. Platform version(without dots) - 26
 3. Base builder image - centos7/rhel7
 
-Examples: `ruby-24-centos7`, `ruby-24-rhel7`
+Examples: `ruby-26-centos7`, `ruby-26-rhel7`
 
 
 Repository organization
