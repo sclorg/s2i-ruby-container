@@ -12,16 +12,18 @@ THISDIR=$(dirname ${BASH_SOURCE[0]})
 
 source ${THISDIR}/test-lib-ruby.sh
 
-set -exo nounset
+set -eo nounset
 
 trap ct_os_cleanup EXIT SIGINT
 
 ct_os_check_compulsory_vars
 
+ct_os_enable_print_logs
+
 ct_os_cluster_up
 
 # test with the just built image and an integrated template
-test_ruby_integration "${IMAGE_NAME}" "${VERSION}" "${IMAGE_NAME}:${VERSION}"
+#test_ruby_integration "${IMAGE_NAME}" "${VERSION}" ruby
 
 # test with a released image and an integrated template
 fail_not_released=true
@@ -32,16 +34,22 @@ else
   fail_not_released=false
 fi
 
-export CT_SKIP_UPLOAD_IMAGE=true
+#export CT_SKIP_UPLOAD_IMAGE=true
 # Try pulling the image first to see if it is accessible
 if docker pull "${PUBLIC_IMAGE_NAME}"; then
-  test_ruby_integration ruby "${VERSION}" "${PUBLIC_IMAGE_NAME}"
+:
+#  test_ruby_integration "${PUBLIC_IMAGE_NAME}" "${VERSION}" ruby
 else
   echo "Warning: ${PUBLIC_IMAGE_NAME} could not be downloaded via 'docker'"
   ! $fail_not_released || false "ERROR: Failed to pull image"
 fi
 
+# Check the imagestream
+test_ruby_imagestream
+
 OS_TESTSUITE_RESULT=0
 
 ct_os_cluster_down
+
+# vim: set tabstop=2:shiftwidth=2:expandtab:
 
