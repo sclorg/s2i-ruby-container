@@ -36,6 +36,7 @@ LABEL summary="$SUMMARY" \
 
 RUN yum -y module enable ruby:$RUBY_VERSION && \
     INSTALL_PKGS=" \
+    libffi-devel \
     ruby \
     ruby-devel \
     rubygem-rake \

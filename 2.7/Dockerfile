@@ -35,6 +35,7 @@ LABEL summary="$SUMMARY" \
 
 RUN yum install -y centos-release-scl-rh && \
     INSTALL_PKGS=" \
+libffi-devel \
 ${RUBY_SCL} \
 ${RUBY_SCL}-ruby-devel \
 ${RUBY_SCL}-rubygem-rake \
