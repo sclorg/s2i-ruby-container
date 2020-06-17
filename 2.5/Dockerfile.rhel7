@@ -37,6 +37,7 @@ LABEL summary="$SUMMARY" \
 RUN yum install -y yum-utils && \
     prepare-yum-repositories rhel-server-rhscl-7-rpms && \
     INSTALL_PKGS=" \
+libffi-devel \
 ${RUBY_SCL} \
 ${RUBY_SCL}-ruby-devel \
 ${RUBY_SCL}-rubygem-rake \

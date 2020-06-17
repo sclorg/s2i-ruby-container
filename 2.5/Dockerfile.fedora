@@ -30,7 +30,7 @@ LABEL summary="$SUMMARY" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
 # Install required packages
-RUN INSTALL_PKGS="python2 ruby ruby-devel rubygem-bundler rubygem-rake rubygems-devel redhat-rpm-config" && \
+RUN INSTALL_PKGS="python2 ruby ruby-devel rubygem-bundler rubygem-rake rubygems-devel redhat-rpm-config libffi-devel" && \
     dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     dnf clean all
