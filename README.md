@@ -18,6 +18,7 @@ Versions
 Ruby versions currently provided are:
 * [Ruby 2.5](2.5/README.md)
 * [Ruby 2.6](2.6/README.md)
+* [Ruby 2.7](2.7/README.md)
 
 RHEL versions currently supported are:
 * RHEL7
@@ -35,11 +36,11 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
 *  **RHEL based image**
 
     These images are available in the
-    [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhscl/ruby-26-rhel7).
+    [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhscl/ruby-27-rhel7).
     To download it run:
 
     ```
-    $ podman pull registry.access.redhat.com/rhscl/ruby-26-rhel7
+    $ podman pull registry.access.redhat.com/rhscl/ruby-27-rhel7
     ```
 
     To build a RHEL based Ruby image, you need to run the build on a properly
@@ -48,7 +49,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=rhel7 VERSIONS=2.6
+    $ make build TARGET=rhel7 VERSIONS=2.7
     ```
 
 *  **CentOS based image**
@@ -56,7 +57,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     This image is available on DockerHub. To download it run:
 
     ```
-    $ podman pull centos/ruby-26-centos7
+    $ podman pull centos/ruby-27-centos7
     ```
 
     To build a Ruby image from scratch run:
@@ -64,7 +65,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=centos7 VERSIONS=2.6
+    $ make build TARGET=centos7 VERSIONS=2.7
     ```
 
 Note: while the installation steps are calling `podman`, you can replace any such calls by `docker` with the same arguments.
@@ -83,6 +84,9 @@ see [usage documentation](2.5/README.md).
 For information about usage of Dockerfile for Ruby 2.6,
 see [usage documentation](2.6/README.md).
 
+For information about usage of Dockerfile for Ruby 2.7,
+see [usage documentation](2.7/README.md).
+
 
 Test
 ---------------------
@@ -98,14 +102,14 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=rhel7 VERSIONS=2.6
+    $ make test TARGET=rhel7 VERSIONS=2.7
     ```
 
 *  **CentOS based image**
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=centos7 VERSIONS=2.6
+    $ make test TARGET=centos7 VERSIONS=2.7
     ```
 
 **Notice: By omitting the `VERSIONS` parameter, the build/test action will be performed
@@ -128,10 +132,10 @@ Image name structure
 ------------------------
 
 1. Platform name (lowercase) - ruby
-2. Platform version(without dots) - 26
+2. Platform version(without dots) - 27
 3. Base builder image - centos7/rhel7
 
-Examples: `ruby-26-centos7`, `ruby-26-rhel7`
+Examples: `ruby-27-centos7`, `ruby-27-rhel7`
 
 
 Repository organization

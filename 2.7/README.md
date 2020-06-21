@@ -1,6 +1,6 @@
-Ruby 2.6 container image
+Ruby 2.7 container image
 =================
-This container image includes Ruby 2.6 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.6 applications.
+This container image includes Ruby 2.7 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.7 applications.
 Users can choose between RHEL, CentOS and Fedora based builder images.
 The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/),
 the CentOS images are available on [Docker Hub](https://hub.docker.com/r/centos/),
@@ -12,8 +12,8 @@ Note: while the examples in this README are calling `podman`, you can replace an
 Description
 -----------
 
-Ruby 2.6 available as container is a base platform for
-building and running various Ruby 2.6 applications and frameworks.
+Ruby 2.7 available as container is a base platform for
+building and running various Ruby 2.7 applications and frameworks.
 Ruby is the interpreted scripting language for quick and easy object-oriented programming.
 It has many features to process text files and to do system management tasks (as in Perl).
 It is simple, straight-forward, and extensible.
@@ -25,18 +25,18 @@ the nodejs itself is included just to make the npm work.
 
 Usage
 ---------------------
-For this, we will assume that you are using the `ubi8/ruby-26 image`, available via `ruby:2.6` imagestream tag in Openshift.
-Building a simple [ruby-sample-app](https://github.com/sclorg/s2i-ruby-container/tree/master/2.6/test/puma-test-app) application
+For this, we will assume that you are using the `ubi8/ruby-27 image`, available via `ruby:2.7` imagestream tag in Openshift.
+Building a simple [ruby-sample-app](https://github.com/sclorg/s2i-ruby-container/tree/master/2.7/test/puma-test-app) application
 in Openshift can be achieved with the following step:
 
     ```
-    $ oc new-app ruby:2.6~https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.6/test/puma-test-app/
+    $ oc new-app ruby:2.7~https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.7/test/puma-test-app/
     ```
 
 The same application can also be built using the standalone [S2I](https://github.com/openshift/source-to-image) application on systems that have it available:
 
     ```
-    $ s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.6/test/puma-test-app/ ubi8/ruby-26 ruby-sample-app
+    $ s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.7/test/puma-test-app/ ubi8/ruby-27 ruby-sample-app
     ```
 
 **Accessing the application:**

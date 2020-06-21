@@ -1,6 +1,6 @@
 # Variables are documented in common/build.sh.
 BASE_IMAGE_NAME = ruby
-VERSIONS = 2.5 2.6
+VERSIONS = 2.5 2.6 2.7
 OPENSHIFT_NAMESPACES = 2.0
 CONU_IMAGE := docker.io/usercont/conu:0.6.2
 
