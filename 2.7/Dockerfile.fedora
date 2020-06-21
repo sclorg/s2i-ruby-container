@@ -6,8 +6,8 @@ FROM registry.fedoraproject.org/f31/s2i-base
 EXPOSE 8080
 
 ENV NAME=ruby \
-    RUBY_VERSION=2.6 \
-    RUBY_SHORT_VER=26 \
+    RUBY_VERSION=2.7 \
+    RUBY_SHORT_VER=27 \
     VERSION=0
 
 ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
