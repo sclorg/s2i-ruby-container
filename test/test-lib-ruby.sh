@@ -26,7 +26,7 @@ function test_ruby_imagestream() {
     *) echo "Imagestream testing not supported for $OS environment." ; return 0 ;;
   esac
 
-  ct_os_test_image_stream_s2i "${THISDIR}/imagestreams/ruby-${OS}.json" "${IMAGE_NAME}" \
+  ct_os_test_image_stream_s2i "${THISDIR}/imagestreams/ruby-${OS%[0-9]*}.json" "${IMAGE_NAME}" \
                               "https://github.com/sclorg/s2i-ruby-container.git" \
                               "${VERSION}/test/puma-test-app" \
                               ".*"
