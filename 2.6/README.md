@@ -23,27 +23,111 @@ modules for their web applications. There is no guarantee for any specific npm o
 version, that is included in the image; those versions can be changed anytime and
 the nodejs itself is included just to make the npm work.
 
-Usage
------
+Usage in Openshift
+------------------
 For this, we will assume that you are using the `ubi8/ruby-26 image`, available via `ruby:2.6` imagestream tag in Openshift.
 Building a simple [ruby-sample-app](https://github.com/sclorg/s2i-ruby-container/tree/master/2.6/test/puma-test-app) application
 in Openshift can be achieved with the following step:
 
     ```
-    $ oc new-app ruby:2.6~https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.6/test/puma-test-app/
-    ```
-
-The same application can also be built using the standalone [S2I](https://github.com/openshift/source-to-image) application on systems that have it available:
-
-    ```
-    $ s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=2.6/test/puma-test-app/ ubi8/ruby-26 ruby-sample-app
+    oc new-app ruby:2.6~https://github.com/sclorg/rails-ex.git
     ```
 
 **Accessing the application:**
 ```
-$ curl 127.0.0.1:8080
+$ oc get pods
+$ oc exec <pod> -- curl 127.0.0.1:8080
 ```
 
+Source-to-Image framework and scripts
+-------------------------------------
+This image supports the [Source-to-Image](https://docs.openshift.com/container-platform/4.4/builds/build-strategies.html#images-create-s2i_build-strategies)
+(S2I) strategy in OpenShift. The Source-to-Image is an OpenShift framework
+which makes it easy to write images that take application source code as
+an input, use a builder image like this Ruby container image, and produce
+a new image that runs the assembled application as an output.
+
+To support the Source-to-Image framework, important scripts are included in the builder image:
+
+* The `/usr/libexec/s2i/assemble` script inside the image is run to produce a new image with the application artifacts. The script takes sources of a given application and places them into appropriate directories inside the image. It utilizes some common patterns in Ruby application development (see the **Environment variables** section below).
+* The `/usr/libexec/s2i/run` script is set as the default command in the resulting container image (the new image with the application artifacts). It configures web  server and runs this server on port 8080.
+
+Building an application using a Dockerfile
+------------------------------------------
+Compared to the Source-to-Image strategy, using a Dockerfile is a more
+flexible way to build a Ruby container image with an application.
+Use a Dockerfile when Source-to-Image is not sufficiently flexible for you or
+when you build the image outside of the OpenShift environment.
+
+To use the Ruby image in a Dockerfile, follow these steps:
+
+#### 1. Pull a base builder image to build on
+
+```
+podman pull ubi8/ruby-26
+```
+
+An RHEL7 image `ubi8/ruby-26` is used in this example.
+
+#### 2. Pull and application code
+
+ An example application available at https://github.com/sclorg/rails-ex.git is used here. Feel free to clone the repository for further experiments.
+
+```
+git clone https://github.com/sclorg/rails-ex.git app-src
+```
+
+#### 3. Prepare an application inside a container
+
+This step usually consists of at least these parts:
+
+* putting the application source into the container
+* installing the dependencies
+* setting the default command in the resulting image
+
+For all these three parts, users can use the Source-to-Image scripts inside the image ([3.1.](#31-to-use-the-source-to-image-scripts-and-build-an-image-using-a-dockerfile-create-a-dockerfile-with-this-content)), or users can either setup all manually and use commands `ruby`, `bundle` and `rackup` explicitly in the Dockerfile ([3.2.](32-to-use-your-own-setup-create-a-dockerfile-with-this-content))
+
+##### 3.1 To use the Source-to-Image scripts and build an image using a Dockerfile, create a Dockerfile with this content:
+```
+FROM ubi8/ruby-26
+
+# Add application sources to a directory that the assemble scriptexpects them
+# and set permissions so that the container runs without root access
+USER 0
+ADD app-src /tmp/src
+RUN chown -R 1001:0 /tmp/src
+USER 1001
+
+# Set up development mode
+ENV RAILS_ENV=development
+
+# Install the dependencies
+RUN /usr/libexec/s2i/assemble
+
+# Set the default command for the resulting image
+CMD /usr/libexec/s2i/run
+```
+The s2i scripts are used to set-up and run common Ruby applications. More information about the scripts can be found in [Source-to-Image](#source-to-image-framework-and-scripts) section.
+##### 3.2 To use your own setup, create a Dockerfile with this content:
+```
+FROM ubi8/ruby-26
+
+USER 0
+ADD app-src ./
+RUN bundle install --path ./bundle
+
+CMD bundle exec "rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080"
+```
+#### 4. Build a new image from a Dockerfile prepared in the previous step
+
+```
+podman build -t ruby-app .
+```
+
+#### 5. Run the resulting image with final application
+```
+podman run -d ruby-app
+```
 Environment variables
 ---------------------
 

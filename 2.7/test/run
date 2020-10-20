@@ -214,12 +214,23 @@ function test_scl_variables_in_dockerfile() {
  fi
 }
 
+function test_from_dockerfile() {
+  rootdir=$(readlink -zf ${image_dir}/..)
+  dockerfile="Dockerfile${1:-}"
+  info "Check building using a $dockerfile"
+  ct_test_app_dockerfile $rootdir/examples/from-dockerfile/$dockerfile 'https://github.com/sclorg/rails-ex.git' 'Welcome to your Rails application on OpenShift' app-src
+  check_result $?
+}
+
 pushd ${test_dir}
 if [ -d db-test-app ]; then
   rm -rf db-test-app
 fi
 git clone git://github.com/openshift/ruby-hello-world db-test-app
 popd
+
+test_from_dockerfile
+test_from_dockerfile ".s2i"
 
 for server in ${WEB_SERVERS[@]}; do
   cid_file=$(mktemp -u --suffix=.cid)
