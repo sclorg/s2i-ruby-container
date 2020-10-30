@@ -11,6 +11,7 @@ ENV RUBY_MAJOR_VERSION=2 \
 ENV RUBY_VERSION="${RUBY_MAJOR_VERSION}.${RUBY_MINOR_VERSION}" \
     RUBY_SCL_NAME_VERSION="${RUBY_MAJOR_VERSION}${RUBY_MINOR_VERSION}"
 
+# Set SCL related variables in Dockerfile so that the collection is enabled by default
 ENV RUBY_SCL="rh-ruby${RUBY_SCL_NAME_VERSION}" \
     IMAGE_NAME="rhscl/ruby-${RUBY_SCL_NAME_VERSION}-rhel7" \
     SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
@@ -18,7 +19,12 @@ ENV RUBY_SCL="rh-ruby${RUBY_SCL_NAME_VERSION}" \
 building and running various Ruby $RUBY_VERSION applications and frameworks. \
 Ruby is the interpreted scripting language for quick and easy object-oriented programming. \
 It has many features to process text files and to do system management tasks (as in Perl). \
-It is simple, straight-forward, and extensible."
+It is simple, straight-forward, and extensible." \
+    PATH=$PATH:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/bin:/opt/rh/$NODEJS_SCL/root/usr/bin \
+    LD_LIBRARY_PATH=/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/lib64:/opt/rh/$NODEJS_SCL/root/usr/lib64 \
+    X_SCLS=rh-ruby$RUBY_SCL_NAME_VERSION \
+    MANPATH=/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/share/man:/opt/rh/$NODEJS_SCL/root/usr/share/man \
+    PYTHONPATH=/opt/rh/$NODEJS_SCL/root/usr/lib/python2.7/site-packages
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
