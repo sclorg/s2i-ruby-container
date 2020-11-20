@@ -1,9 +1,10 @@
 Ruby 2.7 container image
-=================
+========================
+
 This container image includes Ruby 2.7 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.7 applications.
 Users can choose between RHEL, CentOS and Fedora based builder images.
 The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/),
-the CentOS images are available on [Docker Hub](https://hub.docker.com/r/centos/),
+the CentOS images are available on [Quay.io](https://quay.io/organization/centos7),
 and the Fedora images are available in [Fedora Registry](https://registry.fedoraproject.org/).
 The resulting image can be run using [podman](https://github.com/containers/libpod).
 
@@ -24,7 +25,7 @@ version, that is included in the image; those versions can be changed anytime an
 the nodejs itself is included just to make the npm work.
 
 Usage
----------------------
+-----
 For this, we will assume that you are using the `ubi8/ruby-27 image`, available via `ruby:2.7` imagestream tag in Openshift.
 Building a simple [ruby-sample-app](https://github.com/sclorg/s2i-ruby-container/tree/master/2.7/test/puma-test-app) application
 in Openshift can be achieved with the following step:
@@ -75,7 +76,7 @@ file inside your source code repository.
     Set this variable to use a custom RubyGems mirror URL to download required gem packages during build process.
 
 Hot deploy
----------------------
+----------
 In order to dynamically pick up changes made in your application source code, you need to make following steps:
 
 *  **For Ruby on Rails applications**
@@ -107,7 +108,7 @@ After you [podman exec](https://github.com/containers/libpod) into the running c
 directory is set to `/opt/app-root/src`, where the source code is located.
 
 Performance tuning
----------------------
+------------------
 You can tune the number of threads per worker using the
 `PUMA_MIN_THREADS` and `PUMA_MAX_THREADS` environment variables.
 Additionally, the number of worker processes is determined by the number of CPU

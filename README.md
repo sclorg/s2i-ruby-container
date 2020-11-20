@@ -2,6 +2,10 @@ Ruby container images
 ==================
 
 [![Build Status](https://travis-ci.org/sclorg/s2i-ruby-container.svg?branch=master)](https://travis-ci.org/sclorg/s2i-ruby-container)
+[![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-25-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-25-centos7)
+[![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-26-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-26-centos7)
+[![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-27-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-27-centos7)
+
 
 
 This repository contains the source for building various versions of
@@ -57,7 +61,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     This image is available on DockerHub. To download it run:
 
     ```
-    $ podman pull centos/ruby-27-centos7
+    $ podman pull quay.io/centos7/ruby-27-centos7
     ```
 
     To build a Ruby image from scratch run:
