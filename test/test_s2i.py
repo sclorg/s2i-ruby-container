@@ -8,7 +8,8 @@ from conu import DockerBackend, S2IDockerImage, Probe, DockerRunBuilder
 import pytest
 
 
-image_name = os.environ.get("IMAGE_NAME", "ruby")
+image_name = os.environ.get("IMAGE_NAME", "ruby").split(":")[0]
+image_tag = os.environ.get("IMAGE_NAME", "ruby").split(":")[1]
 test_dir = os.path.abspath(os.path.dirname(__file__))
 puma_app_path = os.path.join(test_dir, "puma-test-app")
 rack_app_path = os.path.join(test_dir, "rack-test-app")
@@ -23,7 +24,7 @@ backend = DockerBackend(logging_level=logging.DEBUG)
 
 @pytest.fixture(scope="module", params=app_paths)
 def app(request):
-    i = S2IDockerImage(image_name)
+    i = S2IDockerImage(image_name, tag=image_tag)
     app_name = os.path.basename(request.param)
     app = i.extend(request.param, app_name)
     yield app
@@ -50,7 +51,7 @@ class TestSuite:
             c.delete()
 
     def test_invoking_container(self):
-        image = backend.ImageClass(image_name)
+        image = backend.ImageClass(image_name, tag=image_tag)
         c = image.run_via_binary(DockerRunBuilder(command=["bash", "-c", "ruby --version"]))
         try:
             c.wait()
@@ -64,7 +65,7 @@ class TestSuite:
             assert os.environ["VERSION"] in logs
 
     def test_usage(self):
-        i = S2IDockerImage(image_name)
+        i = S2IDockerImage(image_name, tag=image_tag)
         c = i.run_via_binary()
 
         def logs_received():
