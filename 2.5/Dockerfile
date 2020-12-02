@@ -1,4 +1,4 @@
-FROM centos/s2i-base-centos7
+FROM quay.io/centos7/s2i-base-centos7
 
 # This image provides a Ruby environment you can use to run your Ruby
 # applications.
@@ -13,7 +13,7 @@ ENV RUBY_VERSION="${RUBY_MAJOR_VERSION}.${RUBY_MINOR_VERSION}" \
 
 # Set SCL related variables in Dockerfile so that the collection is enabled by default
 ENV RUBY_SCL="rh-ruby${RUBY_SCL_NAME_VERSION}" \
-    IMAGE_NAME="centos/ruby-${RUBY_SCL_NAME_VERSION}-centos7" \
+    IMAGE_NAME="centos7/ruby-${RUBY_SCL_NAME_VERSION}-centos7" \
     SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
     DESCRIPTION="Ruby $RUBY_VERSION available as container is a base platform for \
 building and running various Ruby $RUBY_VERSION applications and frameworks. \
