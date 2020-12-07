@@ -161,17 +161,6 @@ function test_base_scl_usage() {
   check_result "$?"
 }
 
-function test_application() {
-  # Verify that the HTTP connection can be established to test application container
-  run_test_application &
-
-  # Wait for the container to write it's CID file
-  wait_for_cid
-
-  test_connection
-  check_result "$?"
-}
-
 function test_npm_functionality() {
   info "Testing npm availibility"
   ct_npm_works
@@ -181,7 +170,7 @@ function test_npm_functionality() {
 function run_all_tests() {
   local APP_NAME="$1"
   for test_case in $TEST_SET; do
-    info "Running test $test_case ...."
+    info "Running test $test_case ... "
     TESTCASE_RESULT=0
     $test_case
     local test_msg
@@ -192,7 +181,10 @@ function run_all_tests() {
       TESTSUITE_RESULT=1
     fi
     printf -v test_short_summary "%s %s for '%s' %s\n" "${test_short_summary}" "${test_msg}" "${APP_NAME}" "$test_case"
-    [ -n "${FAIL_QUICKLY:-}" ] && cleanup "${APP_NAME}" && return 1
+    [ -n "${FAIL_QUICKLY:-}" ] && {
+      cleanup "${APP_NAME}"
+      return 1
+    }
   done;
 
   cleanup "${APP_NAME}"
@@ -253,4 +245,3 @@ else
 fi
 
 exit $TESTSUITE_RESULT
-

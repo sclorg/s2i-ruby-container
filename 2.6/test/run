@@ -161,17 +161,6 @@ function test_base_scl_usage() {
   check_result "$?"
 }
 
-function test_application() {
-  # Verify that the HTTP connection can be established to test application container
-  run_test_application &
-
-  # Wait for the container to write it's CID file
-  wait_for_cid
-
-  test_connection
-  check_result "$?"
-}
-
 function test_npm_functionality() {
   info "Testing npm availibility"
   ct_npm_works
@@ -181,7 +170,7 @@ function test_npm_functionality() {
 function run_all_tests() {
   local APP_NAME="$1"
   for test_case in $TEST_SET; do
-    info "Running test $test_case ...."
+    info "Running test $test_case ... "
     TESTCASE_RESULT=0
     $test_case
     local test_msg
