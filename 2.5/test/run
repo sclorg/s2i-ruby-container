@@ -181,7 +181,7 @@ function test_npm_functionality() {
 function run_all_tests() {
   local APP_NAME="$1"
   for test_case in $TEST_SET; do
-    info "Running test $test_case ...."
+    info "Running test $test_case ... "
     TESTCASE_RESULT=0
     $test_case
     local test_msg
@@ -253,4 +253,3 @@ else
 fi
 
 exit $TESTSUITE_RESULT
-
