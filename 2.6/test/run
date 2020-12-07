@@ -192,7 +192,10 @@ function run_all_tests() {
       TESTSUITE_RESULT=1
     fi
     printf -v test_short_summary "%s %s for '%s' %s\n" "${test_short_summary}" "${test_msg}" "${APP_NAME}" "$test_case"
-    [ -n "${FAIL_QUICKLY:-}" ] && cleanup "${APP_NAME}" && return 1
+    [ -n "${FAIL_QUICKLY:-}" ] && {
+      cleanup "${APP_NAME}"
+      return 1
+    }
   done;
 
   cleanup "${APP_NAME}"
@@ -253,4 +256,3 @@ else
 fi
 
 exit $TESTSUITE_RESULT
-
