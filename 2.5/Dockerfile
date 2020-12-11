@@ -20,11 +20,13 @@ building and running various Ruby $RUBY_VERSION applications and frameworks. \
 Ruby is the interpreted scripting language for quick and easy object-oriented programming. \
 It has many features to process text files and to do system management tasks (as in Perl). \
 It is simple, straight-forward, and extensible." \
-    PATH=$PATH:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/bin:/opt/rh/$NODEJS_SCL/root/usr/bin \
-    LD_LIBRARY_PATH=/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/lib64:/opt/rh/$NODEJS_SCL/root/usr/lib64 \
-    X_SCLS=rh-ruby$RUBY_SCL_NAME_VERSION \
-    MANPATH=/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/share/man:/opt/rh/$NODEJS_SCL/root/usr/share/man \
-    PYTHONPATH=/opt/rh/$NODEJS_SCL/root/usr/lib/python2.7/site-packages
+    PATH=$PATH:/opt/rh/$NODEJS_SCL/root/usr/bin:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/local/bin:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/bin:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/bin:/opt/rh/$NODEJS_SCL/root/usr/bin \
+    LD_LIBRARY_PATH=/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/lib64:/opt/rh/$NODEJS_SCL/root/usr/lib64:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/local/lib64 \
+    X_SCLS=$X_SCLS:rh-ruby$RUBY_SCL_NAME_VERSION \
+    MANPATH=/opt/rh/$NODEJS_SCL/root/usr/share/man:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/local/share/man:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/share/man:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/local/man:/share/man/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/share/man:/opt/rh/$NODEJS_SCL/root/usr/share/man \
+    PYTHONPATH=/opt/rh/$NODEJS_SCL/root/usr/lib/python2.7/site-packages \
+    XDG_DATA_DIRS=/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/local/share:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/share \
+    PKG_CONFIG_PATH=/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/local/lib64/pkgconfig:/opt/rh/rh-ruby$RUBY_SCL_NAME_VERSION/root/usr/lib64/pkgconfig
 
 LABEL summary="$SUMMARY" \
       description="$DESCRIPTION" \
