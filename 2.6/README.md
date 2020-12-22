@@ -85,7 +85,7 @@ This step usually consists of at least these parts:
 * installing the dependencies
 * setting the default command in the resulting image
 
-For all these three parts, users can use the Source-to-Image scripts inside the image ([3.1.](#31-to-use-the-source-to-image-scripts-and-build-an-image-using-a-dockerfile-create-a-dockerfile-with-this-content)), or users can either setup all manually and use commands `ruby`, `bundle` and `rackup` explicitly in the Dockerfile ([3.2.](32-to-use-your-own-setup-create-a-dockerfile-with-this-content))
+For all these three parts, users can use the Source-to-Image scripts inside the image ([3.1.](#31-to-use-the-source-to-image-scripts-and-build-an-image-using-a-dockerfile-create-a-dockerfile-with-this-content)), or users can either setup all manually and use commands `ruby`, `bundle` and `rackup` explicitly in the Dockerfile ([3.2.](#32-to-use-your-own-setup-create-a-dockerfile-with-this-content))
 
 ##### 3.1 To use the Source-to-Image scripts and build an image using a Dockerfile, create a Dockerfile with this content:
 ```
