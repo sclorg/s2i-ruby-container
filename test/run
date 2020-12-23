@@ -18,7 +18,6 @@ test_short_summary=''
 TESTSUITE_RESULT=0
 
 TEST_LIST="\
-test_base_scl_usage
 test_docker_run_usage
 test_application
 test_connection
@@ -93,6 +92,9 @@ wait_for_cid() {
     attempt=$(( $attempt + 1 ))
     sleep $sleep_time
   done
+  if [ $attempt -gt $max_attempts ]; then
+    return 1
+  fi
 }
 
 test_s2i_usage() {
@@ -118,6 +120,7 @@ test_connection() {
     status=$?
     if [ $status -eq 0 ]; then
       if [ $response_code -eq 200 ]; then
+	echo "SUCCESS, container returned 200"
         result=0
       fi
       break
@@ -156,11 +159,6 @@ function test_scl_usage() {
   check_result "$?"
 }
 
-function test_base_scl_usage() {
-  scl_usage
-  check_result "$?"
-}
-
 function test_npm_functionality() {
   info "Testing npm availibility"
   ct_npm_works
@@ -173,6 +171,7 @@ function run_all_tests() {
     info "Running test $test_case ... "
     TESTCASE_RESULT=0
     $test_case
+    check_result $?
     local test_msg
     if [ $TESTCASE_RESULT -eq 0 ]; then
       test_msg="[PASSED]"
@@ -196,6 +195,7 @@ function test_application() {
 
   # Wait for the container to write it's CID file
   wait_for_cid
+  check_result $?
 }
 
 function test_scl_variables_in_dockerfile() {
