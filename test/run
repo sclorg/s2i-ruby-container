@@ -229,7 +229,7 @@ function test_from_dockerfile() {
   info "Check building using a $dockerfile"
   ct_test_app_dockerfile $rootdir/examples/from-dockerfile/$dockerfile 'https://github.com/sclorg/rails-ex.git' 'Welcome to your Rails application on OpenShift' app-src
   check_result $?
-  handle_test_case_result "test_from_dockerfile for %s" "${dockerfil}"
+  handle_test_case_result "test_from_dockerfile for %s" "${dockerfile}"
 }
 
 pushd ${test_dir}
