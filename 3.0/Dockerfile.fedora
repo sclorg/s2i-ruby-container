@@ -1,4 +1,4 @@
-FROM registry.fedoraproject.org/f33/s2i-base
+FROM registry.fedoraproject.org/f34/s2i-base
 
 # This image provides a Ruby environment you can use to run your Ruby
 # applications.
@@ -6,8 +6,8 @@ FROM registry.fedoraproject.org/f33/s2i-base
 EXPOSE 8080
 
 ENV NAME=ruby \
-    RUBY_VERSION=2.7 \
-    RUBY_SHORT_VER=27 \
+    RUBY_VERSION=3.0 \
+    RUBY_SHORT_VER=30 \
     VERSION=0
 
 ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
