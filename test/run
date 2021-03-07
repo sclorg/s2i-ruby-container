@@ -239,9 +239,6 @@ fi
 git clone git://github.com/openshift/ruby-hello-world db-test-app
 popd
 
-test_from_dockerfile
-test_from_dockerfile ".s2i"
-
 for server in ${WEB_SERVERS[@]}; do
   cid_file=$(mktemp -u --suffix=.cid)
 
@@ -258,6 +255,9 @@ for server in ${WEB_SERVERS[@]}; do
 
   cleanup "${server}"
 done
+
+test_from_dockerfile
+test_from_dockerfile ".s2i"
 
 echo "$test_short_summary"
 
