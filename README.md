@@ -3,8 +3,6 @@ Ruby container images
 
 [![Build Status](https://travis-ci.org/sclorg/s2i-ruby-container.svg?branch=master)](https://travis-ci.org/sclorg/s2i-ruby-container)
 
-ruby-25-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-25-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-25-centos7)
-
 ruby-26-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-26-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-26-centos7)
 
 ruby-27-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-27-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-27-centos7)
@@ -28,6 +26,7 @@ Ruby versions currently provided are:
 
 RHEL versions currently supported are:
 * RHEL7
+* RHEL8
 
 CentOS versions currently supported are:
 * CentOS7

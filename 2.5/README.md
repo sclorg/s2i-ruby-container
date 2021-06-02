@@ -1,10 +1,8 @@
 Ruby 2.5 container image
 ========================
 This container image includes Ruby 2.5 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.5 applications.
-Users can choose between RHEL, CentOS and Fedora based builder images.
-The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/),
-the CentOS images are available on [Quay.io](https://quay.io/organization/centos7),
-and the Fedora images are available in [Fedora Registry](https://registry.fedoraproject.org/).
+Only RHEL8 based builder image is available.
+The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/).
 The resulting image can be run using [podman](https://github.com/containers/libpod).
 
 Note: while the examples in this README are calling `podman`, you can replace any such calls by `docker` with the same arguments
@@ -18,7 +16,7 @@ Ruby is the interpreted scripting language for quick and easy object-oriented pr
 It has many features to process text files and to do system management tasks (as in Perl).
 It is simple, straight-forward, and extensible.
 
-This container image includes an npm utility, so users can use it to install JavaScript
+This container image includes a npm utility, so users can use it to install JavaScript
 modules for their web applications. There is no guarantee for any specific npm or nodejs
 version, that is included in the image; those versions can be changed anytime and
 the nodejs itself is included just to make the npm work.
