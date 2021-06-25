@@ -6,6 +6,8 @@ The RHEL images are available in the [Red Hat Container Catalog](https://access.
 The resulting image can be run using [podman](https://github.com/containers/libpod).
 
 Note: while the examples in this README are calling `podman`, you can replace any such calls by `docker` with the same arguments
+Note: While the examples in this README are using UBI8-based images (eg. ubi8/ruby-25), you can substitute any of the ubi8 images
+for any other version of the same image (RHSCL, UBI7, Centos7 or Fedora), if it exists.
 
 Description
 -----------
