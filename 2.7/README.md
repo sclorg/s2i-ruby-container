@@ -160,6 +160,10 @@ file inside your source code repository.
 
     Set this variable to use a custom RubyGems mirror URL to download required gem packages during build process.
 
+* **BUNDLER_VERSION**
+
+    Variable that allows a specific bundler version to be installed, e.g. `2.x.x`.
+
 Hot deploy
 ----------
 In order to dynamically pick up changes made in your application source code, you need to make following steps:
