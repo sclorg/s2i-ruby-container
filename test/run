@@ -223,11 +223,10 @@ function test_scl_variables_in_dockerfile() {
 }
 
 function test_from_dockerfile() {
-  rootdir=$(readlink -zf ${image_dir}/..)
   dockerfile="Dockerfile${1:-}"
   TESTCASE_RESULT=0
   info "Check building using a $dockerfile"
-  ct_test_app_dockerfile $rootdir/examples/from-dockerfile/$dockerfile 'https://github.com/sclorg/rails-ex.git' 'Welcome to your Rails application on OpenShift' app-src
+  ct_test_app_dockerfile $test_dir/examples/from-dockerfile/$dockerfile 'https://github.com/sclorg/rails-ex.git' 'Welcome to your Rails application on OpenShift' app-src
   check_result $?
   handle_test_case_result "test_from_dockerfile for %s" "${dockerfile}"
 }
