@@ -1,4 +1,4 @@
-name: RHEL8-tests@TF
+name: RHEL7-OpenShift4-tests@TF
 
 on:
   issue_comment:
@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     # This job only runs for '[test]' pull request comments by owner, member
-    name: Schedule test on Testing Farm service for RHEL8
+    name: Schedule test on Testing Farm service for RHEL7
     runs-on: ubuntu-20.04
     if: |
       github.event.issue.pull_request
@@ -42,7 +42,7 @@ jobs:
           {
             "sha": "${{steps.sha.outputs.SHA}}",
             "state": "pending",
-            "context": "Testing Farm - RHEL8",
+            "context": "Testing Farm - RHEL7 - OpenShift 4",
             "target_url": "http://artifacts.dev.testing-farm.io/${{ steps.sched_test.outputs.req_id }}/pipeline.log"
           }
           EOF
@@ -52,7 +52,7 @@ jobs:
             --data @pending.json
           echo "::set-output name=GITHUB_REPOSITORY::$GITHUB_REPOSITORY"
 
-      - name: Schedule a test on Testing Farm for RHEL 8
+      - name: Schedule a test on Testing Farm
         id: sched_test
         run: |
           apt update && apt -y install curl jq
@@ -62,17 +62,17 @@ jobs:
             "test": {"fmf": {
               "url": "https://gitlab.cee.redhat.com/platform-eng-core-services/sclorg-tmt-plans",
               "ref": "main",
-              "name": "rhel8"
+              "name": "rhel7"
             }},
             "environments": [{
               "arch": "x86_64",
-              "os": {"compose": "RHEL-8.3.1-Released"},
+              "os": {"compose": "RHEL-7.9-Released"},
               "variables": {
                 "REPO_URL": "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY",
                 "REPO_NAME": "$GITHUB_REPOSITORY",
                 "PR_NUMBER": "${{ steps.pr_nr.outputs.PR_NR }}",
-                "OS": "rhel8",
-                "TEST_NAME": "test"
+                "OS": "rhel7",
+                "TEST_NAME": "test-openshift-4"
               }
             }]
           }
@@ -89,8 +89,8 @@ jobs:
 #        with:
 #          issue-number: ${{ steps.pr_nr.outputs.PR_NR }}
 #          body: |
-#            Testing Farm - RHEL8 [request](${{ secrets.TF_ENDPOINT }}/requests/${{ steps.sched_test.outputs.req_id }})
-#            for RHEL8 test was created. Once finished, results should be available [here](http://artifacts.dev.testing-farm.io/${{ steps.sched_test.outputs.req_id }}/)
+#            Testing Farm - RHEL7 [request](${{ secrets.TF_ENDPOINT }}/requests/${{ steps.sched_test.outputs.req_id }})
+#            for RHEL7 test was created. Once finished, results should be available [here](http://artifacts.dev.testing-farm.io/${{ steps.sched_test.outputs.req_id }}/)
 #            [Full pipeline log](http://artifacts.dev.testing-farm.io/${{ steps.sched_test.outputs.req_id }}/pipeline.log)
 
   running:
@@ -116,7 +116,7 @@ jobs:
           {
             "sha": "${{needs.build.outputs.SHA}}",
             "state": "pending",
-            "context": "Testing Farm - RHEL8",
+            "context": "Testing Farm - RHEL7 - OpenShift 4",
             "description": "Build started",
             "target_url": "http://artifacts.dev.testing-farm.io/${{ needs.build.outputs.REQ_ID }}/"
           }
@@ -178,7 +178,7 @@ jobs:
           {
             "sha": "${{needs.running.outputs.SHA}}",
             "state": "${{steps.final_state.outputs.FINAL_STATE}}",
-            "context": "Testing Farm - RHEL8",
+            "context": "Testing Farm - RHEL7 - OpenShift 4",
             "description": "Build finished${{steps.final_state.outputs.INFRA_STATE}}",
             "target_url": "http://artifacts.dev.testing-farm.io/${{ needs.running.outputs.REQ_ID }}/"
           }
