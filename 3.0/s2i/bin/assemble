@@ -32,7 +32,7 @@ echo "---> Building your Ruby application from source ..."
 if [ -f Gemfile ]; then
   ADDTL_BUNDLE_ARGS="--retry 2"
   if [ -f Gemfile.lock ]; then
-    ADDTL_BUNDLE_ARGS+=" --deployment"
+    bundle config --local without ${BUNDLE_WITHOUT}
   fi
 
   if [[ "$RAILS_ENV" == "development" || "$RACK_ENV" == "development" ]]; then
@@ -44,11 +44,12 @@ if [ -f Gemfile ]; then
   fi
   
   if [ -n "$BUNDLE_WITHOUT" ]; then
-    ADDTL_BUNDLE_ARGS+=" --without $BUNDLE_WITHOUT"
+    bundle config --local without ${BUNDLE_WITHOUT}
   fi
   
   echo "---> Running 'bundle install ${ADDTL_BUNDLE_ARGS}' ..."
-  bundle install --path ./bundle ${ADDTL_BUNDLE_ARGS}
+  bundle config set --local path './bundle'
+  bundle install ${ADDTL_BUNDLE_ARGS}
 
   echo "---> Cleaning up unused ruby gems ..."
   bundle clean -V
