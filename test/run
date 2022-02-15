@@ -12,8 +12,8 @@ declare -a WEB_SERVERS=(db puma rack)
 #declare -a WEB_SERVERS=(db)
 
 # TODO: Make command compatible for Mac users
-test_dir="$(readlink -zf $(dirname "${BASH_SOURCE[0]}"))"
-image_dir=$(readlink -zf ${test_dir}/..)
+test_dir="$(readlink -f $(dirname "${BASH_SOURCE[0]}"))"
+image_dir=$(readlink -f ${test_dir}/..)
 test_short_summary=''
 TESTSUITE_RESULT=0
 
