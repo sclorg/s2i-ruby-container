@@ -9,7 +9,7 @@ USER 1001
 
 ENV RAILS_ENV=development
 # Install the dependencies
-RUN /usr/libexec/s2i/assemble
+RUN bash -c "/tmp/src/.s2i/bin/assemble || /usr/libexec/s2i/assemble"
 
 # Set the default command for the resulting image
 CMD /usr/libexec/s2i/run
