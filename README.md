@@ -3,8 +3,6 @@ Ruby container images
 
 [![Build Status](https://travis-ci.org/sclorg/s2i-ruby-container.svg?branch=master)](https://travis-ci.org/sclorg/s2i-ruby-container)
 
-ruby-26-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-26-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-26-centos7)
-
 ruby-27-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-27-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-27-centos7)
 
 ruby-30-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-30-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-30-centos7)
@@ -23,7 +21,6 @@ Versions
 ---------------
 Ruby versions currently provided are:
 * [Ruby 2.5](2.5/README.md)
-* [Ruby 2.6](2.6/README.md)
 * [Ruby 2.7](2.7/README.md)
 * [Ruby 3.0](3.0/README.md)
 
@@ -88,9 +85,6 @@ Usage
 
 For information about usage of Dockerfile for Ruby 2.5,
 see [usage documentation](2.5/README.md).
-
-For information about usage of Dockerfile for Ruby 2.6,
-see [usage documentation](2.6/README.md).
 
 For information about usage of Dockerfile for Ruby 2.7,
 see [usage documentation](2.7/README.md).
