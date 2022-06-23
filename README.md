@@ -1,12 +1,14 @@
 Ruby container images
 ==================
 
-[![Build Status](https://travis-ci.org/sclorg/s2i-ruby-container.svg?branch=master)](https://travis-ci.org/sclorg/s2i-ruby-container)
+[![Build and push images to Quay.io registry](https://github.com/sclorg/s2i-ruby-container/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/sclorg/s2i-ruby-container/actions/workflows/build-and-push.yml)
 
-ruby-27-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-27-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-27-centos7)
-
-ruby-30-container status: [![Docker Repository on Quay](https://quay.io/repository/centos7/ruby-30-centos7/status "Docker Repository on Quay")](https://quay.io/repository/centos7/ruby-30-centos7)
-
+Images available on Quay are:
+* CentOS 7 [ruby-25](https://quay.io/repository/centos7/ruby-25-centos7)
+* CentOS 7 [ruby-26](https://quay.io/repository/centos7/ruby-26-centos7)
+* CentOS 7 [ruby-27](https://quay.io/repository/centos7/ruby-27-centos7)
+* CentOS 7 [ruby-30](https://quay.io/repository/centos7/ruby-30-centos7)
+* Fedora [ruby-30](https://quay.io/repository/fedora/ruby-30)
 
 This repository contains the source for building various versions of
 the Ruby application as a reproducible container image using
@@ -27,9 +29,11 @@ Ruby versions currently provided are:
 RHEL versions currently supported are:
 * RHEL7
 * RHEL8
+* RHEL9
 
 CentOS versions currently supported are:
 * CentOS7
+* CentOS Stream 9
 
 A Ruby 1.9 image can be built from [this third party repository](https://github.com/getupcloud/s2i-ruby/).
 It is not maintained by Red Hat nor is part of the OpenShift project.
