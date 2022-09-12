@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [ "2.5", "2.7", "3.0"]
+        version: [ "2.5", "2.7", "3.0", "3.1" ]
         os_test: [ "fedora", "centos7", "rhel7", "rhel8", "rhel9", "c9s"]
         include:
           - tmt_plan: "fedora"
