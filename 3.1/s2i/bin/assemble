@@ -1,0 +1,84 @@
+#!/bin/bash
+
+function rake_assets_precompile() {
+  [[ "$DISABLE_ASSET_COMPILATION" == "true" ]] && return
+  [ ! -f Gemfile ] && return
+  [ ! -f Rakefile ] && return
+  ! grep " rake " Gemfile.lock >/dev/null && return
+  ! bundle exec 'rake -T' | grep "assets:precompile" >/dev/null && return
+
+  echo "---> Starting asset compilation ..."
+  bundle exec "rake assets:precompile"
+}
+
+set -e
+
+export RACK_ENV=${RACK_ENV:-"production"}
+
+if [ -n "$RUBYGEM_MIRROR" ]; then
+  bundle config mirror.https://rubygems.org $RUBYGEM_MIRROR
+fi
+
+shopt -s dotglob
+echo "---> Installing application source ..."
+mv /tmp/src/* ./
+
+# Change the npm registry mirror if provided
+if [ -n "$NPM_MIRROR" ]; then
+	npm config set registry $NPM_MIRROR
+fi
+
+echo "---> Building your Ruby application from source ..."
+if [ -f Gemfile ]; then
+  ADDTL_BUNDLE_ARGS="--retry 2"
+  if [ -f Gemfile.lock ]; then
+    # This is new in version 3.0
+    # [DEPRECATED] The `--deployment` flag is deprecated because it relies
+    # on being remembered across bundler invocations,
+    # which bundler will no longer do in future versions.
+    # Instead please use `bundle config set --local deployment 'true'`,
+    # and stop using this flag
+    bundle config set --local deployment "true"
+  fi
+
+  if [[ "$RAILS_ENV" == "development" || "$RACK_ENV" == "development" ]]; then
+    BUNDLE_WITHOUT=${BUNDLE_WITHOUT:-"test"}
+  elif [[ "$RAILS_ENV" == "test" || "$RACK_ENV" == "test" ]]; then
+    BUNDLE_WITHOUT=${BUNDLE_WITHOUT:-"development"}
+  else
+    BUNDLE_WITHOUT=${BUNDLE_WITHOUT:-"development:test"}
+  fi
+  
+  if [ -n "$BUNDLE_WITHOUT" ]; then
+    # [DEPRECATED] The `--without` flag is deprecated because
+    # it relies on being remembered across bundler invocations,
+    # which bundler will no longer do in future versions.
+    # Instead please use `bundle config set --local without ''test''`,
+    # and stop using this flag
+    bundle config set --local without "$BUNDLE_WITHOUT"
+  fi
+  
+  echo "---> Running 'bundle install ${ADDTL_BUNDLE_ARGS}' ..."
+  # [DEPRECATED] The `--path` flag is deprecated because
+  # it relies on being remembered across bundler invocations,
+  # which bundler will no longer do in future versions.
+  # Instead please use `bundle config set --local path './bundle'`,
+  # and stop using this flag
+  bundle config set --local path "./bundle"
+  bundle install ${ADDTL_BUNDLE_ARGS}
+
+  echo "---> Cleaning up unused ruby gems ..."
+  bundle clean --verbose
+fi
+
+if ! bundle exec rackup -h &>/dev/null; then
+  echo "WARNING: Rubygem Rack is not installed in the present image."
+  echo "         Add rack to your Gemfile in order to start the web server."
+fi
+
+if [[ "$RAILS_ENV" == "production" || "$RACK_ENV" == "production" ]]; then
+  rake_assets_precompile
+fi
+
+# Fix source directory permissions
+fix-permissions ./
