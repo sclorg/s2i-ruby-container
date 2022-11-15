@@ -44,6 +44,7 @@ RUN INSTALL_PKGS=" \
     " && \
     yum install -y --setopt=tsflags=nodocs ${INSTALL_PKGS} && \
     yum -y clean all --enablerepo='*' && \
+    ruby -v | grep -qe "^ruby $RUBY_VERSION\." && echo "Found VERSION $RUBY_VERSION" && \
     rpm -V ${INSTALL_PKGS}
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH

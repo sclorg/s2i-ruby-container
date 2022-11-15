@@ -33,6 +33,7 @@ LABEL summary="$SUMMARY" \
 RUN INSTALL_PKGS="ruby ruby-devel rubygem-bundler ruby-bundled-gems rubygem-rake rubygems-devel redhat-rpm-config libffi-devel" && \
     dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
+    ruby -v | grep -qe "^ruby $RUBY_VERSION\." && echo "Found VERSION $RUBY_VERSION" && \
     dnf clean all
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
