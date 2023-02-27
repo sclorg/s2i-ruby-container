@@ -68,7 +68,7 @@ test_s2i_usage() {
 
 test_docker_run_usage() {
   info "Testing 'docker run' usage"
-  docker run ${IMAGE_NAME} &>/dev/null
+  docker run --rm ${IMAGE_NAME} &>/dev/null
   ct_check_testcase_result "$?"
 }
 
