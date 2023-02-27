@@ -24,7 +24,6 @@ test_scl_usage
 test_npm_functionality
 "
 source "${test_dir}/test-lib.sh"
-trap "ct_cleanup;_cleanup" EXIT SIGINT
 
 # Read exposed port from image meta data
 test_port="$(docker inspect --format='{{range $key, $value := .Config.ExposedPorts }}{{$key}}{{end}}' ${IMAGE_NAME} | sed 's/\/.*//')"
@@ -51,21 +50,6 @@ run_s2i_build() {
 
 run_test_application() {
   docker run --user=100001 --rm --cidfile=${cid_file} ${IMAGE_NAME}-testapp
-}
-
-_cleanup() {
-  info "Cleaning up the test application image $1"
-  if image_exists ${IMAGE_NAME}-testapp; then
-    docker rmi -f ${IMAGE_NAME}-testapp
-  fi
-  for server in ${WEB_SERVERS[*]}; do
-    if [ ! -z "${server}" ]; then
-      rm -rf ${test_dir}/${server}-test-app/.git
-    fi
-  done
-  if [[ "${server}" == "db" ]]; then
-    rm -rf ${test_dir}/db-test-app
-  fi
 }
 
 check_result() {
@@ -177,6 +161,17 @@ function test_from_dockerfile_s2i() {
   test_from_dockerfile ".s2i"
 }
 
+app_cleanup() {
+  for server in ${WEB_SERVERS[*]}; do
+    if [ ! -z "${server}" ]; then
+      rm -rf ${test_dir}/${server}-test-app/.git
+    fi
+  done
+  if [[ "${server}" == "db" ]]; then
+    rm -rf ${test_dir}/db-test-app
+  fi
+}
+
 pushd ${test_dir}
 if [ -d db-test-app ]; then
   rm -rf db-test-app
@@ -184,8 +179,8 @@ fi
 git clone https://github.com/openshift/ruby-hello-world.git db-test-app
 popd
 
-TEST_SUMMARY=''
-CID_FILE_DIR=$(mktemp -d)
+ct_init
+
 for server in ${WEB_SERVERS[@]}; do
   cid_file=$CID_FILE_DIR/$(mktemp -u -p . --suffix=.cid)
   # Since we built the candidate image locally, we don't want S2I attempt to pull
@@ -200,3 +195,5 @@ done
 
 TEST_LIST="test_from_dockerfile test_from_dockerfile_s2i"
 TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "from_dockerfile"
+
+app_cleanup
