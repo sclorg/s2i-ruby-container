@@ -52,7 +52,7 @@ run_test_application() {
   docker run --user=100001 --rm --cidfile=${cid_file} ${IMAGE_NAME}-testapp
 }
 
-check_result() {
+ct_check_testcase_result() {
   local result="$1"
   if [[ "$result" != "0" ]]; then
     TESTCASE_RESULT=1
@@ -63,13 +63,13 @@ check_result() {
 test_s2i_usage() {
   info "Testing 's2i usage'"
   ct_s2i_usage ${IMAGE_NAME} ${s2i_args} &>/dev/null
-  check_result "$?"
+  ct_check_testcase_result "$?"
 }
 
 test_docker_run_usage() {
   info "Testing 'docker run' usage"
   docker run ${IMAGE_NAME} &>/dev/null
-  check_result "$?"
+  ct_check_testcase_result "$?"
 }
 
 test_connection() {
@@ -119,13 +119,13 @@ scl_usage() {
 
 function test_scl_usage() {
   scl_usage "ruby --version" "ruby ${RUBY_VERSION}."
-  check_result "$?"
+  ct_check_testcase_result "$?"
 }
 
 function test_npm_functionality() {
   info "Testing npm availibility"
   ct_npm_works
-  check_result "$?"
+  ct_check_testcase_result "$?"
 }
 
 function test_application() {
@@ -134,18 +134,18 @@ function test_application() {
 
   # Wait for the container to write it's CID file
   ct_wait_for_cid "${cid_file}"
-  check_result $?
+  ct_check_testcase_result $?
 }
 
 function test_scl_variables_in_dockerfile() {
   if [ "$OS" == "rhel7" ] || [ "$OS" == "centos7" ]; then
     info "Testing variable presence during \`docker exec\`"
     ct_check_exec_env_vars
-    check_result $?
+    ct_check_testcase_result $?
 
     info "Checking if all scl variables are defined in Dockerfile"
     ct_check_scl_enable_vars
-    check_result $?
+    ct_check_testcase_result $?
  fi
 }
 
@@ -154,7 +154,7 @@ function test_from_dockerfile() {
   TESTCASE_RESULT=0
   info "Check building using a $dockerfile"
   ct_test_app_dockerfile $test_dir/examples/from-dockerfile/$dockerfile 'https://github.com/sclorg/rails-ex.git' 'Welcome to your Rails application on OpenShift' app-src
-  check_result $?
+  ct_check_testcase_result $?
 }
 
 function test_from_dockerfile_s2i() {
@@ -188,7 +188,7 @@ for server in ${WEB_SERVERS[@]}; do
   s2i_args="--pull-policy=never"
 
   run_s2i_build "${server}"
-  check_result $?
+  ct_check_testcase_result $?
 
   TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "$server"
 done
