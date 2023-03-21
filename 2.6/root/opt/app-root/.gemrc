@@ -1,9 +1,0 @@
----
-install: --no-document
-update: --no-document
-:benchmark: false
-:update_sources: true
-:bulk_threshold: 1000
-:backtrace: true
-:sources:
-- https://rubygems.org/
