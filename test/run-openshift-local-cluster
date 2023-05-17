@@ -33,7 +33,6 @@ PUBLIC_IMAGE_NAME=${PUBLIC_IMAGE_NAME:-$(ct_get_public_image_name "${OS}" "${BAS
 
 # Try pulling the image first to see if it is accessible
 if docker pull "${PUBLIC_IMAGE_NAME}"; then
-  export CT_SKIP_UPLOAD_IMAGE=true
   test_ruby_integration "${PUBLIC_IMAGE_NAME}"
 else
   echo "Warning: ${PUBLIC_IMAGE_NAME} could not be downloaded via 'docker'"
