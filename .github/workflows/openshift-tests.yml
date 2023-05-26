@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: [ "2.5", "2.7", "3.0", "3.1" ]
+        version: [ "2.5", "3.0", "3.1" ]
         os_test: [ "centos7", "rhel7", "rhel8", "rhel9"]
         test_case: [ "openshift-3", "openshift-4" ]
         exclude:
