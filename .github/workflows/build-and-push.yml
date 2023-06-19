@@ -14,50 +14,51 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile_path: "2.6"
-            dockerfile: "Dockerfile"
+          - dockerfile: "2.6/Dockerfile"
             registry_namespace: "centos7"
             tag: "centos7"
-            suffix: "centos7"
+            image_name: "ruby-26-centos7"
+            docker_context: "2.6"
             quayio_username: "QUAY_IMAGE_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_BUILDER_TOKEN"
-          - dockerfile_path: "2.7"
-            dockerfile: "Dockerfile"
+          - dockerfile: "2.7/Dockerfile"
             registry_namespace: "centos7"
             tag: "centos7"
-            suffix: "centos7"
+            image_name: "ruby-27-centos7"
+            docker_context: "2.7"
             quayio_username: "QUAY_IMAGE_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_BUILDER_TOKEN"
-          - dockerfile_path: "3.0"
-            dockerfile: "Dockerfile"
+          - dockerfile: "3.0/Dockerfile"
             registry_namespace: "centos7"
             tag: "centos7"
-            suffix: "centos7"
+            image_name: "ruby-30-centos7"
+            docker_context: "3.0"
             quayio_username: "QUAY_IMAGE_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_BUILDER_TOKEN"
-          - dockerfile_path: "3.0"
-            dockerfile: "Dockerfile.fedora"
+          - dockerfile: "3.0/Dockerfile.fedora"
             registry_namespace: "fedora"
             tag: "3.0"
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
-          - dockerfile_path: "3.1"
-            dockerfile: "Dockerfile.fedora"
+            image_name: "ruby-30"
+            docker_context: "3.0"
+          - dockerfile: "3.1/Dockerfile.fedora"
             registry_namespace: "fedora"
             tag: "3.1"
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
+            image_name: "ruby-31"
+            docker_context: "3.1"
 
     steps:
       - name: Build and push to quay.io registry
-        uses: sclorg/build-and-push-action@v2
+        uses: sclorg/build-and-push-action@v4
         with:
           registry: "quay.io"
           registry_namespace: ${{ matrix.registry_namespace }}
           registry_username: ${{ secrets[matrix.quayio_username] }}
           registry_token: ${{ secrets[matrix.quayio_token] }}
           dockerfile: ${{ matrix.dockerfile }}
-          docker_context: ${{ matrix.dockerfile_path }}
-          dockerfile_path: ${{ matrix.dockerfile_path }}
+          docker_context: ${{ matrix.docker_context }}
           tag: ${{ matrix.tag }}
-          suffix: ${{ matrix.suffix }}
+          image_name: ${{ matrix.image_name }}
