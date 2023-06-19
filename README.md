@@ -5,7 +5,6 @@ Ruby container images
 
 Images available on Quay are:
 * CentOS 7 [ruby-25](https://quay.io/repository/centos7/ruby-25-centos7)
-* CentOS 7 [ruby-26](https://quay.io/repository/centos7/ruby-26-centos7)
 * CentOS 7 [ruby-27](https://quay.io/repository/centos7/ruby-27-centos7)
 * CentOS 7 [ruby-30](https://quay.io/repository/centos7/ruby-30-centos7)
 * Fedora [ruby-30](https://quay.io/repository/fedora/ruby-30)

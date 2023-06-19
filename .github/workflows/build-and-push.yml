@@ -14,13 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: "2.6/Dockerfile"
-            registry_namespace: "centos7"
-            tag: "centos7"
-            image_name: "ruby-26-centos7"
-            docker_context: "2.6"
-            quayio_username: "QUAY_IMAGE_BUILDER_USERNAME"
-            quayio_token: "QUAY_IMAGE_BUILDER_TOKEN"
           - dockerfile: "2.7/Dockerfile"
             registry_namespace: "centos7"
             tag: "centos7"
