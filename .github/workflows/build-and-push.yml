@@ -14,13 +14,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: "2.7/Dockerfile"
-            registry_namespace: "centos7"
-            tag: "centos7"
-            image_name: "ruby-27-centos7"
-            docker_context: "2.7"
-            quayio_username: "QUAY_IMAGE_BUILDER_USERNAME"
-            quayio_token: "QUAY_IMAGE_BUILDER_TOKEN"
           - dockerfile: "3.0/Dockerfile"
             registry_namespace: "centos7"
             tag: "centos7"
@@ -28,7 +21,7 @@ jobs:
             docker_context: "3.0"
             quayio_username: "QUAY_IMAGE_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_BUILDER_TOKEN"
-          - dockerfile: "3.0/Dockerfile.fedora"
+          - dockerfile: "Dockerfile.fedora"
             registry_namespace: "fedora"
             tag: "3.0"
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
