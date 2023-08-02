@@ -21,7 +21,7 @@ jobs:
             docker_context: "3.0"
             quayio_username: "QUAY_IMAGE_BUILDER_USERNAME"
             quayio_token: "QUAY_IMAGE_BUILDER_TOKEN"
-          - dockerfile: "Dockerfile.fedora"
+          - dockerfile: "3.0/Dockerfile.fedora"
             registry_namespace: "fedora"
             tag: "3.0"
             quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
