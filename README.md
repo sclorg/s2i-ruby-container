@@ -5,7 +5,6 @@ Ruby container images
 
 Images available on Quay are:
 * CentOS 7 [ruby-25](https://quay.io/repository/centos7/ruby-25-centos7)
-* CentOS 7 [ruby-27](https://quay.io/repository/centos7/ruby-27-centos7)
 * CentOS 7 [ruby-30](https://quay.io/repository/centos7/ruby-30-centos7)
 * Fedora [ruby-30](https://quay.io/repository/fedora/ruby-30)
 * Fedora [ruby-31](https://quay.io/repository/fedora/ruby-31)
@@ -23,7 +22,6 @@ Versions
 ---------------
 Ruby versions currently provided are:
 * [Ruby 2.5](2.5/README.md)
-* [Ruby 2.7](2.7/README.md)
 * [Ruby 3.0](3.0/README.md)
 * [Ruby 3.1](3.1/README.md)
 
@@ -90,9 +88,6 @@ Usage
 
 For information about usage of Dockerfile for Ruby 2.5,
 see [usage documentation](2.5/README.md).
-
-For information about usage of Dockerfile for Ruby 2.7,
-see [usage documentation](2.7/README.md).
 
 For information about usage of Dockerfile for Ruby 3.0,
 see [usage documentation](3.0/README.md).
