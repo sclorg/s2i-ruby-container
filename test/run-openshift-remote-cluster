@@ -16,6 +16,7 @@ source "${THISDIR}/test-lib-remote-openshift.sh"
 TEST_LIST="\
 test_ruby_integration
 test_ruby_imagestream
+test_latest_imagestreams
 "
 
 trap ct_os_cleanup EXIT SIGINT
