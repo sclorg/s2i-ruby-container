@@ -112,7 +112,7 @@
             "from": {
               "kind": "ImageStreamTag",
               "namespace": "${NAMESPACE}",
-              "name": "ruby:2.5"
+              "name": "ruby:3.0-ubi8"
             },
             "env": [
               {
