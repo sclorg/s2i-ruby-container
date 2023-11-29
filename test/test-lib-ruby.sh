@@ -27,6 +27,23 @@ function test_ruby_imagestream() {
                               ".*"
 }
 
+#function test_ruby_s2i_rails_app() {
+#  ct_os_test_s2i_app "${IMAGE_NAME}" \
+#                    "https://github.com/phracek/rails-ex#bump_template_to_30" \
+#                    . \
+#                    'Welcome to your Dancer application on OpenShift'
+#}
+
+
+function test_ruby_s2i_templates() {
+  # TODO: this was not working because the referenced example dir was added as part of this commit
+  ct_os_test_template_app "${IMAGE_NAME}" \
+                        "${THISDIR}/rails-postgresql.json" \
+                        ruby \
+                        "Everything is OK" \
+                        8080 http 200 \
+                        "-p SOURCE_REPOSITORY_REF=master -p VERSION=${VERSION} -p NAME=rails-postgresql-example"
+}
 
 function test_latest_imagestreams() {
   local result=1

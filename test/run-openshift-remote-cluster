@@ -16,6 +16,7 @@ source "${THISDIR}/test-lib-remote-openshift.sh"
 TEST_LIST="\
 test_ruby_integration
 test_ruby_imagestream
+test_ruby_s2i_templates
 test_latest_imagestreams
 "
 
