@@ -45,22 +45,33 @@ function test_ruby_imagestream() {
                               ".*"
 }
 
-#function test_ruby_s2i_rails_app() {
-#  ct_os_test_s2i_app "${IMAGE_NAME}" \
-#                    "https://github.com/phracek/rails-ex#bump_template_to_30" \
-#                    . \
-#                    'Welcome to your Dancer application on OpenShift'
-#}
+function test_ruby_s2i_rails_app() {
+  ct_os_test_s2i_app "${IMAGE_NAME}" \
+                    "https://github.com/phracek/rails-ex#master" \
+                    . \
+                    'Welcome to your Rails application'
+}
 
 
 function test_ruby_s2i_templates() {
   # TODO: this was not working because the referenced example dir was added as part of this commit
   ct_os_test_template_app "${IMAGE_NAME}" \
-                        "https://raw.githubusercontent.com/phracek/rails-ex/migrate_deployment/openshift/templates/rails-postgresql.json" \
-                        ruby \
-                        "Everything is OK" \
+                        "https://raw.githubusercontent.com/sclorg/rails-ex/openshift/templates/rails.json" \
+                        "ruby" \
+                        "Welcome to your Rails application" \
                         8080 http 200 \
-                        "-p SOURCE_REPOSITORY_REF=master -p RUBY_VERSION=${VERSION} -p NAME=rails-postgresql-example" \
+                        "-p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p NAME=ruby-testing" \
+                        "quay.io/sclorg/postgresql-12-c8s|postgresql:12-el8"
+}
+
+function test_ruby_s2i_local_templates() {
+  # TODO: this was not working because the referenced example dir was added as part of this commit
+  ct_os_test_template_app "${IMAGE_NAME}" \
+                        "${THISDIR}/examples/rails.json" \
+                        "ruby" \
+                        "Welcome to your Rails application" \
+                        8080 http 200 \
+                        "-p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p NAME=ruby-testing" \
                         "quay.io/sclorg/postgresql-12-c8s|postgresql:12-el8"
 }
 
