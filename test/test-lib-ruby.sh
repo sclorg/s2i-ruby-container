@@ -56,7 +56,7 @@ function test_ruby_s2i_rails_app() {
 function test_ruby_s2i_templates() {
   # TODO: this was not working because the referenced example dir was added as part of this commit
   ct_os_test_template_app "${IMAGE_NAME}" \
-                        "https://raw.githubusercontent.com/sclorg/rails-ex/openshift/templates/rails.json" \
+                        "https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails.json" \
                         "ruby" \
                         "Welcome to your Rails application" \
                         8080 http 200 \
