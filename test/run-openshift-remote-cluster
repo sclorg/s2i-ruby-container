@@ -13,9 +13,13 @@ THISDIR=$(dirname ${BASH_SOURCE[0]})
 source "${THISDIR}/test-lib-ruby.sh"
 source "${THISDIR}/test-lib-remote-openshift.sh"
 
+
 TEST_LIST="\
 test_ruby_integration
 test_ruby_imagestream
+test_ruby_s2i_rails_app
+test_ruby_s2i_templates
+test_ruby_s2i_local_templates
 test_latest_imagestreams
 "
 
@@ -28,6 +32,8 @@ ct_os_check_compulsory_vars || exit $OC_ERR
 ct_os_check_login || exit $OC_ERR
 
 ct_os_tag_image_for_cvp "ruby"
+
+ct_pull_or_import_postgresql || exit $OC_ERR
 
 set -u
 
