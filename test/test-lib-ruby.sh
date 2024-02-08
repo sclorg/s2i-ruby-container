@@ -47,13 +47,13 @@ function test_ruby_imagestream() {
 
 function test_ruby_s2i_rails_app() {
   ct_os_test_s2i_app "${IMAGE_NAME}" \
-                    "https://github.com/phracek/rails-ex#master" \
+                    "https://github.com/sclorg/rails-ex#master" \
                     . \
                     'Welcome to your Rails application'
 }
 
 
-function test_ruby_s2i_templates() {
+function test_ruby_s2i_rails_templates() {
   # TODO: this was not working because the referenced example dir was added as part of this commit
   ct_os_test_template_app "${IMAGE_NAME}" \
                         "https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails.json" \
@@ -64,7 +64,34 @@ function test_ruby_s2i_templates() {
                         "quay.io/sclorg/postgresql-12-c8s|postgresql:12-el8"
 }
 
-function test_ruby_s2i_local_templates() {
+function test_ruby_s2i_rails_persistent_templates() {
+  # TODO: this was not working because the referenced example dir was added as part of this commit
+  ct_os_test_template_app "${IMAGE_NAME}" \
+                        "https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json" \
+                        "ruby" \
+                        "Welcome to your Rails application" \
+                        8080 http 200 \
+                        "-p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p NAME=ruby-testing \
+                         -p DATABASE_USER=testu \
+                         -p DATABASE_PASSWORD=testp" \
+                        "quay.io/sclorg/postgresql-12-c8s|postgresql:12-el8"
+}
+
+
+function test_ruby_s2i_local_persistent_templates() {
+  # TODO: this was not working because the referenced example dir was added as part of this commit
+  ct_os_test_template_app "${IMAGE_NAME}" \
+                        "${THISDIR}/examples/rails-postgresql-persistent.json" \
+                        "ruby" \
+                        "Welcome to your Rails application" \
+                        8080 http 200 \
+                        "-p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p NAME=ruby-testing \
+                         -p DATABASE_USER=testu \
+                         -p DATABASE_PASSWORD=testp" \
+                        "quay.io/sclorg/postgresql-12-c8s|postgresql:12-el8"
+}
+
+function test_ruby_s2i_local_app_templates() {
   # TODO: this was not working because the referenced example dir was added as part of this commit
   ct_os_test_template_app "${IMAGE_NAME}" \
                         "${THISDIR}/examples/rails.json" \
