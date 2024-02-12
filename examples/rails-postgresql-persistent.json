@@ -410,7 +410,7 @@
         "annotations": {
           "description": "Defines how to deploy the database",
           "template.alpha.openshift.io/wait-for-ready": "true",
-          "image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"postgresql:12-el8\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]"
+          "image.openshift.io/triggers": "[{\"from\":{\"kind\":\"ImageStreamTag\",\"name\":\"postgresql:${POSTGRESQL_VERSION}\"},\"fieldPath\": \"spec.template.spec.containers[0].image\"}]"
         }
       },
       "spec": {
@@ -533,6 +533,13 @@
       "description": "Version of Ruby image to be used (3.0-ubi8 by default).",
       "required": true,
       "value": "3.0-ubi8"
+    },
+    {
+      "name": "POSTGRESQL_VERSION",
+      "displayName": "PostgreSQL Version",
+      "description": "Version of PostgreSQL image to be used (10-el8 by default).",
+      "required": true,
+      "value": "12-el8"
     },
     {
       "name": "MEMORY_LIMIT",
