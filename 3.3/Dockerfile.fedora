@@ -1,4 +1,4 @@
-FROM quay.io/fedora/s2i-base:37
+FROM quay.io/fedora/s2i-base:40
 
 # This image provides a Ruby environment you can use to run your Ruby
 # applications.
@@ -6,8 +6,8 @@ FROM quay.io/fedora/s2i-base:37
 EXPOSE 8080
 
 ENV NAME=ruby \
-    RUBY_VERSION=3.1 \
-    RUBY_SHORT_VER=31 \
+    RUBY_VERSION=3.3 \
+    RUBY_SHORT_VER=33 \
     VERSION=0
 
 ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
