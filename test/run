@@ -153,7 +153,23 @@ function test_from_dockerfile() {
   dockerfile="Dockerfile${1:-}"
   TESTCASE_RESULT=0
   info "Check building using a $dockerfile"
-  ct_test_app_dockerfile $test_dir/examples/from-dockerfile/$dockerfile 'https://github.com/sclorg/rails-ex.git' 'Welcome to your Rails application on OpenShift' app-src
+
+  # Ruby 3.3 introduced too many incompatibilities to be able
+  # to use the same Gemfile for RHEL 7 and also newer RHELs.
+  # we can use the same Gemfile for RHEL 7 and newer
+  # as long as Ruby MAJOR.MINOR <= 3.1. Newer Ruby needs dependencies
+  # that are not compatible with RHEL 7.
+  ruby_major=$(echo "$VERSION" | cut -d'.' -f1)
+  ruby_minor=$(echo "$VERSION" | cut -d'.' -f2)
+  # Latest stable
+  rails_example_repo_branch="3.3"
+  if [[ "$ruby_major" -le 3 ]] && [[ "$ruby_minor" -le 1 ]]; then
+    # Ruby 3.1 and prior.
+    rails_example_repo_branch="master"
+  fi
+  rails_example_repo_url="https://github.com/sclorg/rails-ex.git@${rails_example_repo_branch}"
+
+  ct_test_app_dockerfile $test_dir/examples/from-dockerfile/$dockerfile "$rails_example_repo_url" 'Welcome to your Rails application on OpenShift' app-src
   ct_check_testcase_result $?
 }
 
