@@ -29,6 +29,24 @@ function ct_pull_or_import_postgresql() {
   fi
 }
 
+function rails_ex_branch() {
+  # Ruby 3.3 introduced too many incompatibilities to be able
+  # to use the same Gemfile for RHEL 7 and also newer RHELs.
+  # we can use the same Gemfile for RHEL 7 and newer
+  # as long as Ruby MAJOR.MINOR <= 3.1. Newer Ruby needs dependencies
+  # that are not compatible with RHEL 7.
+  ruby_major=$(echo "$VERSION" | cut -d'.' -f1)
+  ruby_minor=$(echo "$VERSION" | cut -d'.' -f2)
+  # Latest stable
+  rails_example_repo_branch="3.3"
+  if [[ "$ruby_major" -le 3 ]] && [[ "$ruby_minor" -le 1 ]]; then
+    # Ruby 3.1 and prior.
+    rails_example_repo_branch="master"
+  fi
+
+  echo "$rails_example_repo_branch"
+}
+
 function test_ruby_integration() {
   ct_os_test_s2i_app "${IMAGE_NAME}" \
                      "https://github.com/sclorg/s2i-ruby-container.git" \
@@ -60,7 +78,7 @@ function test_ruby_s2i_rails_templates() {
                         "ruby" \
                         "Welcome to your Rails application" \
                         8080 http 200 \
-                        "-p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p NAME=ruby-testing" \
+                        "-p SOURCE_REPOSITORY_REF=$(rails_ex_branch) -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p NAME=ruby-testing" \
                         "quay.io/sclorg/postgresql-12-c8s|postgresql:12-el8"
 }
 
@@ -75,7 +93,7 @@ function test_ruby_s2i_rails_persistent_templates() {
                         "ruby" \
                         "Welcome to your Rails application" \
                         8080 http 200 \
-                        "-p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p POSTGRESQL_VERSION=12-el8 -p NAME=ruby-testing \
+                        "-p SOURCE_REPOSITORY_REF=$(rails_ex_branch) -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p POSTGRESQL_VERSION=12-el8 -p NAME=ruby-testing \
                          -p DATABASE_USER=testu \
                          -p DATABASE_PASSWORD=testp" \
                         "quay.io/sclorg/postgresql-12-c8s|postgresql:12-el8"
@@ -93,7 +111,7 @@ function test_ruby_s2i_local_persistent_templates() {
                         "ruby" \
                         "Welcome to your Rails application" \
                         8080 http 200 \
-                        "-p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p POSTGRESQL_VERSION=12-el8 -p NAME=ruby-testing \
+                        "-p SOURCE_REPOSITORY_REF=$(rails_ex_branch) -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p POSTGRESQL_VERSION=12-el8 -p NAME=ruby-testing \
                          -p DATABASE_USER=testu \
                          -p DATABASE_PASSWORD=testp" \
                         "quay.io/sclorg/postgresql-12-c8s|postgresql:12-el8"
@@ -106,7 +124,7 @@ function test_ruby_s2i_local_app_templates() {
                         "ruby" \
                         "Welcome to your Rails application" \
                         8080 http 200 \
-                        "-p SOURCE_REPOSITORY_REF=master -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p NAME=ruby-testing" \
+                        "-p SOURCE_REPOSITORY_REF=$(rails_ex_branch) -p SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex -p RUBY_VERSION=${VERSION} -p NAME=ruby-testing" \
                         "quay.io/sclorg/postgresql-12-c8s|postgresql:12-el8"
 }
 
