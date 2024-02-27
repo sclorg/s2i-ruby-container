@@ -159,11 +159,10 @@ function test_from_dockerfile() {
   # we can use the same Gemfile for RHEL 7 and newer
   # as long as Ruby MAJOR.MINOR <= 3.1. Newer Ruby needs dependencies
   # that are not compatible with RHEL 7.
-  ruby_major=$(echo "$VERSION" | cut -d'.' -f1)
-  ruby_minor=$(echo "$VERSION" | cut -d'.' -f2)
+
   # Latest stable
   rails_example_repo_branch="3.3"
-  if [[ "$ruby_major" -le 3 ]] && [[ "$ruby_minor" -le 1 ]]; then
+  if { echo "$VERSION"; echo "3.1"; } | sort --version-sort --check=quiet; then
     # Ruby 3.1 and prior.
     rails_example_repo_branch="master"
   fi
