@@ -1,4 +1,4 @@
-FROM ubi8/ruby-27
+FROM ubi8/ruby-31
 
 ADD --chown=default:root app-src ./
 
