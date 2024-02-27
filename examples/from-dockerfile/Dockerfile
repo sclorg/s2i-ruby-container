@@ -1,6 +1,6 @@
 FROM ubi8/ruby-27
 
-ADD app-src ./
+ADD --chown=default:root app-src ./
 
 RUN bundle install --path ./bundle
 
