@@ -7,8 +7,7 @@ EXPOSE 8080
 
 ENV NAME=ruby \
     RUBY_VERSION=2.7 \
-    RUBY_SHORT_VER=27 \
-    VERSION=0
+    RUBY_SHORT_VER=27
 
 ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
     DESCRIPTION="Ruby $RUBY_VERSION available as container is a base platform for \
@@ -25,7 +24,7 @@ LABEL summary="$SUMMARY" \
       io.openshift.tags="builder,ruby,ruby${RUBY_SHORT_VER}" \
       com.redhat.component="$NAME" \
       name="$FGC/$NAME" \
-      version="$VERSION" \
+      version=0 \
       usage="s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=${RUBY_VERSION}/test/puma-test-app/ registry.fedoraproject.org/$FGC/ruby ruby-sample-app" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
