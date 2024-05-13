@@ -118,7 +118,7 @@ scl_usage() {
 }
 
 function test_scl_usage() {
-  scl_usage "ruby --version" "ruby ${RUBY_VERSION}."
+  scl_usage "ruby --version" "ruby ${VERSION}."
   ct_check_testcase_result "$?"
 }
 
