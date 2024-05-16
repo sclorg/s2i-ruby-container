@@ -8,7 +8,7 @@ EXPOSE 8080
 ENV NAME=ruby \
     RUBY_VERSION=3.3 \
     RUBY_SHORT_VER=33 \
-    VERSION=0
+    VERSION=
 
 ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
     DESCRIPTION="Ruby $RUBY_VERSION available as container is a base platform for \
