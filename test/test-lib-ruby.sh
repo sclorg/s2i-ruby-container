@@ -64,7 +64,7 @@ function test_ruby_imagestream() {
 
 function test_ruby_s2i_rails_app() {
   ct_os_test_s2i_app "${IMAGE_NAME}" \
-                    "https://github.com/sclorg/rails-ex#master" \
+                    "https://github.com/sclorg/rails-ex#$(rails_ex_branch)" \
                     . \
                     'Welcome to your Rails application'
 }
