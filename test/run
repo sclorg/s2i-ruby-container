@@ -211,7 +211,12 @@ for server in ${WEB_SERVERS[@]}; do
   TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "$server"
 done
 
-TEST_LIST="test_from_dockerfile test_from_dockerfile_s2i"
-TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "from_dockerfile"
+if [ "$OS" != "rhel7" ]; then
+  ## SUPPRESS test for rhel7
+  # Step 2/4 : ADD --chown=default:root app-src ./
+  #Unknown flag: chown
+  TEST_LIST="test_from_dockerfile test_from_dockerfile_s2i"
+  TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "from_dockerfile"
+fi
 
 app_cleanup
