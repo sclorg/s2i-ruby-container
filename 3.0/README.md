@@ -25,7 +25,7 @@ the nodejs itself is included just to make the npm work.
 
 Usage in Openshift
 ------------------
-For this, we will assume that you are using the `ubi8/ruby-30 image`, available via `ruby:3.0` imagestream tag in Openshift.
+For this, we will assume that you are using the `ubi9/ruby-30 image`, available via `ruby:3.0` imagestream tag in Openshift.
 Building a simple [ruby-sample-app](https://github.com/sclorg/s2i-ruby-container/tree/master/3.0/test/puma-test-app) application
 in Openshift can be achieved with the following step:
 
@@ -64,10 +64,10 @@ To use the Ruby image in a Dockerfile, follow these steps:
 #### 1. Pull a base builder image to build on
 
 ```
-podman pull ubi8/ruby-30
+podman pull ubi9/ruby-30
 ```
 
-An RHEL7 image `ubi8/ruby-30` is used in this example.
+An RHEL7 image `ubi9/ruby-30` is used in this example.
 
 #### 2. Pull and application code
 
@@ -89,7 +89,7 @@ For all these three parts, users can use the Source-to-Image scripts inside the 
 
 ##### 3.1 To use the Source-to-Image scripts and build an image using a Dockerfile, create a Dockerfile with this content:
 ```
-FROM ubi8/ruby-30
+FROM ubi9/ruby-30
 
 # Add application sources to a directory that the assemble scriptexpects them
 # and set permissions so that the container runs without root access
@@ -110,7 +110,7 @@ CMD /usr/libexec/s2i/run
 The s2i scripts are used to set-up and run common Ruby applications. More information about the scripts can be found in [Source-to-Image](#source-to-image-framework-and-scripts) section.
 ##### 3.2 To use your own setup, create a Dockerfile with this content:
 ```
-FROM ubi8/ruby-30
+FROM ubi9/ruby-30
 
 USER 0
 ADD app-src ./

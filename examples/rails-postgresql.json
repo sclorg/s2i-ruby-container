@@ -438,9 +438,9 @@
     {
       "name": "RUBY_VERSION",
       "displayName": "Ruby Version",
-      "description": "Version of Ruby image to be used (3.0-ubi8 by default).",
+      "description": "Version of Ruby image to be used (3.0-ubi9 by default).",
       "required": true,
-      "value": "3.0-ubi8"
+      "value": "3.0-ubi9"
     },
     {
       "name": "MEMORY_LIMIT",
