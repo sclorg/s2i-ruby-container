@@ -1,0 +1,39 @@
+name: Build and push container images to Quay.io registry
+on:
+  push:
+    branches:
+      - master
+  schedule:
+      - cron: '0 1 * * 3'
+
+jobs:
+  build-and-push:
+    if: github.repository_owner == 'sclorg'
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - dockerfile: "3.3/Dockerfile.fedora"
+            registry_namespace: "fedora"
+            quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
+            quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
+            tag: "33"
+            docker_context: "3.3"
+            image_name: "ruby-33"
+
+    steps:
+      - name: Build and push to quay.io registry
+        uses: sclorg/build-and-push-action@v4
+        with:
+          registry: "quay.io"
+          registry_namespace: ${{ matrix.registry_namespace }}
+          registry_username: ${{ secrets[matrix.quayio_username] }}
+          registry_token: ${{ secrets[matrix.quayio_token] }}
+          dockerfile: ${{ matrix.dockerfile }}
+          docker_context: ${{ matrix.docker_context }}
+          tag: ${{ matrix.tag }}
+          image_name: ${{ matrix.image_name }}
+          archs: amd64, arm64
+          readme: "${{ matrix.docker_context }}/README.md"
+          quay_application_token: ${{ secrets.QUAY_IMAGE_SCLORG_UPDATE_DESC }}
