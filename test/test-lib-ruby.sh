@@ -82,11 +82,7 @@ function test_ruby_s2i_rails_templates() {
 }
 
 function test_ruby_s2i_rails_persistent_templates() {
-  # TODO: this was not working because the referenced example dir was added as part of this commit
-  if [ "${OS}" == "rhel7" ]; then
-    echo "Skip testing Rails Template with Persistent storage on RHEL7."
-    return 0
-  fi
+
   ct_os_test_template_app "${IMAGE_NAME}" \
                         "https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json" \
                         "ruby" \
@@ -101,10 +97,6 @@ function test_ruby_s2i_rails_persistent_templates() {
 
 function test_ruby_s2i_local_persistent_templates() {
   # TODO: this was not working because the referenced example dir was added as part of this commit
-  if [ "${OS}" == "rhel7" ]; then
-    echo "Skip testing Rails Template with Persistent storage on RHEL7."
-    return 0
-  fi
   ct_os_test_template_app "${IMAGE_NAME}" \
                         "${THISDIR}/examples/rails-postgresql-persistent.json" \
                         "ruby" \
