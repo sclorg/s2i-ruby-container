@@ -22,7 +22,6 @@ TEST_LIST="\
 test_docker_run_usage
 test_application
 test_connection
-test_scl_variables_in_dockerfile
 test_scl_usage
 test_npm_functionality
 "
@@ -140,18 +139,6 @@ function test_application() {
   ct_check_testcase_result $?
 }
 
-function test_scl_variables_in_dockerfile() {
-  if [ "$OS" == "rhel7" ] || [ "$OS" == "centos7" ]; then
-    info "Testing variable presence during \`docker exec\`"
-    ct_check_exec_env_vars
-    ct_check_testcase_result $?
-
-    info "Checking if all scl variables are defined in Dockerfile"
-    ct_check_scl_enable_vars
-    ct_check_testcase_result $?
- fi
-}
-
 function test_from_dockerfile() {
   dockerfile="Dockerfile${1:-}"
   TESTCASE_RESULT=0
@@ -211,12 +198,7 @@ for server in ${WEB_SERVERS[@]}; do
   TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "$server"
 done
 
-if [ "$OS" != "rhel7" ]; then
-  ## SUPPRESS test for rhel7
-  # Step 2/4 : ADD --chown=default:root app-src ./
-  #Unknown flag: chown
-  TEST_LIST="test_from_dockerfile test_from_dockerfile_s2i"
-  TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "from_dockerfile"
-fi
+TEST_LIST="test_from_dockerfile test_from_dockerfile_s2i"
+TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "from_dockerfile"
 
 app_cleanup
