@@ -4,8 +4,6 @@ Ruby container images
 [![Build and push images to Quay.io registry](https://github.com/sclorg/s2i-ruby-container/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/sclorg/s2i-ruby-container/actions/workflows/build-and-push.yml)
 
 Images available on Quay are:
-* CentOS 7 [ruby-25](https://quay.io/repository/centos7/ruby-25-centos7)
-* CentOS 7 [ruby-30](https://quay.io/repository/centos7/ruby-30-centos7)
 * Fedora [ruby-30](https://quay.io/repository/fedora/ruby-30)
 * Fedora [ruby-31](https://quay.io/repository/fedora/ruby-31)
 
@@ -26,12 +24,10 @@ Ruby versions currently provided are:
 * [Ruby 3.1](3.1/README.md)
 
 RHEL versions currently supported are:
-* RHEL7
 * RHEL8
 * RHEL9
 
 CentOS versions currently supported are:
-* CentOS7
 * CentOS Stream 9
 
 A Ruby 1.9 image can be built from [this third party repository](https://github.com/getupcloud/s2i-ruby/).
@@ -44,11 +40,11 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
 *  **RHEL based image**
 
     These images are available in the
-    [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhscl/ruby-30-rhel7).
+    [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhel8/ruby-30).
     To download it run:
 
     ```
-    $ podman pull registry.access.redhat.com/rhscl/ruby-30-rhel7
+    $ podman pull registry.access.redhat.com/rhel8/ruby-30
     ```
 
     To build a RHEL based Ruby image, you need to run the build on a properly
@@ -57,15 +53,15 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=rhel7 VERSIONS=3.0
+    $ make build TARGET=rhel8 VERSIONS=3.0
     ```
 
-*  **CentOS based image**
+*  **CentOS Stream based image**
 
     This image is available on DockerHub. To download it run:
 
     ```
-    $ podman pull quay.io/centos7/ruby-30-centos7
+    $ podman pull quay.io/sclorg/ruby-30-c9s
     ```
 
     To build a Ruby image from scratch run:
@@ -73,7 +69,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=centos7 VERSIONS=3.0
+    $ make build TARGET=c9s VERSIONS=3.0
     ```
 
 Note: while the installation steps are calling `podman`, you can replace any such calls by `docker` with the same arguments.
@@ -104,19 +100,19 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
 
 *  **RHEL based image**
 
-    To test a RHEL7-based Ruby image, you need to run the test on a properly
+    To test a RHEL8-based Ruby image, you need to run the test on a properly
     subscribed RHEL machine.
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=rhel7 VERSIONS=3.0
+    $ make test TARGET=rhel8 VERSIONS=3.0
     ```
 
-*  **CentOS based image**
+*  **CentOS Stream based image**
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=centos7 VERSIONS=3.0
+    $ make test TARGET=c9s VERSIONS=3.0
     ```
 
 **Notice: By omitting the `VERSIONS` parameter, the build/test action will be performed
@@ -140,20 +136,20 @@ Image name structure
 
 1. Platform name (lowercase) - ruby
 2. Platform version(without dots) - 30
-3. Base builder image - centos7/rhel7
+3. Base builder image - c9s/rhel8
 
-Examples: `ruby-30-centos7`, `ruby-30-rhel7`
+Examples: `ruby-30-c9s`, `ruby-30`
 
 
 Repository organization
 ------------------------
 * **`<ruby-version>`**
 
-    * **Dockerfile**
+    * **Dockerfile.c9s**
 
-        CentOS based Dockerfile.
+        CentOS Stream based Dockerfile.c9s.
 
-    * **Dockerfile.rhel7**
+    * **Dockerfile.rhel8**
 
         RHEL based Dockerfile. In order to perform build or test actions on this
         Dockerfile you need to run the action on a properly subscribed RHEL machine.
