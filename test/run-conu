@@ -1,2 +1,0 @@
-#!/bin/bash
-exec pytest -vv -k test_s2i
