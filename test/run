@@ -54,14 +54,6 @@ run_test_application() {
   docker run --user=100001 --rm --cidfile=${cid_file} ${IMAGE_NAME}-testapp
 }
 
-ct_check_testcase_result() {
-  local result="$1"
-  if [[ "$result" != "0" ]]; then
-    TESTCASE_RESULT=1
-  fi
-  return $result
-}
-
 test_s2i_usage() {
   info "Testing 's2i usage'"
   ct_s2i_usage ${IMAGE_NAME} ${s2i_args} &>/dev/null
@@ -177,6 +169,41 @@ app_cleanup() {
   fi
 }
 
+# Positive test & non-zero exit status = ERROR.
+# Negative test & zero exit status = ERROR.
+# Tests with '-should-fail-' in their name should fail during a build,
+# expecting non-zero exit status.
+evaluate_build_result() {
+  local _result="$1"
+  local _app="$2"
+  local _type="positive"
+  local _test_msg="[PASSED]"
+  local _ret_code=0
+
+  if [[ "$_app" == *"-should-fail-"* ]]; then
+    _type="negative"
+  fi
+
+  if [[ "$_type" == "positive" && "$_result" != "0" ]]; then
+    info "TEST FAILED (${_type}), EXPECTED:0 GOT:${_result}"
+    _ret_code=$_result
+  elif [[ "$_type" == "negative" && "$_result" == "0" ]]; then
+    info "TEST FAILED (${_type}), EXPECTED: non-zero GOT:${_result}"
+    _ret_code=1
+  fi
+  if [ $_ret_code != 0 ]; then
+    cleanup
+    TESTSUITE_RESULT=1
+    _test_msg="[FAILED]"
+  fi
+  ct_update_test_result "$_test_msg" "$_app" run_s2i_build
+
+  if [[ "$_type" == "negative" && "$_result" != "0" ]]; then
+    _ret_code=127 # even though this is success, the app is still not built
+  fi
+  return $_ret_code
+}
+
 pushd ${test_dir}
 if [ -d db-test-app ]; then
   rm -rf db-test-app
@@ -193,7 +220,7 @@ for server in ${WEB_SERVERS[@]}; do
   s2i_args="--pull-policy=never"
 
   run_s2i_build "${server}"
-  ct_check_testcase_result $?
+  evaluate_build_result $? "$server" || continue
 
   TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "$server"
 done
