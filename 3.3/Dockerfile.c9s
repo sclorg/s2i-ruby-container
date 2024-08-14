@@ -34,7 +34,7 @@ LABEL summary="$SUMMARY" \
 --context-dir=${RUBY_VERSION}/test/puma-test-app/ ${IMAGE_NAME} ruby-sample-app" \
       maintainer="SoftwareCollections.org <sclorg@redhat.com>"
 
-RUN yum -y module enable ruby:$RUBY_VERSION && \
+RUN dnf -y module enable ruby:$RUBY_VERSION && \
     INSTALL_PKGS=" \
     libffi-devel \
     ruby \
@@ -44,9 +44,9 @@ RUN yum -y module enable ruby:$RUBY_VERSION && \
     ruby-bundled-gems \
     redhat-rpm-config \
     " && \
-    yum install -y --setopt=tsflags=nodocs ${INSTALL_PKGS} && \
-    yum reinstall -y --setopt=tsflags=nodocs tzdata && \
-    yum -y clean all --enablerepo='*' && \
+    dnf install -y --setopt=tsflags=nodocs ${INSTALL_PKGS} && \
+    dnf reinstall -y --setopt=tsflags=nodocs tzdata && \
+    dnf -y clean all --enablerepo='*' && \
     ruby -v | grep -qe "^ruby $RUBY_VERSION\." && echo "Found VERSION $RUBY_VERSION" && \
     rpm -V ${INSTALL_PKGS}
 
