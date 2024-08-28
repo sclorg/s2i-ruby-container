@@ -159,13 +159,19 @@ function test_from_dockerfile_s2i() {
 }
 
 app_cleanup() {
+  info "Cleaning up the test app folders"
   for server in ${WEB_SERVERS[*]}; do
     if [ ! -z "${server}" ]; then
+      echo "Removing ${test_dir}/${server}-test-app/.git"
       rm -rf ${test_dir}/${server}-test-app/.git
     fi
   done
-  if [[ "${server}" == "db" ]]; then
-    rm -rf ${test_dir}/db-test-app
+}
+
+function cleanup() {
+  info "Cleaning up the test application image ${IMAGE_NAME}-testapp"
+  if image_exists ${IMAGE_NAME}-testapp; then
+    docker rmi -f ${IMAGE_NAME}-testapp
   fi
 }
 
@@ -204,11 +210,13 @@ evaluate_build_result() {
   return $_ret_code
 }
 
+# Prepare dependencies for tests
 pushd ${test_dir}
-if [ -d db-test-app ]; then
-  rm -rf db-test-app
-fi
-git clone https://github.com/openshift/ruby-hello-world.git db-test-app
+  # db test dependencies
+  if [ -d db-test-app ]; then
+    rm -rf db-test-app
+  fi
+  git clone https://github.com/openshift/ruby-hello-world.git db-test-app
 popd
 
 ct_init
@@ -223,9 +231,17 @@ for server in ${WEB_SERVERS[@]}; do
   evaluate_build_result $? "$server" || continue
 
   TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "$server"
+
+  cleanup
 done
 
 TEST_LIST="test_from_dockerfile test_from_dockerfile_s2i"
 TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "from_dockerfile"
+
+
+# Remove all test dependencies
+echo "Removing test dependencies"
+# db test dependencies
+rm -rf ${test_dir}/db-test-app
 
 app_cleanup
