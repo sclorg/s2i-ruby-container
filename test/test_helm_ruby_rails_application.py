@@ -45,6 +45,9 @@ class TestHelmCakePHPTemplate:
     def test_curl_connection(self):
         if self.hc_api.oc_api.shared_cluster:
             pytest.skip("Do NOT test on shared cluster")
+        rails_ex_branch = "master"
+        if VERSION == "3.3":
+            rails_ex_branch = VERSION
         self.hc_api.package_name = "ruby-imagestreams"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
@@ -53,7 +56,8 @@ class TestHelmCakePHPTemplate:
         assert self.hc_api.helm_installation(
             values={
                 "ruby_version": f"{VERSION}{TAG}",
-                "namespace": self.hc_api.namespace
+                "namespace": self.hc_api.namespace,
+                "source_repository_ref": rails_ex_branch,
             }
         )
         assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
@@ -63,6 +67,9 @@ class TestHelmCakePHPTemplate:
         )
 
     def test_by_helm_test(self):
+        rails_ex_branch = "master"
+        if VERSION == "3.3":
+            rails_ex_branch = VERSION
         self.hc_api.package_name = "ruby-imagestreams"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
@@ -71,7 +78,8 @@ class TestHelmCakePHPTemplate:
         assert self.hc_api.helm_installation(
             values={
                 "ruby_version": f"{VERSION}{TAG}",
-                "namespace": self.hc_api.namespace
+                "namespace": self.hc_api.namespace,
+                "source_repository_ref": rails_ex_branch,
             }
         )
         assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
