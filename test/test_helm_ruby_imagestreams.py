@@ -36,17 +36,18 @@ class TestHelmRHELRubyImageStreams:
         self.hc_api.delete_project()
 
     @pytest.mark.parametrize(
-        "version,registry",
+        "version,registry,expected",
         [
-            ("3.3-ubi9", "registry.redhat.io/ubi9/ruby-33:latest"),
-            ("3.3-ubi8", "registry.redhat.io/ubi8/ruby-33:latest"),
-            ("3.1-ubi9", "registry.redhat.io/ubi9/ruby-31:latest"),
-            ("3.1-ubi8", "registry.redhat.io/ubi8/ruby-31:latest"),
-            ("3.0-ubi9", "registry.redhat.io/ubi9/ruby-30:latest"),
-            ("2.5-ubi8", "registry.redhat.io/ubi8/ruby-25:latest"),
+            ("3.3-ubi9", "registry.redhat.io/ubi9/ruby-33:latest", True),
+            ("3.3-ubi8", "registry.redhat.io/ubi8/ruby-33:latest", True),
+            ("3.1-ubi9", "registry.redhat.io/ubi9/ruby-31:latest", True),
+            ("3.1-ubi8", "registry.redhat.io/ubi8/ruby-31:latest", True),
+            ("3.0-ubi9", "registry.redhat.io/ubi9/ruby-30:latest", True),
+            ("3.0-ubi8", "registry.redhat.io/ubi8/ruby-30:latest", False),
+            ("2.5-ubi8", "registry.redhat.io/ubi8/ruby-25:latest", True),
         ],
     )
-    def test_package_imagestream(self, version, registry):
+    def test_package_imagestream(self, version, registry, expected):
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
-        assert self.hc_api.check_imagestreams(version=version, registry=registry)
+        assert self.hc_api.check_imagestreams(version=version, registry=registry) == expected
