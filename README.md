@@ -6,6 +6,8 @@ Ruby container images
 Images available on Quay are:
 * Fedora [ruby-30](https://quay.io/repository/fedora/ruby-30)
 * Fedora [ruby-31](https://quay.io/repository/fedora/ruby-31)
+* Fedora [ruby-33](https://quay.io/repository/fedora/ruby-33)
+* CentOS Stream 10 [ruby-33-c10s](https://quay.io/repository/sclorg/ruby-33-c10s)
 
 This repository contains the source for building various versions of
 the Ruby application as a reproducible container image using
@@ -22,6 +24,7 @@ Ruby versions currently provided are:
 * [Ruby 2.5](2.5/README.md)
 * [Ruby 3.0](3.0/README.md)
 * [Ruby 3.1](3.1/README.md)
+* [Ruby 3.3](3.3/README.md)
 
 RHEL versions currently supported are:
 * RHEL8
@@ -29,6 +32,7 @@ RHEL versions currently supported are:
 
 CentOS versions currently supported are:
 * CentOS Stream 9
+* CentOS Stream 10
 
 A Ruby 1.9 image can be built from [this third party repository](https://github.com/getupcloud/s2i-ruby/).
 It is not maintained by Red Hat nor is part of the OpenShift project.
@@ -40,11 +44,11 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
 *  **RHEL based image**
 
     These images are available in the
-    [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhel8/ruby-30).
+    [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhel9/ruby-30).
     To download it run:
 
     ```
-    $ podman pull registry.access.redhat.com/rhel8/ruby-30
+    $ podman pull registry.access.redhat.com/rhel9/ruby-30
     ```
 
     To build a RHEL based Ruby image, you need to run the build on a properly
@@ -53,7 +57,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=rhel8 VERSIONS=3.0
+    $ make build TARGET=rhel9 VERSIONS=3.0
     ```
 
 *  **CentOS Stream based image**
@@ -91,6 +95,9 @@ see [usage documentation](3.0/README.md).
 For information about usage of Dockerfile for Ruby 3.1,
 see [usage documentation](3.1/README.md).
 
+For information about usage of Dockerfile for Ruby 3.3,
+see [usage documentation](3.3/README.md).
+
 Test
 ---------------------
 This repository also provides a [S2I](https://github.com/openshift/source-to-image) test framework,
@@ -100,12 +107,12 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
 
 *  **RHEL based image**
 
-    To test a RHEL8-based Ruby image, you need to run the test on a properly
+    To test a RHEL9-based Ruby image, you need to run the test on a properly
     subscribed RHEL machine.
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=rhel8 VERSIONS=3.0
+    $ make test TARGET=rhel9 VERSIONS=3.0
     ```
 
 *  **CentOS Stream based image**
