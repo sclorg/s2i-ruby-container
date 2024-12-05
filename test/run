@@ -136,12 +136,6 @@ function test_from_dockerfile() {
   TESTCASE_RESULT=0
   info "Check building using a $dockerfile on rails-ex repository."
 
-  # Ruby 3.3 introduced too many incompatibilities to be able
-  # to use the same Gemfile for RHEL 7 and also newer RHELs.
-  # we can use the same Gemfile for RHEL 7 and newer
-  # as long as Ruby MAJOR.MINOR <= 3.1. Newer Ruby needs dependencies
-  # that are not compatible with RHEL 7.
-
   # Latest stable
   rails_example_repo_branch="3.3"
   if { echo "$VERSION"; echo "3.1"; } | sort --version-sort --check=quiet; then
@@ -162,12 +156,6 @@ function test_from_dockerfile_ruby_ex() {
   dockerfile="Dockerfile${1:-}"
   TESTCASE_RESULT=0
   info "Check building using a $dockerfile on ruby-ex repository."
-
-  # Ruby 3.3 introduced too many incompatibilities to be able
-  # to use the same Gemfile for RHEL 7 and also newer RHELs.
-  # we can use the same Gemfile for RHEL 7 and newer
-  # as long as Ruby MAJOR.MINOR <= 3.1. Newer Ruby needs dependencies
-  # that are not compatible with RHEL 7.
 
   ruby_example_repo_url="https://github.com/sclorg/ruby-ex.git@master"
 
