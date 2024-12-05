@@ -28,7 +28,7 @@ TAGS = {
 TAG = TAGS.get(OS, None)
 
 
-class TestHelmCakePHPTemplate:
+class TestHelmRailsExTemplate:
 
     def setup_method(self):
         package_name = "ruby-rails-application"
@@ -58,6 +58,7 @@ class TestHelmCakePHPTemplate:
                 "ruby_version": f"{VERSION}{TAG}",
                 "namespace": self.hc_api.namespace,
                 "source_repository_ref": rails_ex_branch,
+                "source_repository_url": "https://github.com/sclorg/rails-ex.git",
             }
         )
         assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
@@ -80,6 +81,7 @@ class TestHelmCakePHPTemplate:
                 "ruby_version": f"{VERSION}{TAG}",
                 "namespace": self.hc_api.namespace,
                 "source_repository_ref": rails_ex_branch,
+                "source_repository_url": "https://github.com/sclorg/rails-ex.git",
             }
         )
         assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
