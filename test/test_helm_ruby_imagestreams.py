@@ -24,6 +24,10 @@ OS = os.getenv("TARGET")
 @pytest.fixture(scope="module")
 def helm_api(request):
     helm_api = HelmChartsAPI(path=test_dir / "../charts/redhat", package_name="redhat-ruby-imagestreams", tarball_dir=test_dir)
+    helm_api.clone_helm_chart_repo(
+        repo_url="https://github.com/sclorg/helm-charts", repo_name="helm-charts",
+        subdir="charts/redhat"
+    )
     # app_name = os.path.basename(request.param)
     yield helm_api
     pass

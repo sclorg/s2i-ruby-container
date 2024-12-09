@@ -53,7 +53,7 @@ class TestHelmRailsExTemplate:
         assert self.hc_api.helm_installation()
         self.hc_api.package_name = "redhat-ruby-rails-application"
         assert self.hc_api.helm_package()
-        pod_name = f"rails_{VERSION.replace(".", "")}"
+        pod_name = f"rails-{VERSION.replace(".", "")}"
         assert self.hc_api.helm_installation(
             values={
                 "ruby_version": f"{VERSION}{TAG}",
@@ -78,7 +78,7 @@ class TestHelmRailsExTemplate:
         assert self.hc_api.helm_installation()
         self.hc_api.package_name = "redhat-ruby-rails-application"
         assert self.hc_api.helm_package()
-        pod_name = f"rails_{VERSION.replace(".", "")}"
+        pod_name = f"rails-{VERSION.replace(".", "")}"
         assert self.hc_api.helm_installation(
             values={
                 "ruby_version": f"{VERSION}{TAG}",
