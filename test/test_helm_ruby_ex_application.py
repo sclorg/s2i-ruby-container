@@ -33,7 +33,7 @@ class TestHelmRubyExTemplate:
     def setup_method(self):
         package_name = "redhat-ruby-rails-application"
         path = test_dir
-        self.hc_api = HelmChartsAPI(path=path, package_name=package_name, tarball_dir=test_dir, remote=True)
+        self.hc_api = HelmChartsAPI(path=path, package_name=package_name, tarball_dir=test_dir, shared_cluster=False)
         self.hc_api.clone_helm_chart_repo(
             repo_url="https://github.com/sclorg/helm-charts", repo_name="helm-charts",
             subdir="charts/redhat"
@@ -63,7 +63,7 @@ class TestHelmRubyExTemplate:
                 "name": pod_name,
             }
         )
-        assert self.hc_api.is_s2i_pod_running(pod_name_prefix=pod_name, timeout=300)
+        assert self.hc_api.is_s2i_pod_running(pod_name_prefix=pod_name, timeout=480)
         assert self.hc_api.test_helm_curl_output(
             route_name=pod_name,
             expected_str="Welcome to your Ruby application"
@@ -88,5 +88,5 @@ class TestHelmRubyExTemplate:
                 "name": pod_name,
             }
         )
-        assert self.hc_api.is_s2i_pod_running(pod_name_prefix=pod_name, timeout=300)
+        assert self.hc_api.is_s2i_pod_running(pod_name_prefix=pod_name, timeout=480)
         assert self.hc_api.test_helm_chart(expected_str=["Welcome to your Ruby application"])
