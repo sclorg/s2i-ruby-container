@@ -1,0 +1,1 @@
+../../test/test_helm_rails_ex_application.py

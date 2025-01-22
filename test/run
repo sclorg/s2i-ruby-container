@@ -134,13 +134,7 @@ function test_application() {
 function test_from_dockerfile() {
   dockerfile="Dockerfile${1:-}"
   TESTCASE_RESULT=0
-  info "Check building using a $dockerfile"
-
-  # Ruby 3.3 introduced too many incompatibilities to be able
-  # to use the same Gemfile for RHEL 7 and also newer RHELs.
-  # we can use the same Gemfile for RHEL 7 and newer
-  # as long as Ruby MAJOR.MINOR <= 3.1. Newer Ruby needs dependencies
-  # that are not compatible with RHEL 7.
+  info "Check building using a $dockerfile on rails-ex repository."
 
   # Latest stable
   rails_example_repo_branch="3.3"
@@ -156,6 +150,21 @@ function test_from_dockerfile() {
 
 function test_from_dockerfile_s2i() {
   test_from_dockerfile ".s2i"
+}
+
+function test_from_dockerfile_ruby_ex() {
+  dockerfile="Dockerfile${1:-}"
+  TESTCASE_RESULT=0
+  info "Check building using a $dockerfile on ruby-ex repository."
+
+  ruby_example_repo_url="https://github.com/sclorg/ruby-ex.git@master"
+
+  ct_test_app_dockerfile $test_dir/examples/from-dockerfile/$dockerfile "$ruby_example_repo_url" 'Welcome to your Ruby application' app-src
+  ct_check_testcase_result $?
+}
+
+function test_from_dockerfile_ruby_ex_s2i() {
+  test_from_dockerfile_ruby_ex ".s2i"
 }
 
 app_cleanup() {
@@ -235,8 +244,11 @@ for server in ${WEB_SERVERS[@]}; do
   cleanup
 done
 
-TEST_LIST="test_from_dockerfile test_from_dockerfile_s2i"
-TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "from_dockerfile"
+TEST_RAILS_LIST="test_from_dockerfile test_from_dockerfile_s2i"
+TEST_SET=${TESTS:-$TEST_RAILS_LIST} ct_run_tests_from_testset "from_dockerfile_rails_ex"
+
+TEST_RUBY_LIST="test_from_dockerfile_ruby_ex test_from_dockerfile_ruby_ex_s2i"
+TEST_SET=${TESTS:-$TEST_RUBY_LIST} ct_run_tests_from_testset "from_dockerfile_ruby_ex"
 
 
 # Remove all test dependencies

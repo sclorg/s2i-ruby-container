@@ -21,19 +21,22 @@ IMAGE_NAME = os.getenv("IMAGE_NAME")
 OS = os.getenv("TARGET")
 
 
+@pytest.fixture(scope="module")
+def helm_api(request):
+    helm_api = HelmChartsAPI(
+        path=test_dir / "../charts/redhat", package_name="redhat-ruby-imagestreams", tarball_dir=test_dir
+    )
+    helm_api.clone_helm_chart_repo(
+        repo_url="https://github.com/sclorg/helm-charts", repo_name="helm-charts",
+        subdir="charts/redhat"
+    )
+    # app_name = os.path.basename(request.param)
+    yield helm_api
+    pass
+    helm_api.delete_project()
+
+
 class TestHelmRHELRubyImageStreams:
-
-    def setup_method(self):
-        package_name = "ruby-imagestreams"
-        path = test_dir
-        self.hc_api = HelmChartsAPI(path=path, package_name=package_name, tarball_dir=test_dir, remote=True)
-        self.hc_api.clone_helm_chart_repo(
-            repo_url="https://github.com/sclorg/helm-charts", repo_name="helm-charts",
-            subdir="charts/redhat"
-        )
-
-    def teardown_method(self):
-        self.hc_api.delete_project()
 
     @pytest.mark.parametrize(
         "version,registry,expected",
@@ -47,7 +50,7 @@ class TestHelmRHELRubyImageStreams:
             ("2.5-ubi8", "registry.redhat.io/ubi8/ruby-25:latest", True),
         ],
     )
-    def test_package_imagestream(self, version, registry, expected):
-        assert self.hc_api.helm_package()
-        assert self.hc_api.helm_installation()
-        assert self.hc_api.check_imagestreams(version=version, registry=registry) == expected
+    def test_package_imagestream(self, helm_api, version, registry, expected):
+        assert helm_api.helm_package()
+        assert helm_api.helm_installation()
+        assert helm_api.check_imagestreams(version=version, registry=registry) == expected
