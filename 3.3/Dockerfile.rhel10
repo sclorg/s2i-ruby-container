@@ -1,4 +1,4 @@
-FROM registry.stage.redhat.io/ubi10/s2i-base
+FROM ubi10/s2i-base
 
 # This image provides a Ruby environment you can use to run your Ruby
 # applications.
