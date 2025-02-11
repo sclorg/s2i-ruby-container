@@ -24,7 +24,7 @@ OS = os.getenv("TARGET")
 class TestHelmRHELRubyImageStreams:
 
     def setup_method(self):
-        package_name = "ruby-imagestreams"
+        package_name = "redhat-ruby-imagestreams"
         path = test_dir
         self.hc_api = HelmChartsAPI(path=path, package_name=package_name, tarball_dir=test_dir, remote=True)
         self.hc_api.clone_helm_chart_repo(
