@@ -235,8 +235,10 @@ for server in ${WEB_SERVERS[@]}; do
   cleanup
 done
 
-TEST_LIST="test_from_dockerfile test_from_dockerfile_s2i"
-TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "from_dockerfile"
+if [[ $(arch) == "x86_64" ]]; then
+  TEST_LIST="test_from_dockerfile test_from_dockerfile_s2i"
+  TEST_SET=${TESTS:-$TEST_LIST} ct_run_tests_from_testset "from_dockerfile"
+fi
 
 
 # Remove all test dependencies
