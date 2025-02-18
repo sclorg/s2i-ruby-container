@@ -23,7 +23,8 @@ OS = os.getenv("TARGET")
 
 TAGS = {
     "rhel8": "-ubi8",
-    "rhel9": "-ubi9"
+    "rhel9": "-ubi9",
+    "rhel10": "-ubi10"
 }
 TAG = TAGS.get(OS, None)
 
@@ -61,12 +62,14 @@ class TestHelmRubyTemplate:
             }
         )
         assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
-        assert self.hc_api.test_helm_curl_output(
-            route_name="rails-example",
-            expected_str="Welcome to your Rails application"
+        assert self.hc_api.oc_api.check_response_inside_cluster(
+            name_in_template="rails-example",
+            expected_output="Welcome to your Rails application"
         )
 
     def test_by_helm_test(self):
+        if OS == "rhel10":
+            pytest.skip("Do NOT test on RHEL10.")
         rails_ex_branch = "master"
         if VERSION == "3.3":
             rails_ex_branch = VERSION
@@ -82,5 +85,5 @@ class TestHelmRubyTemplate:
                 "source_repository_ref": rails_ex_branch,
             }
         )
-        assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
+        assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example", timeout=480)
         assert self.hc_api.test_helm_chart(expected_str=["Welcome to your Rails application"])

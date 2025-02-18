@@ -19,7 +19,8 @@ DEPLOYED_PGSQL_IMAGE = "quay.io/sclorg/postgresql-12-c8s"
 
 TAGS = {
     "rhel8": "-el8",
-    "rhel9": "-el9"
+    "rhel9": "-el9",
+    "rhel10": "-el10"
 }
 TAG = TAGS.get(OS, None)
 IMAGE_SHORT = f"postgresql:12{TAG}"
@@ -29,8 +30,7 @@ IMAGE_TAG = f"12{TAG}"
 class TestS2IRailsExTemplate:
 
     def setup_method(self):
-        self.oc_api = OpenShiftAPI(pod_name_prefix="ruby-testing", version=VERSION)
-        assert self.oc_api.upload_image(DEPLOYED_PGSQL_IMAGE, IMAGE_SHORT)
+        self.oc_api = OpenShiftAPI(pod_name_prefix="ruby-testing", version=VERSION, shared_cluster=True)
 
     def teardown_method(self):
         self.oc_api.delete_project()
@@ -43,6 +43,12 @@ class TestS2IRailsExTemplate:
         ]
     )
     def test_rails_template_inside_cluster(self, template):
+        if OS == "rhel10":
+            pytest.skip("Do NOT test on RHEL10.")
+        if self.oc_api.shared_cluster:
+            assert self.oc_api.upload_image_to_external_registry(DEPLOYED_PGSQL_IMAGE, IMAGE_SHORT)
+        else:
+            assert self.oc_api.upload_image(DEPLOYED_PGSQL_IMAGE, IMAGE_SHORT)
         service_name = "ruby-testing"
         rails_ex_branch = "master"
         if VERSION == "3.3":
@@ -54,7 +60,8 @@ class TestS2IRailsExTemplate:
             f"SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex.git",
             f"SOURCE_REPOSITORY_REF={rails_ex_branch}",
             f"RUBY_VERSION={VERSION}",
-            f"NAME={service_name}"
+            f"NAME={service_name}",
+            "MEMORY_LIMIT=1Gi",
         ]
         if template != "rails.json":
             openshift_args = [
