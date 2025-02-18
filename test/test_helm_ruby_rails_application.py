@@ -28,12 +28,12 @@ TAGS = {
 TAG = TAGS.get(OS, None)
 
 
-class TestHelmCakePHPTemplate:
+class TestHelmRubyTemplate:
 
     def setup_method(self):
-        package_name = "ruby-rails-application"
+        package_name = "redhat-ruby-rails-application"
         path = test_dir
-        self.hc_api = HelmChartsAPI(path=path, package_name=package_name, tarball_dir=test_dir, remote=True)
+        self.hc_api = HelmChartsAPI(path=path, package_name=package_name, tarball_dir=test_dir)
         self.hc_api.clone_helm_chart_repo(
             repo_url="https://github.com/sclorg/helm-charts", repo_name="helm-charts",
             subdir="charts/redhat"
@@ -48,10 +48,10 @@ class TestHelmCakePHPTemplate:
         rails_ex_branch = "master"
         if VERSION == "3.3":
             rails_ex_branch = VERSION
-        self.hc_api.package_name = "ruby-imagestreams"
+        self.hc_api.package_name = "redhat-ruby-imagestreams"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
-        self.hc_api.package_name = "ruby-rails-application"
+        self.hc_api.package_name = "redhat-ruby-rails-application"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation(
             values={
@@ -61,19 +61,19 @@ class TestHelmCakePHPTemplate:
             }
         )
         assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
-        assert self.hc_api.test_helm_curl_output(
-            route_name="rails-example",
-            expected_str="Welcome to your Rails application"
+        assert self.hc_api.oc_api.check_response_inside_cluster(
+            name_in_template="rails-example",
+            expected_output="Welcome to your Rails application"
         )
 
     def test_by_helm_test(self):
         rails_ex_branch = "master"
         if VERSION == "3.3":
             rails_ex_branch = VERSION
-        self.hc_api.package_name = "ruby-imagestreams"
+        self.hc_api.package_name = "redhat-ruby-imagestreams"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
-        self.hc_api.package_name = "ruby-rails-application"
+        self.hc_api.package_name = "redhat-ruby-rails-application"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation(
             values={
