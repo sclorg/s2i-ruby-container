@@ -19,7 +19,8 @@ DEPLOYED_PGSQL_IMAGE = "quay.io/sclorg/postgresql-12-c8s"
 
 TAGS = {
     "rhel8": "-el8",
-    "rhel9": "-el9"
+    "rhel9": "-el9",
+    "rhel10": "-el10",
 }
 TAG = TAGS.get(OS, None)
 IMAGE_SHORT = f"postgresql:12{TAG}"
@@ -43,6 +44,8 @@ class TestS2IRailsExTemplate:
         ]
     )
     def test_rails_template_inside_cluster(self, template):
+        if OS == "rhel10":
+            pytest.skip("Do NOT test on RHEL10.")
         service_name = "ruby-testing"
         rails_ex_branch = "master"
         if VERSION == "3.3":
