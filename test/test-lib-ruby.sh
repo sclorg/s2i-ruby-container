@@ -55,6 +55,10 @@ function test_ruby_integration() {
 
 # Check the imagestream
 function test_ruby_imagestream() {
+  if [[ "$OS" == "rhel10" ]]; then
+    echo "Skipping test_ruby_imagestream for RHEL 10. Imagestreams are not yet ready."
+    return
+  fi
 
   ct_os_test_image_stream_s2i "${THISDIR}/imagestreams/ruby-${OS%[0-9]*}.json" "${IMAGE_NAME}" \
                               "https://github.com/sclorg/s2i-ruby-container.git" \
@@ -71,6 +75,10 @@ function test_ruby_s2i_rails_app() {
 
 
 function test_ruby_s2i_rails_templates() {
+  if [[ "$OS" == "rhel10" ]]; then
+    echo "Skipping test_ruby_imagestream for RHEL 10. Imagestreams are not yet ready."
+    return
+  fi
   # TODO: this was not working because the referenced example dir was added as part of this commit
   ct_os_test_template_app "${IMAGE_NAME}" \
                         "https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails.json" \
@@ -82,7 +90,10 @@ function test_ruby_s2i_rails_templates() {
 }
 
 function test_ruby_s2i_rails_persistent_templates() {
-
+  if [[ "$OS" == "rhel10" ]]; then
+    echo "Skipping test_ruby_imagestream for RHEL 10. Imagestreams are not yet ready."
+    return
+  fi
   ct_os_test_template_app "${IMAGE_NAME}" \
                         "https://raw.githubusercontent.com/sclorg/rails-ex/master/openshift/templates/rails-postgresql-persistent.json" \
                         "ruby" \
@@ -96,6 +107,10 @@ function test_ruby_s2i_rails_persistent_templates() {
 
 
 function test_ruby_s2i_local_persistent_templates() {
+  if [[ "$OS" == "rhel10" ]]; then
+    echo "Skipping test_ruby_imagestream for RHEL 10. Imagestreams are not yet ready."
+    return
+  fi
   # TODO: this was not working because the referenced example dir was added as part of this commit
   ct_os_test_template_app "${IMAGE_NAME}" \
                         "${THISDIR}/examples/rails-postgresql-persistent.json" \
@@ -109,6 +124,10 @@ function test_ruby_s2i_local_persistent_templates() {
 }
 
 function test_ruby_s2i_local_app_templates() {
+  if [[ "$OS" == "rhel10" ]]; then
+    echo "Skipping test_ruby_imagestream for RHEL 10. Imagestreams are not yet ready."
+    return
+  fi
   # TODO: this was not working because the referenced example dir was added as part of this commit
   ct_os_test_template_app "${IMAGE_NAME}" \
                         "${THISDIR}/examples/rails.json" \
