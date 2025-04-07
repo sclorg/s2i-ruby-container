@@ -33,7 +33,7 @@ class TestRubyImagestreams:
             app="https://github.com/sclorg/s2i-ruby-container.git",
             context=f"{VERSION}/test/puma-test-app"
         )
-        assert self.oc_api.template_deployed(name_in_template=service_name)
+        assert self.oc_api.is_template_deployed(name_in_template=service_name)
         assert self.oc_api.check_response_inside_cluster(
             name_in_template=service_name, expected_output="Hello world!"
         )
