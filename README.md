@@ -47,7 +47,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     To download it run:
 
     ```
-    $ podman pull registry.access.redhat.com/rhel9/ruby-33
+    $ podman pull registry.access.redhat.com/rhel9/ruby-30
     ```
 
     To build a RHEL based Ruby image, you need to run the build on a properly
@@ -56,7 +56,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=rhel9 VERSIONS=3.3
+    $ make build TARGET=rhel9 VERSIONS=3.0
     ```
 
 *  **CentOS Stream based image**
@@ -64,7 +64,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     This image is available on DockerHub. To download it run:
 
     ```
-    $ podman pull quay.io/sclorg/ruby-33-c9s
+    $ podman pull quay.io/sclorg/ruby-30-c9s
     ```
 
     To build a Ruby image from scratch run:
@@ -72,7 +72,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=c9s VERSIONS=3.3
+    $ make build TARGET=c9s VERSIONS=3.0
     ```
 
 Note: while the installation steps are calling `podman`, you can replace any such calls by `docker` with the same arguments.
@@ -108,14 +108,14 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=rhel9 VERSIONS=3.3
+    $ make test TARGET=rhel9 VERSIONS=3.0
     ```
 
 *  **CentOS Stream based image**
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=c9s VERSIONS=3.3
+    $ make test TARGET=c9s VERSIONS=3.0
     ```
 
 **Notice: By omitting the `VERSIONS` parameter, the build/test action will be performed
@@ -138,10 +138,10 @@ Image name structure
 ------------------------
 
 1. Platform name (lowercase) - ruby
-2. Platform version(without dots) - 33
+2. Platform version(without dots) - 30
 3. Base builder image - c9s/rhel8
 
-Examples: `ruby-33-c9s`, `ruby-33`
+Examples: `ruby-30-c9s`, `ruby-30`
 
 
 Repository organization
