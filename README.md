@@ -5,7 +5,6 @@ Ruby container images
 
 Images available on Quay are:
 * Fedora [ruby-30](https://quay.io/repository/fedora/ruby-30)
-* Fedora [ruby-31](https://quay.io/repository/fedora/ruby-31)
 * Fedora [ruby-33](https://quay.io/repository/fedora/ruby-33)
 * CentOS Stream 10 [ruby-33-c10s](https://quay.io/repository/sclorg/ruby-33-c10s)
 
@@ -23,7 +22,6 @@ Versions
 Ruby versions currently provided are:
 * [Ruby 2.5](2.5/README.md)
 * [Ruby 3.0](3.0/README.md)
-* [Ruby 3.1](3.1/README.md)
 * [Ruby 3.3](3.3/README.md)
 
 RHEL versions currently supported are:
@@ -49,7 +47,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     To download it run:
 
     ```
-    $ podman pull registry.access.redhat.com/rhel9/ruby-30
+    $ podman pull registry.access.redhat.com/rhel9/ruby-33
     ```
 
     To build a RHEL based Ruby image, you need to run the build on a properly
@@ -58,7 +56,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=rhel9 VERSIONS=3.0
+    $ make build TARGET=rhel9 VERSIONS=3.3
     ```
 
 *  **CentOS Stream based image**
@@ -66,7 +64,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     This image is available on DockerHub. To download it run:
 
     ```
-    $ podman pull quay.io/sclorg/ruby-30-c9s
+    $ podman pull quay.io/sclorg/ruby-33-c9s
     ```
 
     To build a Ruby image from scratch run:
@@ -74,7 +72,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=c9s VERSIONS=3.0
+    $ make build TARGET=c9s VERSIONS=3.3
     ```
 
 Note: while the installation steps are calling `podman`, you can replace any such calls by `docker` with the same arguments.
@@ -93,9 +91,6 @@ see [usage documentation](2.5/README.md).
 For information about usage of Dockerfile for Ruby 3.0,
 see [usage documentation](3.0/README.md).
 
-For information about usage of Dockerfile for Ruby 3.1,
-see [usage documentation](3.1/README.md).
-
 For information about usage of Dockerfile for Ruby 3.3,
 see [usage documentation](3.3/README.md).
 
@@ -113,14 +108,14 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=rhel9 VERSIONS=3.0
+    $ make test TARGET=rhel9 VERSIONS=3.3
     ```
 
 *  **CentOS Stream based image**
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=c9s VERSIONS=3.0
+    $ make test TARGET=c9s VERSIONS=3.3
     ```
 
 **Notice: By omitting the `VERSIONS` parameter, the build/test action will be performed
@@ -143,10 +138,10 @@ Image name structure
 ------------------------
 
 1. Platform name (lowercase) - ruby
-2. Platform version(without dots) - 30
+2. Platform version(without dots) - 33
 3. Base builder image - c9s/rhel8
 
-Examples: `ruby-30-c9s`, `ruby-30`
+Examples: `ruby-33-c9s`, `ruby-33`
 
 
 Repository organization
