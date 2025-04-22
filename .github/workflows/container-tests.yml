@@ -4,7 +4,7 @@ on:
       - created
 jobs:
   container-tests:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     name: "Container tests: ${{ matrix.version }} - ${{ matrix.os_test }}"
     concurrency:
       group: container-${{ github.event.issue.number }}-${{ matrix.version }}-${{ matrix.os_test }}
