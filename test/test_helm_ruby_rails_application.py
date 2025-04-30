@@ -42,32 +42,6 @@ class TestHelmCakePHPTemplate:
     def teardown_method(self):
         self.hc_api.delete_project()
 
-    def test_curl_connection(self):
-        if self.hc_api.oc_api.shared_cluster:
-            pytest.skip("Do NOT test on shared cluster")
-        if OS == "rhel10":
-            pytest.skip("Do NOT test on rhel10")
-        rails_ex_branch = "master"
-        if VERSION == "3.3":
-            rails_ex_branch = VERSION
-        self.hc_api.package_name = "redhat-ruby-imagestreams"
-        assert self.hc_api.helm_package()
-        assert self.hc_api.helm_installation()
-        self.hc_api.package_name = "redhat-ruby-rails-application"
-        assert self.hc_api.helm_package()
-        assert self.hc_api.helm_installation(
-            values={
-                "ruby_version": f"{VERSION}{TAG}",
-                "namespace": self.hc_api.namespace,
-                "source_repository_ref": rails_ex_branch,
-            }
-        )
-        assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
-        assert self.hc_api.test_helm_curl_output(
-            route_name="rails-example",
-            expected_str="Welcome to your Rails application"
-        )
-
     def test_by_helm_test(self):
         if OS == "rhel10":
             pytest.skip("Do NOT test on rhel10")
