@@ -31,7 +31,7 @@ TAG = TAGS.get(OS, None)
 class TestHelmCakePHPTemplate:
 
     def setup_method(self):
-        package_name = "ruby-rails-application"
+        package_name = "redhat-ruby-rails-application"
         path = test_dir
         self.hc_api = HelmChartsAPI(path=path, package_name=package_name, tarball_dir=test_dir, shared_cluster=True)
         self.hc_api.clone_helm_chart_repo(
@@ -45,13 +45,15 @@ class TestHelmCakePHPTemplate:
     def test_curl_connection(self):
         if self.hc_api.oc_api.shared_cluster:
             pytest.skip("Do NOT test on shared cluster")
+        if OS == "rhel10":
+            pytest.skip("Do NOT test on rhel10")
         rails_ex_branch = "master"
         if VERSION == "3.3":
             rails_ex_branch = VERSION
-        self.hc_api.package_name = "ruby-imagestreams"
+        self.hc_api.package_name = "redhat-ruby-imagestreams"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
-        self.hc_api.package_name = "ruby-rails-application"
+        self.hc_api.package_name = "redhat-ruby-rails-application"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation(
             values={
@@ -67,13 +69,15 @@ class TestHelmCakePHPTemplate:
         )
 
     def test_by_helm_test(self):
+        if OS == "rhel10":
+            pytest.skip("Do NOT test on rhel10")
         rails_ex_branch = "master"
         if VERSION == "3.3":
             rails_ex_branch = VERSION
-        self.hc_api.package_name = "ruby-imagestreams"
+        self.hc_api.package_name = "redhat-ruby-imagestreams"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
-        self.hc_api.package_name = "ruby-rails-application"
+        self.hc_api.package_name = "redhat-ruby-rails-application"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation(
             values={
