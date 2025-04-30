@@ -13,18 +13,19 @@ VERSION = os.getenv("VERSION")
 IMAGE_NAME = os.getenv("IMAGE_NAME")
 OS = os.getenv("TARGET")
 
+SHORT_VERSION = "".join(VERSION.split("."))
 
 # Replacement with 'test_python_s2i_app_ex'
 class TestS2IRubyTemplate:
 
     def setup_method(self):
-        self.oc_api = OpenShiftAPI(pod_name_prefix="ruby-testing", version=VERSION)
+        self.oc_api = OpenShiftAPI(pod_name_prefix=f"ruby-{SHORT_VERSION}-testing", version=VERSION, shared_cluster=True)
 
     def teardown_method(self):
         self.oc_api.delete_project()
 
     def test_rails_template_inside_cluster(self):
-        service_name = "ruby-testing"
+        service_name = f"ruby-{SHORT_VERSION}-testing"
         assert self.oc_api.deploy_s2i_app(
             image_name=IMAGE_NAME, app=f"https://github.com/sclorg/s2i-ruby-container.git",
             context=f"{VERSION}/test/puma-test-app",

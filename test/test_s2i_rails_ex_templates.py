@@ -25,11 +25,13 @@ TAG = TAGS.get(OS, None)
 IMAGE_SHORT = f"postgresql:12{TAG}"
 IMAGE_TAG = f"12{TAG}"
 
+SHORT_VERSION = "".join(VERSION.split("."))
+
 
 class TestS2IRailsExTemplate:
 
     def setup_method(self):
-        self.oc_api = OpenShiftAPI(pod_name_prefix="ruby-testing", version=VERSION)
+        self.oc_api = OpenShiftAPI(pod_name_prefix=f"ruby-{SHORT_VERSION}-testing", version=VERSION, shared_cluster=True)
         assert self.oc_api.upload_image(DEPLOYED_PGSQL_IMAGE, IMAGE_SHORT)
 
     def teardown_method(self):
@@ -43,7 +45,9 @@ class TestS2IRailsExTemplate:
         ]
     )
     def test_rails_template_inside_cluster(self, template):
-        service_name = "ruby-testing"
+        if OS == "rhel10":
+            pytest.skip("Do NOT test on rhel10")
+        service_name = f"ruby-{SHORT_VERSION}-testing"
         rails_ex_branch = "master"
         if VERSION == "3.3":
             rails_ex_branch = VERSION

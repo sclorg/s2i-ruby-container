@@ -1,6 +1,8 @@
 import os
 import sys
 
+import pytest
+
 from container_ci_suite.openshift import OpenShiftAPI
 from container_ci_suite.utils import check_variables
 
@@ -20,12 +22,14 @@ SHORT_VERSION = "".join(VERSION.split("."))
 class TestRubyImagestreams:
 
     def setup_method(self):
-        self.oc_api = OpenShiftAPI(pod_name_prefix="ruby", version=VERSION)
+        self.oc_api = OpenShiftAPI(pod_name_prefix=f"ruby-{SHORT_VERSION}-testing", version=VERSION, shared_cluster=True)
 
     def teardown_method(self):
         self.oc_api.delete_project()
 
-    def ruby(self):
+    def ruby_deploy_imagestream(self):
+        if OS == "rhel10":
+            pytest.skip("Do NOT test on rhel10")
         service_name = f"ruby-{SHORT_VERSION}-testing"
         assert self.oc_api.deploy_imagestream_s2i(
             imagestream_file=f"{VERSION}/imagestreams/ruby-rhel.json",
