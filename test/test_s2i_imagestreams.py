@@ -28,8 +28,6 @@ class TestRubyImagestreams:
         self.oc_api.delete_project()
 
     def ruby_deploy_imagestream(self):
-        if OS == "rhel10":
-            pytest.skip("Do NOT test on rhel10")
         service_name = f"ruby-{SHORT_VERSION}-testing"
         assert self.oc_api.deploy_imagestream_s2i(
             imagestream_file=f"{VERSION}/imagestreams/ruby-rhel.json",
