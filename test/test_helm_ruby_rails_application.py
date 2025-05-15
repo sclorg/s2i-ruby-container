@@ -8,6 +8,8 @@ from pathlib import Path
 from container_ci_suite.helm import HelmChartsAPI
 from container_ci_suite.utils import check_variables
 
+from constants import TAGS
+
 if not check_variables():
     print("At least one variable from IMAGE_NAME, OS, VERSION is missing.")
     sys.exit(1)
@@ -21,11 +23,7 @@ IMAGE_NAME = os.getenv("IMAGE_NAME")
 OS = os.getenv("TARGET")
 
 
-TAGS = {
-    "rhel8": "-ubi8",
-    "rhel9": "-ubi9"
-}
-TAG = TAGS.get(OS, None)
+TAG = TAGS.get(OS)
 
 
 class TestHelmCakePHPTemplate:
@@ -43,8 +41,6 @@ class TestHelmCakePHPTemplate:
         self.hc_api.delete_project()
 
     def test_by_helm_test(self):
-        if OS == "rhel10":
-            pytest.skip("Do NOT test on rhel10")
         rails_ex_branch = "master"
         if VERSION == "3.3":
             rails_ex_branch = VERSION

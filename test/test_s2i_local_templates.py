@@ -6,6 +6,8 @@ import pytest
 from container_ci_suite.openshift import OpenShiftAPI
 from container_ci_suite.utils import check_variables
 
+from constants import TAGS, PSQL_TAGS
+
 if not check_variables():
     print("At least one variable from IMAGE_NAME, OS, VERSION is missing.")
     sys.exit(1)
@@ -17,13 +19,10 @@ OS = os.getenv("TARGET")
 
 DEPLOYED_PGSQL_IMAGE = "quay.io/sclorg/postgresql-12-c8s"
 
-TAGS = {
-    "rhel8": "-el8",
-    "rhel9": "-el9"
-}
-TAG = TAGS.get(OS, None)
-IMAGE_SHORT = f"postgresql:12{TAG}"
-IMAGE_TAG = f"12{TAG}"
+TAG = TAGS.get(OS)
+PSQL_TAG = PSQL_TAGS.get(OS)
+IMAGE_SHORT = f"postgresql:12{PSQL_TAG}"
+IMAGE_TAG = f"12{PSQL_TAG}"
 
 SHORT_VERSION = "".join(VERSION.split("."))
 
@@ -32,7 +31,6 @@ class TestS2IRailsExTemplate:
 
     def setup_method(self):
         self.oc_api = OpenShiftAPI(pod_name_prefix=f"ruby-{SHORT_VERSION}-testing", version=VERSION, shared_cluster=True)
-        assert self.oc_api.upload_image(DEPLOYED_PGSQL_IMAGE, IMAGE_SHORT)
 
     def teardown_method(self):
         self.oc_api.delete_project()
@@ -45,8 +43,7 @@ class TestS2IRailsExTemplate:
         ]
     )
     def test_rails_template_inside_cluster(self, template):
-        if OS == "rhel10":
-            pytest.skip("Do NOT test on rhel10")
+        assert self.oc_api.upload_image(DEPLOYED_PGSQL_IMAGE, IMAGE_SHORT)
         service_name = f"ruby-{SHORT_VERSION}-testing"
         rails_ex_branch = "master"
         if VERSION == "3.3":
@@ -55,7 +52,7 @@ class TestS2IRailsExTemplate:
         openshift_args = [
             f"SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex.git",
             f"SOURCE_REPOSITORY_REF={rails_ex_branch}",
-            f"RUBY_VERSION={VERSION}",
+            f"RUBY_VERSION={VERSION}{TAG}",
             f"NAME={service_name}"
         ]
         if template != "rails.json":
@@ -63,7 +60,7 @@ class TestS2IRailsExTemplate:
                 f"SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex.git",
                 f"SOURCE_REPOSITORY_REF={rails_ex_branch}",
                 f"POSTGRESQL_VERSION={IMAGE_TAG}",
-                f"RUBY_VERSION={VERSION}",
+                f"RUBY_VERSION={VERSION}{TAG}",
                 f"NAME={service_name}",
                 f"DATABASE_USER=testu",
                 f"DATABASE_PASSWORD=testp"
