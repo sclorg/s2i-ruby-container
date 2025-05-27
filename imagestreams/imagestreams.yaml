@@ -17,6 +17,9 @@
       - name: UBI 9
         app_versions: ["3.0", "3.3"]
 
+      - name: UBI 10
+        app_versions: ["3.3"]
+
   - filename: ruby-rhel.json
     latest: "3.3-ubi9"
     distros:
@@ -26,6 +29,9 @@
       - name: UBI 9
         app_versions: ["3.0", "3.3"]
 
+      - name: UBI 10
+        app_versions: ["3.3"]
+
   - filename: ruby-rhel-aarch64.json
     latest: "3.3-ubi9"
     distros:
@@ -34,4 +40,7 @@
 
       - name: UBI 9
         app_versions: ["3.0", "3.3"]
+
+      - name: UBI 10
+        app_versions: ["3.3"]
 ...
