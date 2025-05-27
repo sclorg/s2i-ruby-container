@@ -53,7 +53,7 @@ class TestS2IRailsExTemplate:
         openshift_args = [
             f"SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex.git",
             f"SOURCE_REPOSITORY_REF={rails_ex_branch}",
-            f"RUBY_VERSION={VERSION}{TAG}",
+            f"RUBY_VERSION={VERSION}",
             f"NAME={service_name}"
         ]
         if template != "rails.json":
@@ -61,7 +61,7 @@ class TestS2IRailsExTemplate:
                 f"SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex.git",
                 f"SOURCE_REPOSITORY_REF={rails_ex_branch}",
                 f"POSTGRESQL_VERSION={IMAGE_TAG}",
-                f"RUBY_VERSION={VERSION}{TAG}",
+                f"RUBY_VERSION={VERSION}",
                 f"NAME={service_name}",
                 f"DATABASE_USER=testu",
                 f"DATABASE_PASSWORD=testp"
