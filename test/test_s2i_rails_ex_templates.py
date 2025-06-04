@@ -34,11 +34,12 @@ class TestS2IRailsExTemplate:
     def teardown_method(self):
         self.oc_api.delete_project()
 
+    # https://github.com/sclorg/s2i-ruby-container/issues/588
     @pytest.mark.parametrize(
         "template",
         [
             "rails.json",
-            "rails-postgresql-persistent.json"
+            # "rails-postgresql-persistent.json"
         ]
     )
     def test_rails_template_inside_cluster(self, template):
