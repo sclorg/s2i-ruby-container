@@ -25,6 +25,12 @@ test_connection
 test_scl_usage
 test_npm_functionality
 "
+
+TEST_LIST_FIPS="\
+test_ruby_fips_mode
+test_ruby_fips_s2i_app
+"
+
 source "${test_dir}/test-lib.sh"
 
 # Read exposed port from image meta data
@@ -51,7 +57,8 @@ run_s2i_build() {
 }
 
 run_test_application() {
-  docker run --user=100001 --rm --cidfile=${cid_file} ${IMAGE_NAME}-testapp
+  local appname=${1:-testapp}
+  docker run --user=100001 --rm --cidfile=${cid_file} ${IMAGE_NAME}-${appname}
 }
 
 test_s2i_usage() {
@@ -169,10 +176,12 @@ app_cleanup() {
 }
 
 function cleanup() {
-  info "Cleaning up the test application image ${IMAGE_NAME}-testapp"
-  if image_exists ${IMAGE_NAME}-testapp; then
-    docker rmi -f ${IMAGE_NAME}-testapp
-  fi
+  for image in testapp testfips; do
+    info "Cleaning up the test application image ${IMAGE_NAME}-${image}"
+    if image_exists ${IMAGE_NAME}-${image}; then
+      docker rmi -f ${IMAGE_NAME}-${image}
+    fi
+  done
 }
 
 # Positive test & non-zero exit status = ERROR.
@@ -208,6 +217,53 @@ evaluate_build_result() {
     _ret_code=127 # even though this is success, the app is still not built
   fi
   return $_ret_code
+}
+
+# "0" if system is not FIPS enabled, "1" if it is.
+function fips_enabled() {
+  local is_fips_enabled
+
+  # Read fips mode from host in case exists
+  if [[ -f /proc/sys/crypto/fips_enabled ]]; then
+    echo "$(cat /proc/sys/crypto/fips_enabled)"
+  else
+    echo "0"
+  fi
+}
+
+function run_s2i_build_fips() {
+  ct_s2i_build_as_df file://${test_dir}/test-fips ${IMAGE_NAME} ${IMAGE_NAME}-testfips ${s2i_args} $1
+}
+
+function test_ruby_fips_mode() {
+  if [[ "$(fips_enabled)" == "0" ]]; then
+    # FIPS disabled -> OpenSSL#fips_mode returns false
+    echo "Fips should be disabled"
+    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit !OpenSSL.fips_mode"'
+    ct_check_testcase_result "$?"
+  else
+    echo "Fips should be enabled"
+    # FIPS enabled -> OpenSSL#fips_mode returns true
+    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit OpenSSL.fips_mode"'
+    ct_check_testcase_result "$?"
+  fi
+}
+
+function test_ruby_fips_s2i_app() {
+  run_s2i_build_fips
+  evaluate_build_result $? "default"
+  # Verify that the HTTP connection can be established to test application container
+  run_test_application testfips &
+  # Wait for the container to write its CID file
+  ct_wait_for_cid "${cid_file}"
+  ct_test_response "http://$(container_ip):8080/symmetric/aes-256-cbc" 200 ""
+  ct_check_testcase_result $?
+  ct_test_response "http://$(container_ip):8080/symmetric/des-ede-cbc" 200 ""
+  ct_check_testcase_result $?
+  ct_test_response "http://$(container_ip):8080/hash/sha256" 200 ""
+  ct_check_testcase_result $?
+  ct_test_response "http://$(container_ip):8080/hash/md5" 200 ""
+  ct_check_testcase_result $?
 }
 
 # Prepare dependencies for tests
@@ -247,3 +303,12 @@ echo "Removing test dependencies"
 rm -rf ${test_dir}/db-test-app
 
 app_cleanup
+
+if [[ "$OS" == "rhel8" ]]; then
+  echo "Not executing fips tests on RHEL 8"
+else
+  echo "Testing fips mode"
+  TEST_SET=${TESTS:-$TEST_LIST_FIPS} ct_run_tests_from_testset "fips"
+  echo "Testing the production image build for fips"
+  cleanup
+fi
