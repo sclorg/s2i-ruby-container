@@ -46,6 +46,26 @@ function rails_ex_branch() {
   echo "$rails_example_repo_branch"
 }
 
+function test_ruby_fips_mode() {
+  local is_fips_enabled="0"
+
+  if [[ -f /proc/sys/crypto/fips_enabled ]]; then
+    is_fips_enabled=$(cat /proc/sys/crypto/fips_enabled)
+  fi
+
+  if [[ "$is_fips_enabled" == "0" ]]; then
+    # FIPS disabled -> OpenSSL#fips_enabled returns false
+    echo "Fips should be disabled"
+    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit !OpenSSL.fips_enabled"'
+    ct_check_testcase_result "$?"
+  else
+    echo "Fips should be enabled"
+    # FIPS enabled -> OpenSSL#fips_enabled returns true
+    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit OpenSSL.fips_enabled"'
+    ct_check_testcase_result "$?"
+  fi
+}
+
 function test_ruby_integration() {
   ct_os_test_s2i_app "${IMAGE_NAME}" \
                      "https://github.com/sclorg/s2i-ruby-container.git" \
