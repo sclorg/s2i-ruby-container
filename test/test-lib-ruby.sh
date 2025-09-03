@@ -29,20 +29,6 @@ function ct_pull_or_import_postgresql() {
   fi
 }
 
-# "0" if system is not FIPS enabled, "1" if it is.
-function fips_enabled() {
-  local is_fips_enabled
-
-  # Read fips mode from host in case exists
-  if [[ -f /proc/sys/crypto/fips_enabled ]]; then
-    is_fips_enabled=$(cat /proc/sys/crypto/fips_enabled)
-  else
-    is_fips_enabled="0"
-  fi
-
-  return "$is_fips_enabled"
-}
-
 function rails_ex_branch() {
   # Ruby 3.3 introduced too many incompatibilities to be able
   # to use the same Gemfile for RHEL 7 and also newer RHELs.
@@ -60,10 +46,6 @@ function rails_ex_branch() {
   echo "$rails_example_repo_branch"
 }
 
-run_s2i_build_fips() {
-  ct_s2i_build_as_df file://${test_dir}/test-fips ${IMAGE_NAME} ${IMAGE_NAME}-testfips ${s2i_args} $1
-}
-
 function run_test_application() {
   case "$1" in
     fips)
@@ -77,33 +59,6 @@ function run_test_application() {
     esac
 }
 
-function test_run_fips_app() {
-  # Verify that the HTTP connection can be established to test application container
-  run_test_application fips
-  # Wait for the container to write it's CID file
-  wait_for_cid
-  ct_test_response "http://localhost:4567/symmetric/aes-256-cbc" 200 ""
-  ct_test_response "http://localhost:4567/symmetric/des-ede-cbc" 200 ""
-  ct_test_response "http://localhost:4567/symmetric/sha256" 200 ""
-  ct_test_response "http://localhost:4567/symmetric/md5" 200 ""
-  curl "http://localhost:4567/"
-  ct_check_testcase_result $?
-  kill_test_application
-}
-
-function test_ruby_fips_mode() {
-  if [[ "$(fips_enabled)" == "0" ]]; then
-    # FIPS disabled -> OpenSSL#fips_enabled returns false
-    echo "Fips should be disabled"
-    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit !OpenSSL.fips_enabled"'
-    ct_check_testcase_result "$?"
-  else
-    echo "Fips should be enabled"
-    # FIPS enabled -> OpenSSL#fips_enabled returns true
-    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit OpenSSL.fips_enabled"'
-    ct_check_testcase_result "$?"
-  fi
-}
 
 function test_ruby_integration() {
   ct_os_test_s2i_app "${IMAGE_NAME}" \
