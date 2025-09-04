@@ -229,7 +229,7 @@ function fips_enabled() {
   return "$is_fips_enabled"
 }
 
-run_s2i_build_fips() {
+function run_s2i_build_fips() {
   ct_s2i_build_as_df file://${test_dir}/test-fips ${IMAGE_NAME} ${IMAGE_NAME}-testfips ${s2i_args} $1
 }
 
@@ -300,10 +300,7 @@ rm -rf ${test_dir}/db-test-app
 app_cleanup
 
 echo "Testing fips mode"
-prepare fips
-check_prep_result $? fips || exit
+TEST_SET=${TESTS:-$TEST_LIST_FIPS} ct_run_tests_from_testset "fips"
 echo "Testing the production image build for fips"
 run_s2i_build_fips
 evaluate_build_result $? "default"
-
-TEST_SET=${TESTS:-$TEST_LIST_FIPS} ct_run_tests_from_testset "fips"
