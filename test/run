@@ -251,12 +251,12 @@ function test_ruby_fips_mode() {
   if [[ "$(fips_enabled)" == "0" ]]; then
     # FIPS disabled -> OpenSSL#fips_enabled returns false
     echo "Fips should be disabled"
-    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit !OpenSSL.fips_enabled"'
+    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit !OpenSSL.fips_mode"'
     ct_check_testcase_result "$?"
   else
     echo "Fips should be enabled"
     # FIPS enabled -> OpenSSL#fips_enabled returns true
-    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit OpenSSL.fips_enabled"'
+    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit OpenSSL.fips_mode"'
     ct_check_testcase_result "$?"
   fi
 }
