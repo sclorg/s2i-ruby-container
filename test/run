@@ -221,12 +221,10 @@ function fips_enabled() {
 
   # Read fips mode from host in case exists
   if [[ -f /proc/sys/crypto/fips_enabled ]]; then
-    is_fips_enabled=$(cat /proc/sys/crypto/fips_enabled)
+    echo "$(cat /proc/sys/crypto/fips_enabled)"
   else
-    is_fips_enabled="0"
+    echo "0"
   fi
-
-  return "$is_fips_enabled"
 }
 
 function run_s2i_build_fips() {
