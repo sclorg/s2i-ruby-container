@@ -46,6 +46,20 @@ function rails_ex_branch() {
   echo "$rails_example_repo_branch"
 }
 
+function run_test_application() {
+  case "$1" in
+    fips)
+      cid_file=$CID_FILE_DIR/$(mktemp -u -p . --suffix=.cid)
+      docker run -d --user=100001 $(ct_mount_ca_file) --rm --cidfile=${cid_file} $2 ${IMAGE_NAME}-test$1
+      ;;
+    *)
+      echo "No such test application"
+      return 1
+      ;;
+    esac
+}
+
+
 function test_ruby_integration() {
   ct_os_test_s2i_app "${IMAGE_NAME}" \
                      "https://github.com/sclorg/s2i-ruby-container.git" \

@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
+
+gem 'sinatra'
+
+gem 'rackup'
+
+# Use webrick for simple HTTP transport.
+# this is not a production grade server, but gets the job done for the
+# purpose of just sending something over for a request.
+# Additionally there is an option to add SSL later here.
+gem 'webrick'

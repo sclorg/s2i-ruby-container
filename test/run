@@ -25,6 +25,11 @@ test_connection
 test_scl_usage
 test_npm_functionality
 "
+
+TEST_LIST_FIPS="\
+test_ruby_fips_mode
+"
+
 source "${test_dir}/test-lib.sh"
 
 # Read exposed port from image meta data
@@ -210,6 +215,50 @@ evaluate_build_result() {
   return $_ret_code
 }
 
+# "0" if system is not FIPS enabled, "1" if it is.
+function fips_enabled() {
+  local is_fips_enabled
+
+  # Read fips mode from host in case exists
+  if [[ -f /proc/sys/crypto/fips_enabled ]]; then
+    echo "$(cat /proc/sys/crypto/fips_enabled)"
+  else
+    echo "0"
+  fi
+}
+
+function run_s2i_build_fips() {
+  ct_s2i_build_as_df file://${test_dir}/test-fips ${IMAGE_NAME} ${IMAGE_NAME}-testfips ${s2i_args} $1
+}
+
+function test_run_fips_app() {
+  # Verify that the HTTP connection can be established to test application container
+  run_test_application fips
+  # Wait for the container to write it's CID file
+  wait_for_cid
+  ct_test_response "http://localhost:4567/symmetric/aes-256-cbc" 200 ""
+  ct_test_response "http://localhost:4567/symmetric/des-ede-cbc" 200 ""
+  ct_test_response "http://localhost:4567/symmetric/sha256" 200 ""
+  ct_test_response "http://localhost:4567/symmetric/md5" 200 ""
+  curl "http://localhost:4567/"
+  ct_check_testcase_result $?
+  kill_test_application
+}
+
+function test_ruby_fips_mode() {
+  if [[ "$(fips_enabled)" == "0" ]]; then
+    # FIPS disabled -> OpenSSL#fips_enabled returns false
+    echo "Fips should be disabled"
+    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit !OpenSSL.fips_mode"'
+    ct_check_testcase_result "$?"
+  else
+    echo "Fips should be enabled"
+    # FIPS enabled -> OpenSSL#fips_enabled returns true
+    docker run --rm "$IMAGE_NAME" /bin/bash -c 'ruby -ropenssl -e "exit OpenSSL.fips_mode"'
+    ct_check_testcase_result "$?"
+  fi
+}
+
 # Prepare dependencies for tests
 pushd ${test_dir}
   # db test dependencies
@@ -247,3 +296,9 @@ echo "Removing test dependencies"
 rm -rf ${test_dir}/db-test-app
 
 app_cleanup
+
+echo "Testing fips mode"
+TEST_SET=${TESTS:-$TEST_LIST_FIPS} ct_run_tests_from_testset "fips"
+echo "Testing the production image build for fips"
+run_s2i_build_fips
+evaluate_build_result $? "default"
