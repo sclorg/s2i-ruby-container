@@ -28,7 +28,6 @@ LABEL summary="$SUMMARY" \
       io.openshift.tags="builder,ruby,ruby${RUBY_SCL_NAME_VERSION},${RUBY_SCL}" \
       com.redhat.component="${RUBY_SCL}-container" \
       name="${IMAGE_NAME}" \
-      version="1" \
       com.redhat.license_terms="https://www.redhat.com/en/about/red-hat-end-user-license-agreements#UBI" \
       usage="s2i build https://github.com/sclorg/s2i-ruby-container.git \
 --context-dir=${RUBY_VERSION}/test/puma-test-app/ ${IMAGE_NAME} ruby-sample-app" \
