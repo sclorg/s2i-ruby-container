@@ -1,13 +1,11 @@
 Ruby 2.5 container image
 ========================
 This container image includes Ruby 2.5 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.5 applications.
-Only RHEL8 based builder image is available.
+Only the RHEL8 based builder image is available.
 The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/).
 The resulting image can be run using [podman](https://github.com/containers/libpod).
 
 Note: while the examples in this README are calling `podman`, you can replace any such calls by `docker` with the same arguments
-Note: While the examples in this README are using UBI8-based images (eg. ubi8/ruby-25), you can substitute any of the ubi8 images
-for any other version of the same image (RHSCL, UBI7, Centos7 or Fedora), if it exists.
 
 Description
 -----------
@@ -67,7 +65,7 @@ To use the Ruby image in a Dockerfile, follow these steps:
 podman pull ubi8/ruby-25
 ```
 
-An RHEL7 image `ubi8/ruby-25` is used in this example.
+An RHEL8 image `ubi8/ruby-25` is used in this example.
 
 #### 2. Pull and application code
 
@@ -225,4 +223,4 @@ See also
 --------
 Dockerfile and other sources are available on https://github.com/sclorg/s2i-ruby-container.
 In that repository you also can find another versions of Ruby environment Dockerfiles.
-Dockerfile for RHEL8 it's `Dockerfile.rhel8` and the Fedora Dockerfile is called Dockerfile.fedora.
+The Dockerfile for RHEL8 is called `Dockerfile.rhel8`.
