@@ -3,7 +3,7 @@ Ruby 3.3 container image
 This container image includes Ruby 3.3 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 3.3 applications.
 Users can choose between RHEL, CentOS Stream and Fedora based builder images.
 The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/),
-the CentOS Stream images are available on [Quay.io](https://quay.io/organization/centos7),
+the CentOS Stream images are available on [Quay.io](https://quay.io/organization/sclorg),
 and the Fedora images are available in [Quay.io](https://quay.io/organization/fedora).
 The resulting image can be run using [podman](https://github.com/containers/libpod).
 

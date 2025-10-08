@@ -21,4 +21,4 @@ install:
 script:
   # Unset an environment variable that causes failure in test.
   - unset RUBY_VERSION
-  - SKIP_SQUASH=1 make test TARGET=centos7
+  - SKIP_SQUASH=1 make test TARGET=c10s
