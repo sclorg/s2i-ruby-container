@@ -1,9 +1,9 @@
 Ruby 3.3 container image
 ========================
 This container image includes Ruby 3.3 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 3.3 applications.
-Users can choose between RHEL, CentOS and Fedora based builder images.
+Users can choose between RHEL, CentOS Stream and Fedora based builder images.
 The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/),
-the CentOS images are available on [Quay.io](https://quay.io/organization/centos7),
+the CentOS Stream images are available on [Quay.io](https://quay.io/organization/sclorg),
 and the Fedora images are available in [Quay.io](https://quay.io/organization/fedora).
 The resulting image can be run using [podman](https://github.com/containers/libpod).
 
@@ -25,7 +25,7 @@ the nodejs itself is included just to make the npm work.
 
 Usage in Openshift
 ------------------
-For this, we will assume that you are using the `ubi8/ruby-33 image`, available via `ruby:3.3` imagestream tag in Openshift.
+For this, we will assume that you are using the `ubi10/ruby-33 image`, available via `ruby:3.3` imagestream tag in Openshift.
 Building a simple [ruby-sample-app](https://github.com/sclorg/s2i-ruby-container/tree/master/3.3/test/puma-test-app) application
 in Openshift can be achieved with the following step:
 
@@ -64,10 +64,10 @@ To use the Ruby image in a Dockerfile, follow these steps:
 #### 1. Pull a base builder image to build on
 
 ```
-podman pull ubi8/ruby-33
+podman pull ubi10/ruby-33
 ```
 
-An RHEL8 image `ubi8/ruby-33` is used in this example.
+An RHEL10 image `ubi10/ruby-33` is used in this example.
 
 #### 2. Pull and application code
 
@@ -89,7 +89,7 @@ For all these three parts, users can use the Source-to-Image scripts inside the 
 
 ##### 3.3 To use the Source-to-Image scripts and build an image using a Dockerfile, create a Dockerfile with this content:
 ```
-FROM ubi8/ruby-33
+FROM ubi10/ruby-33
 
 # Add application sources to a directory that the assemble scriptexpects them
 # and set permissions so that the container runs without root access
@@ -110,7 +110,7 @@ CMD /usr/libexec/s2i/run
 The s2i scripts are used to set-up and run common Ruby applications. More information about the scripts can be found in [Source-to-Image](#source-to-image-framework-and-scripts) section.
 ##### 3.3 To use your own setup, create a Dockerfile with this content:
 ```
-FROM ubi8/ruby-33
+FROM ubi10/ruby-33
 
 USER 0
 ADD app-src ./
@@ -225,5 +225,5 @@ See also
 --------
 Dockerfile and other sources are available on https://github.com/sclorg/s2i-ruby-container.
 In that repository you also can find another versions of Ruby environment Dockerfiles.
-Dockerfile for RHEL8 it's `Dockerfile.rhel8`, for RHEL9 it's `Dockerfile.rhel9`,
-for RHEL10 it's `Dockerfile.rhel10`and the Fedora Dockerfile is called Dockerfile.fedora.
+The Dockerfile for RHEL8 is called `Dockerfile.rhel8`, for RHEL9 it's `Dockerfile.rhel9`,
+for RHEL10 it's `Dockerfile.rhel10`, for CentOS Stream 10 it's `Dockerfile.c10s` and the Fedora Dockerfile is called Dockerfile.fedora.

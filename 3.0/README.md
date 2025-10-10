@@ -1,10 +1,8 @@
 Ruby 3.0 container image
 ========================
 This container image includes Ruby 3.0 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 3.0 applications.
-Users can choose between RHEL, CentOS and Fedora based builder images.
-The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/),
-the CentOS images are available on [Quay.io](https://quay.io/organization/centos7),
-and the Fedora images are available in [Quay.io](https://quay.io/organization/fedora).
+Only the RHEL9 based builder image is available.
+The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/).
 The resulting image can be run using [podman](https://github.com/containers/libpod).
 
 Note: while the examples in this README are calling `podman`, you can replace any such calls by `docker` with the same arguments
@@ -67,7 +65,7 @@ To use the Ruby image in a Dockerfile, follow these steps:
 podman pull ubi9/ruby-30
 ```
 
-An RHEL7 image `ubi9/ruby-30` is used in this example.
+A RHEL9 image `ubi9/ruby-30` is used in this example.
 
 #### 2. Pull and application code
 
@@ -225,4 +223,4 @@ See also
 --------
 Dockerfile and other sources are available on https://github.com/sclorg/s2i-ruby-container.
 In that repository you also can find another versions of Ruby environment Dockerfiles.
-Dockerfile for RHEL8 it's `Dockerfile.rhel8`, for RHEL9 it's `Dockerfile.rhel9` and the Fedora Dockerfile is called Dockerfile.fedora.
+The Dockerfile for RHEL9 is called `Dockerfile.rhel9`.

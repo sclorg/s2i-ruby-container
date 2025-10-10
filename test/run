@@ -137,10 +137,9 @@ function test_from_dockerfile() {
   info "Check building using a $dockerfile"
 
   # Ruby 3.3 introduced too many incompatibilities to be able
-  # to use the same Gemfile for RHEL 7 and also newer RHELs.
-  # we can use the same Gemfile for RHEL 7 and newer
-  # as long as Ruby MAJOR.MINOR <= 3.1. Newer Ruby needs dependencies
-  # that are not compatible with RHEL 7.
+  # to use the same Gemfile as for the previous versions.
+  # We can use the same Gemfile for RHEL 8, 9, and 10
+  # as long as Ruby MAJOR.MINOR <= 3.1.
 
   # Latest stable
   rails_example_repo_branch="3.3"

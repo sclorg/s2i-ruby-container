@@ -12,8 +12,8 @@ source "${THISDIR}/test-lib.sh"
 source "${THISDIR}/test-lib-openshift.sh"
 
 function ct_pull_or_import_postgresql() {
-  postgresql_image="quay.io/sclorg/postgresql-12-c8s"
-  image_short="postgresql:12"
+  postgresql_image="quay.io/sclorg/postgresql-16-c10s"
+  image_short="postgresql:16"
   image_tag="${image_short}"
   # Variable CVP is set by CVP pipeline
   if [ "${CVP:-0}" -eq "0" ]; then
@@ -22,19 +22,18 @@ function ct_pull_or_import_postgresql() {
     # Exit in case of failure, because postgresql container is mandatory
     ct_pull_image "${postgresql_image}" "true"
   else
-    # Import postgresql-10-centos7 image before running tests on CVP
+    # Import postgresql-16-c10s image before running tests on CVP
     oc import-image "${image_short}:latest" --from="${postgresql_image}:latest" --insecure=true --confirm
-    # Tag postgresql image to "postgresql:10" which is expected by test suite
+    # Tag postgresql image to "postgresql:16" which is expected by test suite
     oc tag "${image_short}:latest" "${image_tag}"
   fi
 }
 
 function rails_ex_branch() {
   # Ruby 3.3 introduced too many incompatibilities to be able
-  # to use the same Gemfile for RHEL 7 and also newer RHELs.
-  # we can use the same Gemfile for RHEL 7 and newer
-  # as long as Ruby MAJOR.MINOR <= 3.1. Newer Ruby needs dependencies
-  # that are not compatible with RHEL 7.
+  # to use the same Gemfile as for the previous versions.
+  # We can use the same Gemfile for RHEL 8, 9, and 10
+  # as long as Ruby MAJOR.MINOR <= 3.1.
 
   # Latest stable
   rails_example_repo_branch="3.3"

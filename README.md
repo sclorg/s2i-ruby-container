@@ -4,14 +4,13 @@ Ruby container images
 [![Build and push images to Quay.io registry](https://github.com/sclorg/s2i-ruby-container/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/sclorg/s2i-ruby-container/actions/workflows/build-and-push.yml)
 
 Images available on Quay are:
-* Fedora [ruby-30](https://quay.io/repository/fedora/ruby-30)
 * Fedora [ruby-33](https://quay.io/repository/fedora/ruby-33)
 * CentOS Stream 10 [ruby-33-c10s](https://quay.io/repository/sclorg/ruby-33-c10s)
 
 This repository contains the source for building various versions of
 the Ruby application as a reproducible container image using
 [source-to-image](https://github.com/openshift/source-to-image).
-Users can choose between RHEL and CentOS based builder images.
+Users can choose between RHEL and CentOS Stream based builder images.
 The resulting image can be run using [podman](https://github.com/containers/libpod).
 
 For more information about using these images with OpenShift, please see the
@@ -29,25 +28,25 @@ RHEL versions currently supported are:
 * RHEL9
 * RHEL10
 
-CentOS versions currently supported are:
+CentOS Stream versions currently supported are:
 * CentOS Stream 9
 * CentOS Stream 10
 
 A Ruby 1.9 image can be built from [this third party repository](https://github.com/getupcloud/s2i-ruby/).
-It is not maintained by Red Hat nor is part of the OpenShift project.
+It is not maintained by Red Hat nor is it part of the OpenShift project.
 
 
 Installation
 ---------------
-To build a Ruby image, choose either the CentOS or RHEL based image:
+To build a Ruby image, choose either the CentOS Stream or RHEL based image:
 *  **RHEL based image**
 
     These images are available in the
-    [Red Hat Container Catalog](https://access.redhat.com/containers/#/registry.access.redhat.com/rhel9/ruby-30).
+    [Red Hat Container Catalog](https://catalog.redhat.com/en/search?searchType=containers).
     To download it run:
 
     ```
-    $ podman pull registry.access.redhat.com/rhel9/ruby-30
+    $ podman pull registry.redhat.io/rhel10/ruby-33
     ```
 
     To build a RHEL based Ruby image, you need to run the build on a properly
@@ -56,7 +55,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=rhel9 VERSIONS=3.0
+    $ make build TARGET=rhel10 VERSIONS=3.3
     ```
 
 *  **CentOS Stream based image**
@@ -64,7 +63,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     This image is available on DockerHub. To download it run:
 
     ```
-    $ podman pull quay.io/sclorg/ruby-30-c9s
+    $ podman pull quay.io/sclorg/ruby-33-c10s
     ```
 
     To build a Ruby image from scratch run:
@@ -72,7 +71,7 @@ To build a Ruby image, choose either the CentOS or RHEL based image:
     ```
     $ git clone --recursive https://github.com/sclorg/s2i-ruby-container.git
     $ cd s2i-ruby-container
-    $ make build TARGET=c9s VERSIONS=3.0
+    $ make build TARGET=c10s VERSIONS=3.3
     ```
 
 Note: while the installation steps are calling `podman`, you can replace any such calls by `docker` with the same arguments.
@@ -99,7 +98,7 @@ Test
 This repository also provides a [S2I](https://github.com/openshift/source-to-image) test framework,
 which launches tests to check functionality of a simple Ruby application built on top of the s2i-ruby image.
 
-Users can choose between testing a Ruby test application based on a RHEL or CentOS image.
+Users can choose between testing a Ruby test application based on a RHEL or CentOS Stream image.
 
 *  **RHEL based image**
 
@@ -108,14 +107,14 @@ Users can choose between testing a Ruby test application based on a RHEL or Cent
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=rhel9 VERSIONS=3.0
+    $ make test TARGET=rhel10 VERSIONS=3.3
     ```
 
 *  **CentOS Stream based image**
 
     ```
     $ cd s2i-ruby-container
-    $ make test TARGET=c9s VERSIONS=3.0
+    $ make test TARGET=c10s VERSIONS=3.3
     ```
 
 **Notice: By omitting the `VERSIONS` parameter, the build/test action will be performed
@@ -138,21 +137,21 @@ Image name structure
 ------------------------
 
 1. Platform name (lowercase) - ruby
-2. Platform version(without dots) - 30
-3. Base builder image - c9s/rhel8
+2. Platform version(without dots) - 33
+3. Base builder image - c10s/rhel10
 
-Examples: `ruby-30-c9s`, `ruby-30`
+Examples: `ruby-33-c10s`, `ruby-33`
 
 
 Repository organization
 ------------------------
 * **`<ruby-version>`**
 
-    * **Dockerfile.c9s**
+    * **Dockerfile.c10s**
 
         CentOS Stream based Dockerfile.c9s.
 
-    * **Dockerfile.rhel8**
+    * **Dockerfile.rhel10**
 
         RHEL based Dockerfile. In order to perform build or test actions on this
         Dockerfile you need to run the action on a properly subscribed RHEL machine.
