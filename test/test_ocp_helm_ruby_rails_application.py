@@ -1,49 +1,42 @@
-import os
-import sys
-
-import pytest
-
-from pathlib import Path
-
 from container_ci_suite.helm import HelmChartsAPI
-from container_ci_suite.utils import check_variables
 
-from constants import TAGS
-
-if not check_variables():
-    print("At least one variable from IMAGE_NAME, OS, VERSION is missing.")
-    sys.exit(1)
-
-
-test_dir = Path(os.path.abspath(os.path.dirname(__file__)))
-
-
-VERSION = os.getenv("VERSION")
-IMAGE_NAME = os.getenv("IMAGE_NAME")
-OS = os.getenv("TARGET")
-
-
-TAG = TAGS.get(OS)
+from conftest import VARS
 
 
 class TestHelmCakePHPTemplate:
+    """
+    Test checks if Helm imagestream and Helm ruby rails application
+    works properly and response is as expected.
+    """
 
     def setup_method(self):
+        """
+        Setup the test environment.
+        """
         package_name = "redhat-ruby-rails-application"
-        path = test_dir
-        self.hc_api = HelmChartsAPI(path=path, package_name=package_name, tarball_dir=test_dir, shared_cluster=True)
+        self.hc_api = HelmChartsAPI(
+            path=VARS.TEST_DIR,
+            package_name=package_name,
+            tarball_dir=VARS.TEST_DIR,
+            shared_cluster=True,
+        )
         self.hc_api.clone_helm_chart_repo(
-            repo_url="https://github.com/sclorg/helm-charts", repo_name="helm-charts",
-            subdir="charts/redhat"
+            repo_url="https://github.com/sclorg/helm-charts",
+            repo_name="helm-charts",
+            subdir="charts/redhat",
         )
 
     def teardown_method(self):
+        """
+        Teardown the test environment.
+        """
         self.hc_api.delete_project()
 
     def test_by_helm_test(self):
-        rails_ex_branch = "master"
-        if VERSION == "3.3":
-            rails_ex_branch = VERSION
+        """
+        Test checks if Helm imagestream and Helm ruby rails application
+        works properly and response is as expected.
+        """
         self.hc_api.package_name = "redhat-ruby-imagestreams"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
@@ -51,10 +44,12 @@ class TestHelmCakePHPTemplate:
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation(
             values={
-                "ruby_version": f"{VERSION}{TAG}",
+                "ruby_version": f"{VARS.VERSION}{VARS.TAG}",
                 "namespace": self.hc_api.namespace,
-                "source_repository_ref": rails_ex_branch,
+                "source_repository_ref": VARS.BRANCH_TO_TEST,
             }
         )
         assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
-        assert self.hc_api.test_helm_chart(expected_str=["Welcome to your Rails application"])
+        assert self.hc_api.test_helm_chart(
+            expected_str=["Welcome to your Rails application"]
+        )

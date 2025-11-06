@@ -8,7 +8,11 @@ from pytest import skip
 
 from container_ci_suite.utils import check_variables
 
-
+PSQL_TAGS = {
+    "rhel8": "-el8",
+    "rhel9": "-el9",
+    "rhel10": "-el10",
+}
 if not check_variables():
     sys.exit(1)
 
@@ -17,7 +21,6 @@ TAGS = {
     "rhel9": "-ubi9",
     "rhel10": "-ubi10",
 }
-BRANCH_TO_TEST = "master"
 Vars = namedtuple(
     "Vars",
     [
@@ -28,10 +31,16 @@ Vars = namedtuple(
         "SHORT_VERSION",
         "TEST_DIR",
         "BRANCH_TO_TEST",
+        "PSQL_TAG",
+        "PSQL_IMAGE_SHORT",
+        "PSQL_IMAGE_TAG",
     ],
 )
 OS = os.getenv("TARGET").lower()
 VERSION = os.getenv("VERSION")
+PSQL_TAG = PSQL_TAGS.get(OS)
+PSQL_IMAGE_SHORT = f"postgresql:12{PSQL_TAG}"
+PSQL_IMAGE_TAG = f"12{PSQL_TAG}"
 BRANCH_TO_TEST = "master"
 if VERSION == "3.1" or VERSION == "3.3":
     BRANCH_TO_TEST = "3.3"
@@ -44,6 +53,9 @@ VARS = Vars(
     SHORT_VERSION=VERSION.replace(".", ""),
     TEST_DIR=Path(__file__).parent.absolute(),
     BRANCH_TO_TEST=BRANCH_TO_TEST,
+    PSQL_TAG=PSQL_TAGS.get(OS),
+    PSQL_IMAGE_SHORT=PSQL_IMAGE_SHORT,
+    PSQL_IMAGE_TAG=PSQL_IMAGE_TAG,
 )
 
 
@@ -60,5 +72,5 @@ def skip_fips_tests_rhel8():
     """
     Skip FIPS tests on RHEL8.
     """
-    if VARS.OS == "rhel8" and fips_enabled():
+    if VARS.OS == "rhel8":
         skip("Skipping FIPS tests on RHEL8 because FIPS is enabled.")

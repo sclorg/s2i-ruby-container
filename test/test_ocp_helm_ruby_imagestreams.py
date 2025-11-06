@@ -1,35 +1,24 @@
-import os
-import sys
-
 import pytest
 
-from pathlib import Path
-
 from container_ci_suite.helm import HelmChartsAPI
-from container_ci_suite.utils import check_variables
 
-if not check_variables():
-    print("At least one variable from IMAGE_NAME, OS, VERSION is missing.")
-    sys.exit(1)
-
-
-test_dir = Path(os.path.abspath(os.path.dirname(__file__)))
-
-
-VERSION = os.getenv("VERSION")
-IMAGE_NAME = os.getenv("IMAGE_NAME")
-OS = os.getenv("TARGET")
+from conftest import VARS
 
 
 class TestHelmRHELRubyImageStreams:
-
     def setup_method(self):
         package_name = "redhat-ruby-imagestreams"
-        path = test_dir
-        self.hc_api = HelmChartsAPI(path=path, package_name=package_name, tarball_dir=test_dir, shared_cluster=True)
+
+        self.hc_api = HelmChartsAPI(
+            path=VARS.TEST_DIR,
+            package_name=package_name,
+            tarball_dir=VARS.TEST_DIR,
+            shared_cluster=True,
+        )
         self.hc_api.clone_helm_chart_repo(
-            repo_url="https://github.com/sclorg/helm-charts", repo_name="helm-charts",
-            subdir="charts/redhat"
+            repo_url="https://github.com/sclorg/helm-charts",
+            repo_name="helm-charts",
+            subdir="charts/redhat",
         )
 
     def teardown_method(self):
@@ -49,6 +38,12 @@ class TestHelmRHELRubyImageStreams:
         ],
     )
     def test_package_imagestream(self, version, registry, expected):
+        """
+        Test checks if Helm imagestreams are present
+        """
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
-        assert self.hc_api.check_imagestreams(version=version, registry=registry) == expected
+        assert (
+            self.hc_api.check_imagestreams(version=version, registry=registry)
+            == expected
+        )
