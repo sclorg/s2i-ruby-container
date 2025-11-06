@@ -1,0 +1,1 @@
+../../test/test_ocp_s2i_rails_ex_templates.py
