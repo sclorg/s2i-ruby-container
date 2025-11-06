@@ -45,6 +45,7 @@ class TestRubyFipsModeContainer:
         Test if container works under specific user
         and not only with user --user 10001
         """
+        skip_fips_tests_rhel8()
         print(f"Is FIPS enabled? {fips_enabled()}")
         if fips_enabled():
             output = PodmanCLIWrapper.podman_run_command_and_remove(
