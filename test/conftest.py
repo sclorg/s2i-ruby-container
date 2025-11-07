@@ -4,7 +4,6 @@ import sys
 
 from pathlib import Path
 from collections import namedtuple
-from pytest import skip
 
 from container_ci_suite.utils import check_variables
 
@@ -66,11 +65,3 @@ def fips_enabled():
     if os.path.exists("/proc/sys/crypto/fips_enabled"):
         return Path("/proc/sys/crypto/fips_enabled").read_text() == "1"
     return False
-
-
-def skip_fips_tests_rhel8():
-    """
-    Skip FIPS tests on RHEL8.
-    """
-    if VARS.OS == "rhel8":
-        skip("Skipping FIPS tests on RHEL8 because FIPS is enabled.")

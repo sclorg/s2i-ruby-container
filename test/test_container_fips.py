@@ -1,8 +1,11 @@
+import pytest
+
 from pathlib import Path
+
 from container_ci_suite.container_lib import ContainerTestLib
 from container_ci_suite.engines.podman_wrapper import PodmanCLIWrapper
 
-from conftest import VARS, skip_fips_tests_rhel8, fips_enabled
+from conftest import VARS, fips_enabled
 
 fips_test_app = VARS.TEST_DIR / "test-fips"
 
@@ -25,7 +28,7 @@ def build_fips_test_app(app_path: Path) -> ContainerTestLib:
 class TestRubyFipsModeContainer:
     """
     Test if container works under specific user
-    and not only with user --user 10001
+    and not only with user --user 100001
     """
 
     def setup_method(self):
@@ -45,8 +48,8 @@ class TestRubyFipsModeContainer:
         Test if container works under specific user
         and not only with user --user 10001
         """
-        skip_fips_tests_rhel8()
-        print(f"Is FIPS enabled? {fips_enabled()}")
+        if VARS.OS == "rhel8":
+            pytest.skip("Do not execute on RHEL8")
         if fips_enabled():
             output = PodmanCLIWrapper.podman_run_command_and_remove(
                 cid_file_name={VARS.IMAGE_NAME},
@@ -79,14 +82,16 @@ class TestRubyFipsApplicationContainer:
         """
         Cleanup the test environment.
         """
-        self.fips_app.cleanup()
+        if self.fips_app:
+            self.fips_app.cleanup()
 
     def test_application(self):
         """
         Test if container works under specific user
         and not only with user --user 100001
         """
-        skip_fips_tests_rhel8()
+        if VARS.OS == "rhel8":
+            pytest.skip("Do not execute on RHEL8")
         cid_file_name = self.fips_app.app_name
         assert self.fips_app.create_container(
             cid_file_name=cid_file_name, container_args="--user 100001"

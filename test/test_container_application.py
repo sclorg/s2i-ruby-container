@@ -15,7 +15,7 @@ rack_test_app = VARS.TEST_DIR / "rack-test-app"
 test_ports = PodmanCLIWrapper.podman_inspect(
     field="{{range $key, $value := .Config.ExposedPorts }}{{$key}}{{end}}",
     src_image=VARS.IMAGE_NAME,
-).split("/")
+)
 print(f"The exposed ports are: {test_ports}")
 
 
@@ -75,7 +75,9 @@ class TestRubyHelloWorldContainer:
             )
         )
         # Response code from HTTP url is 200
-        assert self.s2i_app.test_response(url=f"http://{cip}", port=test_ports[0])
+        assert self.s2i_app.test_response(
+            url=f"http://{cip}", port=test_ports.split("/")[0]
+        )
 
 
 class TestRubyPumaTestAppContainer:
@@ -115,7 +117,9 @@ class TestRubyPumaTestAppContainer:
             )
         )
         # Response code from HTTP url is 200
-        assert self.s2i_app.test_response(url=f"http://{cip}", port=test_ports[0])
+        assert self.s2i_app.test_response(
+            url=f"http://{cip}", port=test_ports.split("/")[0]
+        )
 
 
 class TestRubyRackTestAppContainer:
@@ -155,4 +159,6 @@ class TestRubyRackTestAppContainer:
             )
         )
         # Response code from HTTP url is 200
-        assert self.s2i_app.test_response(url=f"http://{cip}", port=test_ports[0])
+        assert self.s2i_app.test_response(
+            url=f"http://{cip}", port=test_ports.split("/")[0]
+        )
