@@ -1,1 +1,0 @@
-../../test/test_ruby_ex_standalone.py
