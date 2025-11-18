@@ -1,0 +1,1 @@
+../../test/test_ocp_s2i_local_templates.py
