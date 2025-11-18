@@ -20,6 +20,15 @@ TAGS = {
     "rhel9": "-ubi9",
     "rhel10": "-ubi10",
 }
+TEST_DIR = Path(__file__).parent.absolute()
+APPS = [
+    TEST_DIR / f"{x}test-app"
+    for x in [
+        "",
+        "puma-",
+        "rack-",
+    ]
+]
 Vars = namedtuple(
     "Vars",
     [
@@ -29,6 +38,7 @@ Vars = namedtuple(
         "IMAGE_NAME",
         "SHORT_VERSION",
         "TEST_DIR",
+        "APPS",
         "BRANCH_TO_TEST",
         "PSQL_TAG",
         "PSQL_IMAGE_SHORT",
@@ -50,7 +60,8 @@ VARS = Vars(
     VERSION=VERSION,
     IMAGE_NAME=os.getenv("IMAGE_NAME"),
     SHORT_VERSION=VERSION.replace(".", ""),
-    TEST_DIR=Path(__file__).parent.absolute(),
+    TEST_DIR=TEST_DIR,
+    APPS=APPS,
     BRANCH_TO_TEST=BRANCH_TO_TEST,
     PSQL_TAG=PSQL_TAGS.get(OS),
     PSQL_IMAGE_SHORT=PSQL_IMAGE_SHORT,
