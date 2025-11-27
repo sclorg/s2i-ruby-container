@@ -3,10 +3,6 @@ Ruby container images
 
 [![Build and push images to Quay.io registry](https://github.com/sclorg/s2i-ruby-container/actions/workflows/build-and-push.yml/badge.svg)](https://github.com/sclorg/s2i-ruby-container/actions/workflows/build-and-push.yml)
 
-Images available on Quay are:
-* Fedora [ruby-33](https://quay.io/repository/fedora/ruby-33)
-* CentOS Stream 10 [ruby-33-c10s](https://quay.io/repository/sclorg/ruby-33-c10s)
-
 This repository contains the source for building various versions of
 the Ruby application as a reproducible container image using
 [source-to-image](https://github.com/openshift/source-to-image).
@@ -18,19 +14,18 @@ official [OpenShift Documentation](https://docs.okd.io/latest/using_images/s2i_i
 
 Versions
 ---------------
-Ruby versions currently provided are:
-* [Ruby 2.5](2.5/README.md)
-* [Ruby 3.0](3.0/README.md)
-* [Ruby 3.3](3.3/README.md)
-
-RHEL versions currently supported are:
-* RHEL8
-* RHEL9
-* RHEL10
-
-CentOS Stream versions currently supported are:
-* CentOS Stream 9
-* CentOS Stream 10
+Currently supported versions are visible in the following table, expand an entry to see its container registry address.
+<!--
+Table start
+-->
+||CentOS Stream 9|CentOS Stream 10|Fedora|RHEL 8|RHEL 9|RHEL 10|
+|:--|:--:|:--:|:--:|:--:|:--:|:--:|
+|2.5||||<details><summary>✓</summary>`registry.redhat.io/rhel8/ruby-25`</details>|||
+|3.0|||||<details><summary>✓</summary>`registry.redhat.io/rhel9/ruby-30`</details>||
+|3.3||<details><summary>✓</summary>`quay.io/sclorg/ruby-33-c10s`</details>|<details><summary>✓</summary>`quay.io/fedora/ruby-33`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel8/ruby-33`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel9/ruby-33`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel10/ruby-33`</details>|
+<!--
+Table end
+-->
 
 A Ruby 1.9 image can be built from [this third party repository](https://github.com/getupcloud/s2i-ruby/).
 It is not maintained by Red Hat nor is it part of the OpenShift project.
