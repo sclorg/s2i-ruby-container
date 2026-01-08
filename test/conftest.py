@@ -50,9 +50,9 @@ VERSION = os.getenv("VERSION")
 PSQL_TAG = PSQL_TAGS.get(OS)
 PSQL_IMAGE_SHORT = f"postgresql:12{PSQL_TAG}"
 PSQL_IMAGE_TAG = f"12{PSQL_TAG}"
-BRANCH_TO_TEST = "master"
-if VERSION == "3.1" or VERSION == "3.3":
-    BRANCH_TO_TEST = "3.3"
+TEST_APP_BRANCH = "master"
+if VERSION and float(VERSION) >= 3.1 :
+    TEST_APP_BRANCH = "3.3"
 
 VARS = Vars(
     OS=OS,
