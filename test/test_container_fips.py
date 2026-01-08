@@ -97,6 +97,12 @@ class TestRubyFipsApplicationContainer:
         assert cid
         cip = self.fips_app.get_cip(cid_file_name=cid_file_name)
         assert cip
+        # The endpoints respond with HTTP 200 as a success
+        # The endpoints respond with HTTP status 500 for FIPS related failures,
+        # where a cipher behaved incorrectly.
+        # In the case of unexpected errors, app responds with HTTP status 409
+        # If HTTP status code is 409 or 500, the response body also contains
+        # a message including a backtrace.
         assert self.fips_app.test_response(
             url=f"http://{cip}",
             page="/symmetric/aes-256-cbc",
