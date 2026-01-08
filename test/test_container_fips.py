@@ -49,18 +49,18 @@ class TestRubyFipsModeContainer:
         if VARS.OS == "rhel8":
             pytest.skip("Do not execute on RHEL8")
         if fips_enabled():
+            # FIPS enabled -> OpenSSL#fips_mode returns true
             output = PodmanCLIWrapper.podman_run_command_and_remove(
                 cid_file_name={VARS.IMAGE_NAME},
                 cmd="ruby -ropenssl -e 'exit OpenSSL.fips_mode'",
             )
-            print(f"FIPS is enabled {output}")
             assert output
         else:
+            # FIPS disabled -> OpenSSL#fips_mode returns false
             output = PodmanCLIWrapper.podman_run_command_and_remove(
                 cid_file_name=f"{VARS.IMAGE_NAME}-{self.app.app_name}",
                 cmd="ruby -ropenssl -e 'exit !OpenSSL.fips_mode'",
             )
-            print(f"FIPS is disable {output}")
             assert not output
 
 

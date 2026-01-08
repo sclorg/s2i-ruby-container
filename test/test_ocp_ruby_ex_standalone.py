@@ -29,7 +29,7 @@ class TestS2IRailsExTemplate:
         service_name = f"ruby-{VARS.SHORT_VERSION}-testing"
         assert self.oc_api.deploy_s2i_app(
             image_name=VARS.IMAGE_NAME,
-            app=f"https://github.com/sclorg/rails-ex#{VARS.BRANCH_TO_TEST}",
+            app=f"https://github.com/sclorg/rails-ex#{VARS.TEST_APP_BRANCH}",
             context=".",
             service_name=service_name,
         )

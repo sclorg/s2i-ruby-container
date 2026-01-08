@@ -5,9 +5,6 @@ from container_ci_suite.openshift import OpenShiftAPI
 from conftest import VARS
 
 
-DEPLOYED_PGSQL_IMAGE = "quay.io/sclorg/postgresql-12-c8s"
-
-
 class TestS2IRailsExTemplate:
     def setup_method(self):
         self.oc_api = OpenShiftAPI(
@@ -31,7 +28,9 @@ class TestS2IRailsExTemplate:
         """
         Test if Ruby s2i Rails ex templates work properly
         """
-        assert self.oc_api.upload_image(DEPLOYED_PGSQL_IMAGE, VARS.PSQL_IMAGE_SHORT)
+        assert self.oc_api.upload_image(
+            VARS.DEPLOYED_PGSQL_IMAGE, VARS.PSQL_IMAGE_SHORT
+        )
         service_name = f"ruby-{VARS.SHORT_VERSION}-testing"
         template_url = self.oc_api.get_raw_url_for_json(
             container="rails-ex",
@@ -41,14 +40,14 @@ class TestS2IRailsExTemplate:
         )
         openshift_args = [
             "SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex.git",
-            f"SOURCE_REPOSITORY_REF={VARS.BRANCH_TO_TEST}",
+            f"SOURCE_REPOSITORY_REF={VARS.TEST_APP_BRANCH}",
             f"RUBY_VERSION={VARS.VERSION}",
             f"NAME={service_name}",
         ]
         if template != "rails.json":
             openshift_args = [
                 "SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex.git",
-                f"SOURCE_REPOSITORY_REF={VARS.BRANCH_TO_TEST}",
+                f"SOURCE_REPOSITORY_REF={VARS.TEST_APP_BRANCH}",
                 f"POSTGRESQL_VERSION={VARS.PSQL_IMAGE_TAG}",
                 f"RUBY_VERSION={VARS.VERSION}",
                 f"NAME={service_name}",

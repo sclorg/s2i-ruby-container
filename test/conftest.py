@@ -39,10 +39,11 @@ Vars = namedtuple(
         "SHORT_VERSION",
         "TEST_DIR",
         "APPS",
-        "BRANCH_TO_TEST",
+        "TEST_APP_BRANCH",
         "PSQL_TAG",
         "PSQL_IMAGE_SHORT",
         "PSQL_IMAGE_TAG",
+        "DEPLOYED_PSQL_IMAGE",
     ],
 )
 OS = os.getenv("TARGET").lower()
@@ -51,9 +52,9 @@ PSQL_TAG = PSQL_TAGS.get(OS)
 PSQL_IMAGE_SHORT = f"postgresql:12{PSQL_TAG}"
 PSQL_IMAGE_TAG = f"12{PSQL_TAG}"
 TEST_APP_BRANCH = "master"
-if VERSION and float(VERSION) >= 3.1 :
+if VERSION and float(VERSION) >= 3.1:
     TEST_APP_BRANCH = "3.3"
-
+DEPLOYED_PSQL_IMAGE = "quay.io/sclorg/postgresql-12-c8s"
 VARS = Vars(
     OS=OS,
     TAG=TAGS.get(OS),
@@ -62,10 +63,11 @@ VARS = Vars(
     SHORT_VERSION=VERSION.replace(".", ""),
     TEST_DIR=TEST_DIR,
     APPS=APPS,
-    BRANCH_TO_TEST=BRANCH_TO_TEST,
+    TEST_APP_BRANCH=TEST_APP_BRANCH,
     PSQL_TAG=PSQL_TAGS.get(OS),
     PSQL_IMAGE_SHORT=PSQL_IMAGE_SHORT,
     PSQL_IMAGE_TAG=PSQL_IMAGE_TAG,
+    DEPLOYED_PSQL_IMAGE=DEPLOYED_PSQL_IMAGE,
 )
 
 
