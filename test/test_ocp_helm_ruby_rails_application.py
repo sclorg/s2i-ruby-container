@@ -46,7 +46,7 @@ class TestHelmRailsRubyTemplate:
             values={
                 "ruby_version": f"{VARS.VERSION}{VARS.TAG}",
                 "namespace": self.hc_api.namespace,
-                "source_repository_ref": VARS.BRANCH_TO_TEST,
+                "source_repository_ref": VARS.TEST_APP_BRANCH,
             }
         )
         assert self.hc_api.is_s2i_pod_running(pod_name_prefix="rails-example")
