@@ -5,7 +5,7 @@ from conftest import VARS
 
 class TestS2IRubyTemplate:
     """
-    Test checks if Ruby s2i integration works properly
+    Test if Ruby s2i integration works properly
     """
 
     def setup_method(self):
@@ -26,7 +26,7 @@ class TestS2IRubyTemplate:
 
     def test_rails_template_inside_cluster(self):
         """
-        Test checks if Ruby s2i integration works properly
+        Test if Ruby s2i integration works properly
         """
         service_name = f"ruby-{VARS.SHORT_VERSION}-testing"
         assert self.oc_api.deploy_s2i_app(

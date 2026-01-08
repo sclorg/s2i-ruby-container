@@ -89,7 +89,7 @@ class TestS2IRubyContainer:
 
 class TestRubyNPMtestContainer:
     """
-    Test checks if NPM is valid and works properly
+    Test NPM is valid and works properly
     """
 
     def setup_method(self):

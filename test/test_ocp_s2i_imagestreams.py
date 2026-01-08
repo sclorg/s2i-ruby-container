@@ -5,7 +5,7 @@ from conftest import VARS
 
 class TestRubyImagestreams:
     """
-    Test checks if Ruby imagestreams work properly
+    Test if Ruby imagestreams work properly
     """
 
     def setup_method(self):
@@ -26,7 +26,7 @@ class TestRubyImagestreams:
 
     def ruby_deploy_imagestream(self):
         """
-        Test checks if Ruby imagestreams work properly
+        Test if Ruby imagestreams work properly
         """
         service_name = f"ruby-{VARS.SHORT_VERSION}-testing"
         assert self.oc_api.deploy_imagestream_s2i(

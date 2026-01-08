@@ -27,8 +27,7 @@ def build_fips_test_app(app_path: Path) -> ContainerTestLib:
 
 class TestRubyFipsModeContainer:
     """
-    Test if container works under specific user
-    and not only with user --user 100001
+    Test ruby OpenSSL bindings recognize container running in FIPS mode
     """
 
     def setup_method(self):
@@ -45,8 +44,7 @@ class TestRubyFipsModeContainer:
 
     def test_fips_mode(self):
         """
-        Test if container works under specific user
-        and not only with user --user 10001
+        Test ruby OpenSSL bindings recognize container running in FIPS mode
         """
         if VARS.OS == "rhel8":
             pytest.skip("Do not execute on RHEL8")
@@ -68,8 +66,7 @@ class TestRubyFipsModeContainer:
 
 class TestRubyFipsApplicationContainer:
     """
-    Test if container works under specific user
-    and not only with user --user 100001
+    Test simple containerized application under FIPS mode
     """
 
     def setup_method(self):
@@ -87,8 +84,8 @@ class TestRubyFipsApplicationContainer:
 
     def test_application(self):
         """
-        Test if container works under specific user
-        and not only with user --user 100001
+        Test crypto algorithms usage for ruby OpenSSL bindings
+        with an HTTP app.
         """
         if VARS.OS == "rhel8":
             pytest.skip("Do not execute on RHEL8")

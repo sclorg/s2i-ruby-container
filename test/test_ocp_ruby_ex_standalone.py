@@ -5,7 +5,7 @@ from conftest import VARS
 
 class TestS2IRailsExTemplate:
     """
-    Test checks if Ruby ex standalone template works properly and response is as expected.
+    Test if rails-ex standalone template works properly and responds as expected.
     """
 
     def setup_method(self):
@@ -22,9 +22,9 @@ class TestS2IRailsExTemplate:
         """
         self.oc_api.delete_project()
 
-    def test_dancer_ex_template_inside_cluster(self):
+    def test_rails_ex_template_inside_cluster(self):
         """
-        Test checks if Ruby ex standalone template works properly and response is as expected.
+        Test if rails-ex standalone template works properly and respond as expected.
         """
         service_name = f"ruby-{VARS.SHORT_VERSION}-testing"
         assert self.oc_api.deploy_s2i_app(

@@ -29,7 +29,7 @@ class TestS2IRailsExTemplate:
     )
     def test_rails_template_inside_cluster(self, template):
         """
-        Test checks if Ruby s2i Rails ex templates work properly
+        Test if Ruby s2i Rails ex templates work properly
         """
         assert self.oc_api.upload_image(DEPLOYED_PGSQL_IMAGE, VARS.PSQL_IMAGE_SHORT)
         service_name = f"ruby-{VARS.SHORT_VERSION}-testing"
