@@ -10,7 +10,7 @@ DEPLOYED_PGSQL_IMAGE = "quay.io/sclorg/postgresql-12-c8s"
 
 class TestS2IRailsExTemplate:
     """
-    Test checks if Ruby s2i local templates work properly
+    Test if Ruby s2i local templates work properly
     """
 
     def setup_method(self):
@@ -38,7 +38,7 @@ class TestS2IRailsExTemplate:
     )
     def test_rails_template_inside_cluster(self, template):
         """
-        Test checks if Ruby s2i local templates work properly
+        Test if Ruby s2i local templates work properly
         """
         assert self.oc_api.upload_image(DEPLOYED_PGSQL_IMAGE, VARS.PSQL_IMAGE_SHORT)
         service_name = f"ruby-{VARS.SHORT_VERSION}-testing"

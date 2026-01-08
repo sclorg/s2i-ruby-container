@@ -3,10 +3,10 @@ from container_ci_suite.helm import HelmChartsAPI
 from conftest import VARS
 
 
-class TestHelmCakePHPTemplate:
+class TestHelmRailsRubyTemplate:
     """
-    Test checks if Helm imagestream and Helm ruby rails application
-    works properly and response is as expected.
+    Test if Helm imagestream and Helm ruby rails application
+    work properly and respond as expected.
     """
 
     def setup_method(self):
@@ -34,8 +34,8 @@ class TestHelmCakePHPTemplate:
 
     def test_by_helm_test(self):
         """
-        Test checks if Helm imagestream and Helm ruby rails application
-        works properly and response is as expected.
+        Test if Helm imagestream and Helm ruby rails application
+        work properly and respond as expected.
         """
         self.hc_api.package_name = "redhat-ruby-imagestreams"
         assert self.hc_api.helm_package()
