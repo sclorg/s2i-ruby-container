@@ -72,10 +72,8 @@ class TestS2IRubyContainer:
 
     @pytest.mark.parametrize("dockerfile", ["Dockerfile", "Dockerfile.s2i"])
     def test_dockerfiles(self, dockerfile):
-        """
-        Test if building nginx-container based on
-        examples/Dockerfile works
-        """
+        Test if building apps based on Containerfiles in
+        examples/ works
         assert self.app.build_test_container(
             dockerfile=VARS.TEST_DIR / "examples/from-dockerfile" / dockerfile,
             app_url=f"https://github.com/sclorg/rails-ex.git@{VARS.BRANCH_TO_TEST}",
