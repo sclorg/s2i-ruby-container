@@ -54,6 +54,8 @@ class TestRubyFipsModeContainer:
                 cid_file_name={VARS.IMAGE_NAME},
                 cmd="ruby -ropenssl -e 'exit OpenSSL.fips_mode'",
             )
+            # In case of FIPS is enabled, then output should be "True" in string format
+            # and then assert "True" means that FIPS is enabled
             assert output
         else:
             # FIPS disabled -> OpenSSL#fips_mode returns false
@@ -61,6 +63,8 @@ class TestRubyFipsModeContainer:
                 cid_file_name=f"{VARS.IMAGE_NAME}-{self.app.app_name}",
                 cmd="ruby -ropenssl -e 'exit !OpenSSL.fips_mode'",
             )
+            # In case of FIPS is disabled, then output should be "False" in string format
+            # and then assert not output means that FIPS is disabled
             assert not output
 
 
