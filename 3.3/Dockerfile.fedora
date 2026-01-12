@@ -1,0 +1,52 @@
+FROM quay.io/fedora/s2i-base:40
+
+# This image provides a Ruby environment you can use to run your Ruby
+# applications.
+
+EXPOSE 8080
+
+ENV NAME=ruby \
+    RUBY_VERSION=3.3 \
+    RUBY_SHORT_VER=33 \
+    VERSION=
+
+ENV SUMMARY="Platform for building and running Ruby $RUBY_VERSION applications" \
+    DESCRIPTION="Ruby $RUBY_VERSION available as container is a base platform for \
+building and running various Ruby $RUBY_VERSION applications and frameworks. \
+Ruby is the interpreted scripting language for quick and easy object-oriented programming. \
+It has many features to process text files and to do system management tasks (as in Perl). \
+It is simple, straight-forward, and extensible."
+
+LABEL summary="$SUMMARY" \
+      description="$DESCRIPTION" \
+      io.k8s.description="$DESCRIPTION" \
+      io.k8s.display-name="Ruby ${RUBY_VERSION}" \
+      io.openshift.expose-services="8080:http" \
+      io.openshift.tags="builder,ruby,ruby${RUBY_SHORT_VER}" \
+      com.redhat.component="$NAME" \
+      name="fedora/$NAME-$RUBY_SHORT_VER" \
+      version="0" \
+      usage="s2i build https://github.com/sclorg/s2i-ruby-container.git --context-dir=${RUBY_VERSION}/test/puma-test-app/ quay.io/fedora/$NAME-$RUBY_SHORT_VER ruby-sample-app" \
+      maintainer="SoftwareCollections.org <sclorg@redhat.com>"
+
+# Install required packages
+RUN INSTALL_PKGS="ruby ruby-devel rubygem-bundler ruby-bundled-gems rubygem-rake rubygems-devel redhat-rpm-config libffi-devel" && \
+    dnf install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+    rpm -V $INSTALL_PKGS && \
+    ruby -v | grep -qe "^ruby $RUBY_VERSION\." && echo "Found VERSION $RUBY_VERSION" && \
+    dnf clean all
+
+# Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
+COPY ./s2i/bin/ $STI_SCRIPTS_PATH
+
+# Copy extra files to the image.
+COPY ./root/ /
+
+# Drop the root user and make the content of /opt/app-root owned by user 1001
+RUN chown -R 1001:0 ${APP_ROOT} && chmod -R ug+rwx ${APP_ROOT} && \
+    rpm-file-permissions
+
+USER 1001
+
+# Set the default CMD to print the usage of the language image
+CMD $STI_SCRIPTS_PATH/usage
