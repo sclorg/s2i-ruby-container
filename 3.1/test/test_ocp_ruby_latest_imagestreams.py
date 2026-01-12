@@ -1,1 +1,0 @@
-../../test/test_ocp_ruby_latest_imagestreams.py
