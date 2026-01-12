@@ -5,8 +5,8 @@ FROM ubi10/s2i-base
 
 EXPOSE 8080
 
-ENV RUBY_MAJOR_VERSION=3 \
-    RUBY_MINOR_VERSION=3
+ENV RUBY_MAJOR_VERSION=4 \
+    RUBY_MINOR_VERSION=0
 
 ENV RUBY_VERSION="${RUBY_MAJOR_VERSION}.${RUBY_MINOR_VERSION}" \
     RUBY_SCL_NAME_VERSION="${RUBY_MAJOR_VERSION}${RUBY_MINOR_VERSION}"
@@ -35,17 +35,14 @@ LABEL summary="$SUMMARY" \
 
 RUN INSTALL_PKGS=" \
     libffi-devel \
-    ruby \
-    ruby-devel \
-    rubygem-rake \
-    rubygem-bundler \
-    ruby-bundled-gems \
+    ruby4.0 \
+    ruby4.0-devel \
     redhat-rpm-config \
     " && \
     dnf install -y --setopt=tsflags=nodocs ${INSTALL_PKGS} && \
     dnf reinstall -y --setopt=tsflags=nodocs tzdata && \
     dnf -y clean all --enablerepo='*' && \
-    ruby -v | grep -qe "^ruby $RUBY_VERSION\." && echo "Found VERSION $RUBY_VERSION" && \
+    ruby4.0 -v | grep -qe "^ruby $RUBY_VERSION\." && echo "Found VERSION $RUBY_VERSION" && \
     rpm -V ${INSTALL_PKGS}
 
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
