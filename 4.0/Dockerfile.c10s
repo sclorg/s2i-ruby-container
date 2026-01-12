@@ -46,6 +46,13 @@ RUN INSTALL_PKGS=" \
     ruby4.0 -v | grep -qe "^ruby $RUBY_VERSION\." && echo "Found VERSION $RUBY_VERSION" && \
     rpm -V ${INSTALL_PKGS}
 
+# Symlink the binaries. Ruby now provides suffixed binaries in /usr/bin.
+# Provide the non-suffixed version in the container.
+RUN rpm -ql ruby4.0 ruby4.0-devel | \
+      grep '/usr/bin' | \
+      xargs basename | \
+      xargs -I{} ln -s "/usr/bin/$(basename {} -s ${RUBY_VERSION})" "/usr/bin/{}"
+
 # Copy the S2I scripts from the specific language image to $STI_SCRIPTS_PATH
 COPY ./s2i/bin/ $STI_SCRIPTS_PATH
 
