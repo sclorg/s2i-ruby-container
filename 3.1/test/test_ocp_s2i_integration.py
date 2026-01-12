@@ -1,1 +1,0 @@
-../../test/test_ocp_s2i_integration.py

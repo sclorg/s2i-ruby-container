@@ -1,1 +1,0 @@
-../../test/test_ocp_helm_ruby_rails_application.py
