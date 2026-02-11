@@ -38,7 +38,7 @@ class TestS2IRailsTemplates:
         Test if Ruby s2i local templates work properly
         """
         assert self.oc_api.upload_image(
-            VARS.DEPLOYED_PGSQL_IMAGE, VARS.PSQL_IMAGE_SHORT
+            VARS.DEPLOYED_PSQL_IMAGE, VARS.PSQL_IMAGE_SHORT
         )
         service_name = f"ruby-{VARS.SHORT_VERSION}-testing"
         if template_type == "local":
