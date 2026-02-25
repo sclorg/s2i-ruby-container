@@ -10,6 +10,6 @@ jobs:
     uses: "sclorg/ci-actions/.github/workflows/container-tests.yml@main"
     with:
       enabled-tests: '["container","container-pytest","openshift-pytest","container-fips"]'
-      versions: '[ "2.5", "3.0", "3.3" ]'
-      openshift-versions: '[ "2.5", "3.0", "3.3" ]'
+      versions: '[ "2.5", "3.0", "3.3", "4.0" ]'
+      openshift-versions: '[ "2.5", "3.0", "3.3", "4.0" ]'
     secrets: inherit
