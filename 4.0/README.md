@@ -114,7 +114,8 @@ FROM ubi10/ruby-40
 
 USER 0
 ADD app-src ./
-RUN bundle install --path ./bundle
+RUN bundle config set --local path ./bundle && \
+      bundle install
 
 CMD bundle exec "rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080"
 ```
