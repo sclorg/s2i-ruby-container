@@ -51,7 +51,7 @@ class TestS2IRailsTemplates:
                 branch=VARS.TEST_APP_BRANCH,
             )
         openshift_args = [
-            "SOURCE_REPOSITORY_URL=https://github.com/sclorg/rails-ex.git",
+            "SOURCE_REPOSITORY_URL=https://github.com/pkhartsk/rails-ex.git",
             f"SOURCE_REPOSITORY_REF={VARS.TEST_APP_BRANCH}",
             f"RUBY_VERSION={VARS.VERSION}",
             f"NAME={service_name}",

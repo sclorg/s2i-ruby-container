@@ -154,7 +154,7 @@ function test_from_dockerfile() {
     # Ruby 3.1 and prior.
     rails_example_repo_branch="master"
   fi
-  rails_example_repo_url="https://github.com/sclorg/rails-ex.git@${rails_example_repo_branch}"
+  rails_example_repo_url="https://github.com/pkhartsk/rails-ex.git@${rails_example_repo_branch}"
 
   ct_test_app_dockerfile $test_dir/examples/from-dockerfile/$dockerfile "$rails_example_repo_url" 'Welcome to your Rails application on OpenShift' app-src
   ct_check_testcase_result $?

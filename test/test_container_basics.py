@@ -78,7 +78,7 @@ class TestS2IRubyContainer:
         """
         assert self.app.build_test_container(
             dockerfile=VARS.TEST_DIR / "examples/from-dockerfile" / dockerfile,
-            app_url=f"https://github.com/sclorg/rails-ex.git@{VARS.TEST_APP_BRANCH}",
+            app_url=f"https://github.com/pkhartsk/rails-ex.git@{VARS.TEST_APP_BRANCH}",
             app_dir="app-src",
         )
         assert self.app.test_app_dockerfile()
