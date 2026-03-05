@@ -24,7 +24,6 @@ TEST_DIR = Path(__file__).parent.absolute()
 APPS = [
     TEST_DIR / f"{x}test-app"
     for x in [
-        "",
         "puma-",
         "rack-",
     ]
@@ -52,8 +51,12 @@ PSQL_TAG = PSQL_TAGS.get(OS)
 PSQL_IMAGE_SHORT = f"postgresql:12{PSQL_TAG}"
 PSQL_IMAGE_TAG = f"12{PSQL_TAG}"
 TEST_APP_BRANCH = "master"
-if VERSION and float(VERSION) >= 3.3:
-    TEST_APP_BRANCH = "3.3"
+if VERSION:
+    v = float(VERSION)
+    if v >= 4.0:
+        TEST_APP_BRANCH = "4.0"
+    elif v >= 3.3:
+        TEST_APP_BRANCH = "3.3"
 DEPLOYED_PSQL_IMAGE = "quay.io/sclorg/postgresql-12-c8s"
 VARS = Vars(
     OS=OS,

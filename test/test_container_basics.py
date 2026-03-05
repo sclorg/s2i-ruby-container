@@ -98,11 +98,7 @@ class TestRubyNPMtestContainer:
         """
         Setup the test environment.
         """
-        if "test-app" not in os.listdir(VARS.TEST_DIR):
-            ContainerTestLibUtils.run_command(
-                "git clone https://github.com/openshift/ruby-hello-world.git test-app"
-            )
-        self.s2i_app = build_npm_app(VARS.TEST_DIR / "test-app")
+        self.s2i_app = build_npm_app(VARS.TEST_DIR / "rack-test-app")
 
     def teardown_method(self):
         """
