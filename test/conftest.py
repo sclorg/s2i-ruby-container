@@ -54,6 +54,8 @@ PSQL_IMAGE_TAG = f"12{PSQL_TAG}"
 TEST_APP_BRANCH = "master"
 if VERSION and float(VERSION) >= 3.3:
     TEST_APP_BRANCH = "3.3"
+if VERSION and float(VERSION) >= 4.0:
+    APPS.pop(0)
 DEPLOYED_PSQL_IMAGE = "quay.io/sclorg/postgresql-12-c8s"
 VARS = Vars(
     OS=OS,

@@ -265,14 +265,18 @@ function test_ruby_fips_s2i_app() {
   ct_check_testcase_result $?
 }
 
-# Prepare dependencies for tests
-pushd ${test_dir}
-  # db test dependencies
-  if [ -d db-test-app ]; then
-    rm -rf db-test-app
-  fi
-  git clone https://github.com/openshift/ruby-hello-world.git db-test-app
-popd
+if { echo "$VERSION"; echo "3.3"; } | sort --version-sort --check=quiet; then
+  # Prepare dependencies for tests in Ruby 3.3 and prior.
+  pushd ${test_dir}
+    # db test dependencies
+    if [ -d db-test-app ]; then
+      rm -rf db-test-app
+    fi
+    git clone https://github.com/openshift/ruby-hello-world.git db-test-app
+  popd
+else
+  declare -a WEB_SERVERS=(puma rack)
+fi
 
 ct_init
 
