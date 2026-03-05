@@ -11,7 +11,7 @@ if [ -z $IMAGE_NAME ]; then
   exit 1
 fi
 
-declare -a WEB_SERVERS=(db puma rack)
+declare -a WEB_SERVERS=(puma rack)
 #declare -a WEB_SERVERS=(db)
 
 # TODO: Make command compatible for Mac users
@@ -145,11 +145,17 @@ function test_from_dockerfile() {
 
   # Ruby 3.3 introduced too many incompatibilities to be able
   # to use the same Gemfile as for the previous versions.
+  # Ruby 4.0 is also significantly different, so it requires
+  # its own branch, too.
   # We can use the same Gemfile for RHEL 8, 9, and 10
   # as long as Ruby MAJOR.MINOR <= 3.1.
 
   # Latest stable
-  rails_example_repo_branch="3.3"
+  rails_example_repo_branch="4.0"
+  if [ "$VERSION" == "3.3" ]; then
+    # Ruby 3.3
+    rails_example_repo_branch="3.3"
+  fi
   if { echo "$VERSION"; echo "3.1"; } | sort --version-sort --check=quiet; then
     # Ruby 3.1 and prior.
     rails_example_repo_branch="master"
@@ -264,15 +270,6 @@ function test_ruby_fips_s2i_app() {
   ct_test_response "http://$(container_ip):8080/hash/md5" 200 ""
   ct_check_testcase_result $?
 }
-
-# Prepare dependencies for tests
-pushd ${test_dir}
-  # db test dependencies
-  if [ -d db-test-app ]; then
-    rm -rf db-test-app
-  fi
-  git clone https://github.com/openshift/ruby-hello-world.git db-test-app
-popd
 
 ct_init
 

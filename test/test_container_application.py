@@ -14,11 +14,6 @@ test_ports = PodmanCLIWrapper.podman_inspect(
 )
 print(f"The exposed ports are: {test_ports}")
 
-if "test-app" not in os.listdir(VARS.TEST_DIR):
-    ContainerTestLibUtils.run_command(
-        "git clone https://github.com/openshift/ruby-hello-world.git test-app"
-    )
-
 
 class TestRubyApplicationContainer:
     @pytest.fixture(
