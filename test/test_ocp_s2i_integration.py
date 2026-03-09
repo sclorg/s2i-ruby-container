@@ -1,3 +1,5 @@
+import pytest
+
 from container_ci_suite.openshift import OpenShiftAPI
 
 from conftest import VARS
@@ -12,6 +14,8 @@ class TestS2IRubyTemplate:
         """
         Setup the test environment.
         """
+        if VARS.VERSION == "4.0":
+            pytest.skip(f"Skipping s2i integration test for {VARS.VERSION} on {VARS.OS}. The image has not been merged into the repo yet.")
         self.oc_api = OpenShiftAPI(
             pod_name_prefix=f"ruby-{VARS.SHORT_VERSION}-testing",
             version=VARS.VERSION,
