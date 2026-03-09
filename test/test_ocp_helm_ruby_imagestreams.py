@@ -2,11 +2,12 @@ import pytest
 
 from container_ci_suite.helm import HelmChartsAPI
 
-from conftest import VARS
+from conftest import VARS, skip_ocp_test
 
 
 class TestHelmRHELRubyImageStreams:
     def setup_method(self):
+        skip_ocp_test("helm")
         package_name = "redhat-ruby-imagestreams"
 
         self.hc_api = HelmChartsAPI(

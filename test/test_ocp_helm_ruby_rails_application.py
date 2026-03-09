@@ -1,6 +1,6 @@
 from container_ci_suite.helm import HelmChartsAPI
 
-from conftest import VARS
+from conftest import VARS, skip_ocp_test
 
 
 class TestHelmRailsRubyTemplate:
@@ -13,6 +13,7 @@ class TestHelmRailsRubyTemplate:
         """
         Setup the test environment.
         """
+        skip_ocp_test("helm")
         package_name = "redhat-ruby-rails-application"
         self.hc_api = HelmChartsAPI(
             path=VARS.TEST_DIR,

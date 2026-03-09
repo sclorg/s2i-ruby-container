@@ -1,3 +1,5 @@
+import pytest
+
 import os
 
 import sys
@@ -73,6 +75,21 @@ VARS = Vars(
     DEPLOYED_PSQL_IMAGE=DEPLOYED_PSQL_IMAGE,
 )
 
+
+def skip_ocp_test(reason: str):
+    """
+    Skip an openshift test when the image is not GA yet.
+
+    Args:
+        reason (str): Reason for skipping, either "helm" or "imagestreams"
+    """
+    if VERSION == "4.0":
+        if reason == "imagestreams":
+            pytest.skip(f"Skipping imagestream tests for {VARS.VERSION} on {VARS.OS}. The image is not GA yet.")
+        elif reason == "helm":
+            pytest.skip(f"Skipping Helm tests for {VERSION} on {OS}. The image is not GA yet.")
+        else:
+            print("Invalid reason to skip")
 
 def fips_enabled():
     """

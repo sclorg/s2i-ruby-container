@@ -1,6 +1,6 @@
 from container_ci_suite.openshift import OpenShiftAPI
 
-from conftest import VARS
+from conftest import VARS, skip_ocp_test
 
 
 class TestRubyImagestreams:
@@ -12,6 +12,7 @@ class TestRubyImagestreams:
         """
         Setup the test environment.
         """
+        skip_ocp_test("imagestreams")
         self.oc_api = OpenShiftAPI(
             pod_name_prefix=f"ruby-{VARS.SHORT_VERSION}-testing",
             version=VARS.VERSION,
