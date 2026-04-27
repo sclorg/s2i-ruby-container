@@ -155,8 +155,8 @@
           "spec": {
             "containers": [
               {
-                "name": "rails-example",
-                "image": " ",
+                "name": "${NAME}",
+                "image": "${NAME}:latest",
                 "ports": [
                   {
                     "containerPort": 8080
