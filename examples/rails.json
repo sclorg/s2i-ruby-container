@@ -18,7 +18,7 @@
   "message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/sclorg/dancer-ex/blob/master/README.md.",
   "labels": {
       "template": "rails-example",
-      "app": "rails-example"
+      "app": "${NAME}"
   },
   "objects": [
     {

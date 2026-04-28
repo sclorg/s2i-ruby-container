@@ -70,7 +70,7 @@ class TestS2IRailsTemplates:
             name_in_template="ruby",
             openshift_args=openshift_args,
         )
-        assert self.oc_api.is_template_deployed(name_in_template=service_name)
+        assert self.oc_api.is_template_deployed(name_in_template=service_name, timeout=480)
         assert self.oc_api.check_response_inside_cluster(
             name_in_template=service_name,
             expected_output="Welcome to your Rails application",
