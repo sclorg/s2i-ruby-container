@@ -2,7 +2,7 @@ import pytest
 
 from container_ci_suite.openshift import OpenShiftAPI
 
-from conftest import VARS
+from conftest import VARS, skip_ocp_test
 
 
 class TestS2IRailsTemplates:
@@ -39,6 +39,7 @@ class TestS2IRailsTemplates:
         """
         Test if Ruby s2i local templates work properly
         """
+        skip_ocp_test(reason="imagestream")
         assert self.oc_api.upload_image(VARS.DEPLOYED_PSQL_IMAGE, VARS.PSQL_IMAGE_SHORT)
         service_name = f"ruby-{VARS.SHORT_VERSION}-testing"
         template_url = f"examples/{template_name}"
