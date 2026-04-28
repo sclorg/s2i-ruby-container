@@ -40,6 +40,7 @@ class TestHelmRHELRubyImageStreams:
         """
         Test checks if Helm imagestreams are present
         """
+        skip_ocp_test(reason="helm")
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
         assert (
