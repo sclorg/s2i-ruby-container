@@ -28,6 +28,8 @@ Table start
 Table end
 -->
 
+See [the Red Hat Enterprise Linux Application Streams Life Cycle page](https://access.redhat.com/support/policy/updates/rhel-app-streams-life-cycle) for information about support for a particular stream.
+
 A Ruby 1.9 image can be built from [this third party repository](https://github.com/getupcloud/s2i-ruby/).
 It is not maintained by Red Hat nor is it part of the OpenShift project.
 
