@@ -38,6 +38,7 @@ class TestHelmRailsRubyTemplate:
         Test if Helm imagestream and Helm ruby rails application
         work properly and respond as expected.
         """
+        skip_ocp_test(reason="helm")
         self.hc_api.package_name = "redhat-ruby-imagestreams"
         assert self.hc_api.helm_package()
         assert self.hc_api.helm_installation()
