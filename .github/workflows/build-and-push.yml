@@ -30,6 +30,14 @@ jobs:
             docker_context: "3.3"
             image_name: "ruby-33-c10s"
 
+          - dockerfile: "4.0/Dockerfile.fedora"
+            registry_namespace: "fedora"
+            quayio_username: "QUAY_IMAGE_FEDORA_BUILDER_USERNAME"
+            quayio_token: "QUAY_IMAGE_FEDORA_BUILDER_TOKEN"
+            tag: "40"
+            docker_context: "4.0"
+            image_name: "ruby-40"
+
           - dockerfile: "4.0/Dockerfile.c10s"
             registry_namespace: "sclorg"
             quayio_username: "QUAY_IMAGE_SCLORG_BUILDER_USERNAME"
