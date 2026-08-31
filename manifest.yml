@@ -1,0 +1,108 @@
+# Files that rely on specific distro x version combination.
+DISTGEN_MULTI_RULES:
+  - src: src/Dockerfile.template
+    dest: Dockerfile.rhel8
+  - src: src/Dockerfile.template
+    dest: Dockerfile.rhel9
+  - src: src/Dockerfile.template
+    dest: Dockerfile.rhel10
+  - src: src/Dockerfile.template
+    dest: Dockerfile.c10s
+  - src: src/Dockerfile.template
+    dest: Dockerfile.fedora
+
+DISTGEN_RULES:
+  - src: src/README.md
+    dest: README.md
+  - src: src/s2i/bin/assemble
+    dest: s2i/bin/assemble
+    mode: "0755"
+
+  # Gemfile{,.lock}: dependent per-version.
+  - src: src/test/puma-test-app/Gemfile
+    dest: test/puma-test-app/Gemfile
+  - src: src/test/puma-test-app/Gemfile.lock
+    dest: test/puma-test-app/Gemfile.lock
+
+  - src: src/test/rack-test-app/Gemfile
+    dest: test/rack-test-app/Gemfile
+  - src: src/test/rack-test-app/Gemfile.lock
+    dest: test/rack-test-app/Gemfile.lock
+
+COPY_RULES:
+  - src: src/s2i/bin/run
+    dest: s2i/bin/run
+    mode: "0755"
+  - src: src/s2i/bin/usage
+    dest: s2i/bin/usage
+    mode: "0755"
+
+  - src: src/root/opt/app-root/.gemrc
+    dest: root/opt/app-root/.gemrc
+  - src: src/root/opt/app-root/etc/puma.cfg
+    dest: root/opt/app-root/etc/puma.cfg
+
+  - src: test/test-fips/app.rb
+    dest: test/test-fips/app.rb
+  - src: test/test-fips/config.ru
+    dest: test/test-fips/config.ru
+  - src: test/test-fips/Gemfile
+    dest: test/test-fips/Gemfile
+
+  - src: test/puma-test-app/app.rb
+    dest: test/puma-test-app/app.rb
+  - src: test/puma-test-app/config.ru
+    dest: test/puma-test-app/config.ru
+
+  - src: test/rack-test-app/app.rb
+    dest: test/rack-test-app/app.rb
+  - src: test/rack-test-app/config.ru
+    dest: test/rack-test-app/config.ru
+
+
+SYMLINK_RULES:
+  # Shared test framework: link back to the repo-root test/ and common/.
+  - src: ../../test/conftest.py
+    dest: test/conftest.py
+  - src: ../../test/__init__.py
+    dest: test/__init__.py
+  - src: ../../examples
+    dest: test/examples
+
+
+  - src: ../../imagestreams
+    dest: test/imagestreams
+  - src: ../../test/run
+    dest: test/run
+  - src: ../../test/run-pytest
+    dest: test/run-pytest
+  - src: ../../test/run-openshift-pytest
+    dest: test/run-openshift-pytest
+  - src: ../../test/test_container_application.py
+    dest: test/test_container_application.py
+  - src: ../../test/test_container_basics.py
+    dest: test/test_container_basics.py
+  - src: ../../test/test_container_fips.py
+    dest: test/test_container_fips.py
+  - src: ../../test/test_ocp_helm_ruby_imagestreams.py
+    dest: test/test_ocp_helm_ruby_imagestreams.py
+  - src: ../../test/test_ocp_helm_ruby_rails_application.py
+    dest: test/test_ocp_helm_ruby_rails_application.py
+  - src: ../../test/test_ocp_ruby_ex_standalone.py
+    dest: test/test_ocp_ruby_ex_standalone.py
+  - src: ../../test/test_ocp_ruby_latest_imagestreams.py
+    dest: test/test_ocp_ruby_latest_imagestreams.py
+  - src: ../../test/test_ocp_s2i_imagestreams.py
+    dest: test/test_ocp_s2i_imagestreams.py
+  - src: ../../test/test_ocp_s2i_integration.py
+    dest: test/test_ocp_s2i_integration.py
+  - src: ../../test/test_ocp_s2i_templates.py
+    dest: test/test_ocp_s2i_templates.py
+  - src: ../../common/test-lib.sh
+    dest: test/test-lib.sh
+  - src: ../../common/test-lib-openshift.sh
+    dest: test/test-lib-openshift.sh
+  - src: ../../common/test-lib-remote-openshift.sh
+    dest: test/test-lib-remote-openshift.sh
+  - src: ../../common/test-openshift.yaml
+    dest: test/test-openshift.yaml

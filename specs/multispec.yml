@@ -1,0 +1,136 @@
+version: 1
+
+# Common fields derivable from `version:`'s components
+_derived_version: &derived_version
+# maps to RUBY_VERSION
+  stream:  "{{ spec.version_major }}.{{ spec.version_minor }}"
+# maps to RUBY_SCL_NAME_VERSION
+  tag:     "{{ spec.version_major }}{{ spec.version_minor }}"
+
+_shared_distro_defaults: &shared_distro_defaults
+  base_rpm_install: |-
+    INSTALL_PKGS="{{ spec.all_pkgs }}" && \
+        dnf install -y --setopt=tsflags=nodocs ${INSTALL_PKGS}
+  alternative_module_install: |-
+    INSTALL_PKGS="{{ spec.all_pkgs }}" && \
+        dnf module enable -y ruby:{{ spec.stream }} && \
+        dnf install -y --setopt=tsflags=nodocs ${INSTALL_PKGS}
+  alternative_rpm_install: |-
+    INSTALL_PKGS="ruby{{ spec.stream }} ruby{{ spec.stream }}-devel {{ spec.additional_packages }}" && \
+        dnf install -y --setopt=tsflags=nodocs ${INSTALL_PKGS}
+  additional_packages: "redhat-rpm-config libffi-devel"
+  all_pkgs: "{{ spec.ruby_pkgs }} {{ spec.additional_packages }}"
+  # Field 'prod' is for disambiguation for images in sclorg/ image repos.
+  # other distros don't need it.
+  image_name_sclorg: "{% if config.os.id == 'centos-stream' %}-{{ spec.prod }}{% endif %}"
+  image_name: "{{ spec.org }}/ruby-{{ spec.tag }}{{ spec.image_name_sclorg }}"
+  openshift_tags: "builder,ruby,ruby{{ spec.tag }},ruby-{{ spec.tag }}"
+
+specs:
+  distroinfo:
+    fedora40:
+      distros:
+        - fedora-40-x86_64
+      s2i_base: "quay.io/fedora/s2i-base:{{ config.os.version }}"
+      ruby_pkgs: "ruby ruby-devel rubygem-bundler ruby-bundled-gems rubygem-rake rubygems-devel"
+      org: "fedora"
+      base_ruby_rpm: "3.3"
+      <<: *shared_distro_defaults
+    fedora44:
+      distros:
+        - fedora-44-x86_64
+      s2i_base: "quay.io/fedora/s2i-base:{{ config.os.version }}"
+      ruby_pkgs: "ruby ruby-devel rubygem-bundler ruby-bundled-gems rubygem-rake rubygems-devel"
+      org: "fedora"
+      base_ruby_rpm: "4.0"
+      <<: *shared_distro_defaults
+    rhel8:
+      distros:
+        - rhel-8-x86_64
+      s2i_base: "ubi{{ config.os.version }}/s2i-base"
+      has_modules: true
+      # Base ruby is 2.5, but modular-only, there isn't a base non-modular version.
+      base_ruby_rpm: ""
+      org: "ubi8"
+      <<: *shared_distro_defaults
+    rhel9:
+      distros:
+        - rhel-9-x86_64
+      s2i_base: "ubi{{ config.os.version }}/s2i-base"
+      has_modules: true
+      base_ruby_rpm: "3.0"
+      org: "ubi9"
+      <<: *shared_distro_defaults
+    rhel10:
+      distros:
+        - rhel-10-x86_64
+      s2i_base: "ubi{{ config.os.version }}/s2i-base"
+      has_modules: false
+      base_ruby_rpm: "3.3"
+      org: "ubi10"
+      <<: *shared_distro_defaults
+    centos9:
+      distros:
+        - centos-stream-9-x86_64
+      s2i_base: "quay.io/sclorg/s2i-base-c{{ config.os.version}}s:c{{ config.os.version}}s"
+      org: sclorg
+      prod: "c{{ config.os.version }}s"
+      base_ruby_rpm: "3.0"
+      has_modules: true
+      <<: *shared_distro_defaults
+    centos10:
+      distros:
+        - centos-stream-10-x86_64
+      s2i_base: "quay.io/sclorg/s2i-base-c{{ config.os.version}}s:c{{ config.os.version}}s"
+      org: sclorg
+      prod: "c{{ config.os.version }}s"
+      base_ruby_rpm: "3.3"
+      has_modules: false
+      <<: *shared_distro_defaults
+
+  version:
+    "2.5":
+      version_major: "2"
+      version_minor: "5"
+      ruby_pkgs: "ruby ruby-devel rubygem-rake rubygem-bundler"
+      <<: *derived_version
+    "3.0":
+      version_major: "3"
+      version_minor: "0"
+      ruby_pkgs: "ruby ruby-devel rubygem-rake rubygem-bundler"
+      <<: *derived_version
+    "3.3":
+      version_major: "3"
+      version_minor: "3"
+      ruby_pkgs: "ruby ruby-devel rubygem-rake rubygem-bundler ruby-bundled-gems"
+      <<: *derived_version
+    "4.0":
+      version_major: "4"
+      version_minor: "0"
+      ruby_pkgs: "ruby ruby-devel rubygem-rake rubygem-bundler ruby-bundled-gems"
+      <<: *derived_version
+
+matrix:
+  include:
+    - version: "2.5"
+      distros:
+        - rhel-8-x86_64
+
+    - version: "3.0"
+      distros:
+        - rhel-9-x86_64
+
+    - version: "3.3"
+      distros:
+        - rhel-8-x86_64
+        - rhel-9-x86_64
+        - rhel-10-x86_64
+        - centos-stream-10-x86_64
+        - fedora-40-x86_64
+
+    - version: "4.0"
+      distros:
+        - rhel-9-x86_64
+        - rhel-10-x86_64
+        - centos-stream-10-x86_64
+        - fedora-44-x86_64
