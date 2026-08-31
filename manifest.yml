@@ -100,9 +100,3 @@ SYMLINK_RULES:
     dest: test/test_ocp_s2i_templates.py
   - src: ../../common/test-lib.sh
     dest: test/test-lib.sh
-  - src: ../../common/test-lib-openshift.sh
-    dest: test/test-lib-openshift.sh
-  - src: ../../common/test-lib-remote-openshift.sh
-    dest: test/test-lib-remote-openshift.sh
-  - src: ../../common/test-openshift.yaml
-    dest: test/test-openshift.yaml
