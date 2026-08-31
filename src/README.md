@@ -27,7 +27,7 @@ See [the Red Hat Enterprise Linux Application Streams Life Cycle page](https://a
 
 Usage in Openshift
 ------------------
-For this, we will assume that you are using the `ubi10/ruby-{{ spec.tag }}` image, available via `ruby:{{ spec.stream }}` imagestream tag in Openshift.
+For this, we will assume that you are using the `{{ spec.readme_ref_image }}` image, available via `ruby:{{ spec.stream }}` imagestream tag in Openshift.
 Building a simple [ruby-sample-app](https://github.com/sclorg/s2i-ruby-container/tree/master/{{ spec.stream }}/test/puma-test-app) application
 in Openshift can be achieved with the following step:
 
@@ -66,10 +66,10 @@ To use the Ruby image in a Dockerfile, follow these steps:
 #### 1. Pull a base builder image to build on
 
 ```
-podman pull ubi10/ruby-{{ spec.tag }}
+podman pull {{ spec.readme_ref_image }}
 ```
 
-An RHEL10 image `ubi10/ruby-{{ spec.tag }}` is used in this example.
+The `{{ spec.readme_ref_image }}` container image is used in this example.
 
 #### 2. Pull and application code
 
@@ -91,7 +91,7 @@ For all these three parts, users can use the Source-to-Image scripts inside the 
 
 ##### 3.1 To use the Source-to-Image scripts and build an image using a Dockerfile, create a Dockerfile with this content:
 ```
-FROM ubi10/ruby-{{ spec.tag }}
+FROM {{ spec.readme_ref_image }}
 
 # Add application sources to a directory that the assemble scriptexpects them
 # and set permissions so that the container runs without root access
@@ -112,12 +112,18 @@ CMD /usr/libexec/s2i/run
 The s2i scripts are used to set-up and run common Ruby applications. More information about the scripts can be found in [Source-to-Image](#source-to-image-framework-and-scripts) section.
 ##### 3.2 To use your own setup, create a Dockerfile with this content:
 ```
-FROM ubi10/ruby-{{ spec.tag }}
+FROM {{ spec.readme_ref_image }}
 
 USER 0
 ADD app-src ./
+{# bundler in Ruby >= 3.3 should use the 'config set'. #}
+{# earlier rubies have either limited support or different CLI usage. #}
+{% if spec.stream in ["2.5", "3.0"] %}
+RUN bundle install --path ./bundle
+{% else %}
 RUN bundle config set --local path ./bundle && \
       bundle install
+{% endif %}
 
 CMD bundle exec "rackup -P /tmp/rack.pid --host 0.0.0.0 --port 8080"
 ```
@@ -228,5 +234,6 @@ See also
 --------
 Dockerfile and other sources are available on https://github.com/sclorg/s2i-ruby-container.
 In that repository you also can find another versions of Ruby environment Dockerfiles.
-The Dockerfile for RHEL9 is called `Dockerfile.rhel9`, for RHEL10 it's `Dockerfile.rhel10`,
-for CentOS Stream 10 it's `Dockerfile.c10s` and the Fedora Dockerfile is called `Dockerfile.fedora`.
+Dockerfile for RHEL8 is called `Dockerfile.rhel8`, for RHEL9 it's `Dockerfile.rhel9`,
+for CentOS Stream 9 it's `Dockerfile.c9s`, for CentOS Stream 10 it's `Dockerfile.c10s`,
+and the Fedora Dockerfile is called `Dockerfile.fedora`.
