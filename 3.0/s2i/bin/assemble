@@ -32,12 +32,6 @@ echo "---> Building your Ruby application from source ..."
 if [ -f Gemfile ]; then
   ADDTL_BUNDLE_ARGS="--retry 2"
   if [ -f Gemfile.lock ]; then
-    # This is new in version 3.0
-    # [DEPRECATED] The `--deployment` flag is deprecated because it relies
-    # on being remembered across bundler invocations,
-    # which bundler will no longer do in future versions.
-    # Instead please use `bundle config set --local deployment 'true'`,
-    # and stop using this flag
     bundle config set --local deployment "true"
   fi
 
@@ -48,22 +42,12 @@ if [ -f Gemfile ]; then
   else
     BUNDLE_WITHOUT=${BUNDLE_WITHOUT:-"development:test"}
   fi
-  
+
   if [ -n "$BUNDLE_WITHOUT" ]; then
-    # [DEPRECATED] The `--without` flag is deprecated because
-    # it relies on being remembered across bundler invocations,
-    # which bundler will no longer do in future versions.
-    # Instead please use `bundle config set --local without ''test''`,
-    # and stop using this flag
     bundle config set --local without "$BUNDLE_WITHOUT"
   fi
-  
+
   echo "---> Running 'bundle install ${ADDTL_BUNDLE_ARGS}' ..."
-  # [DEPRECATED] The `--path` flag is deprecated because
-  # it relies on being remembered across bundler invocations,
-  # which bundler will no longer do in future versions.
-  # Instead please use `bundle config set --local path './bundle'`,
-  # and stop using this flag
   bundle config set --local path "./bundle"
   bundle install ${ADDTL_BUNDLE_ARGS}
 
