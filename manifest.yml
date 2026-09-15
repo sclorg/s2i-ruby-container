@@ -29,6 +29,10 @@ DISTGEN_RULES:
   - src: src/test/rack-test-app/Gemfile.lock
     dest: test/rack-test-app/Gemfile.lock
 
+  # from-dockerfile/Dockerfile: bundler CLI syntax differs on Ruby 2.5.
+  - src: src/test/examples/from-dockerfile/Dockerfile
+    dest: test/examples/from-dockerfile/Dockerfile
+
 COPY_RULES:
   - src: src/s2i/bin/run
     dest: s2i/bin/run
@@ -66,9 +70,19 @@ SYMLINK_RULES:
     dest: test/conftest.py
   - src: ../../test/__init__.py
     dest: test/__init__.py
-  - src: ../../examples
-    dest: test/examples
 
+  # examples/: from-dockerfile/Dockerfile is version-templated above (bundler
+  # CLI differs on 2.5), the rest is shared as-is.
+  - src: ../../../../examples/from-dockerfile/Dockerfile.s2i
+    dest: test/examples/from-dockerfile/Dockerfile.s2i
+  - src: ../../../../examples/from-dockerfile/README.md
+    dest: test/examples/from-dockerfile/README.md
+  - src: ../../../examples/rails-postgresql-persistent.json
+    dest: test/examples/rails-postgresql-persistent.json
+  - src: ../../../examples/rails-postgresql.json
+    dest: test/examples/rails-postgresql.json
+  - src: ../../../examples/rails.json
+    dest: test/examples/rails.json
 
   - src: ../../imagestreams
     dest: test/imagestreams
