@@ -1,6 +1,7 @@
 FROM registry.access.redhat.com/ubi10/ruby-33
 
 ADD --chown=default:root app-src ./
+
 RUN bundle config set --local path ./bundle && \
       bundle install
 
