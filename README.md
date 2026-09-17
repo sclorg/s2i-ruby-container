@@ -18,12 +18,12 @@ Currently supported versions are visible in the following table, expand an entry
 <!--
 Table start
 -->
-||CentOS Stream 9|CentOS Stream 10|Fedora|RHEL 8|RHEL 9|RHEL 10|
-|:--|:--:|:--:|:--:|:--:|:--:|:--:|
-|2.5||||<details><summary>✓</summary>`registry.redhat.io/rhel8/ruby-25`</details>|||
-|3.0|||||<details><summary>✓</summary>`registry.redhat.io/rhel9/ruby-30`</details>||
-|3.3||<details><summary>✓</summary>`quay.io/sclorg/ruby-33-c10s`</details>|<details><summary>✓</summary>`quay.io/fedora/ruby-33`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel8/ruby-33`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel9/ruby-33`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel10/ruby-33`</details>|
-|4.0||<details><summary>✓</summary>`quay.io/sclorg/ruby-40-c10s`</details>|<details><summary>✓</summary>`quay.io/fedora/ruby-40`</details>||<details><summary>✓</summary>`registry.redhat.io/rhel9/ruby-40`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel10/ruby-40`</details>|
+||CentOS Stream 10|Fedora|RHEL 8|RHEL 9|RHEL 10|
+|:--|:--:|:--:|:--:|:--:|:--:|
+|2.5|||<details><summary>✓</summary>`registry.redhat.io/rhel8/ruby-25`</details>|||
+|3.0||||<details><summary>✓</summary>`registry.redhat.io/rhel9/ruby-30`</details>||
+|3.3|<details><summary>✓</summary>`quay.io/sclorg/ruby-33-c10s`</details>|<details><summary>✓</summary>`quay.io/fedora/ruby-33`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel8/ruby-33`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel9/ruby-33`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel10/ruby-33`</details>|
+|4.0|<details><summary>✓</summary>`quay.io/sclorg/ruby-40-c10s`</details>|<details><summary>✓</summary>`quay.io/fedora/ruby-40`</details>||<details><summary>✓</summary>`registry.redhat.io/rhel9/ruby-40`</details>|<details><summary>✓</summary>`registry.redhat.io/rhel10/ruby-40`</details>|
 <!--
 Table end
 -->
