@@ -147,7 +147,7 @@ Repository organization
 
     * **Dockerfile.c10s**
 
-        CentOS Stream based Dockerfile.c9s.
+        CentOS Stream based Dockerfile.c10s.
 
     * **Dockerfile.rhel10**
 
