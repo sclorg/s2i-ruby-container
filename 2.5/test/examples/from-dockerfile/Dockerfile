@@ -1,4 +1,4 @@
-FROM ubi8/ruby-25
+FROM registry.access.redhat.com/ubi8/ruby-25
 
 ADD --chown=default:root app-src ./
 

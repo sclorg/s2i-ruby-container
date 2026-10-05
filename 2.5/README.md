@@ -1,8 +1,10 @@
 Ruby 2.5 container image
 ========================
 This container image includes Ruby 2.5 as a [S2I](https://github.com/openshift/source-to-image) base image for your Ruby 2.5 applications.
-Only the RHEL8 based builder image is available.
-The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/).
+Users can choose between RHEL, CentOS Stream and Fedora based builder images.
+The RHEL images are available in the [Red Hat Container Catalog](https://access.redhat.com/containers/),
+the CentOS Stream images are available on [Quay.io](https://quay.io/organization/sclorg),
+and the Fedora images are available in [Quay.io](https://quay.io/organization/fedora).
 The resulting image can be run using [podman](https://github.com/containers/libpod).
 
 Note: while the examples in this README are calling `podman`, you can replace any such calls by `docker` with the same arguments
@@ -16,7 +18,7 @@ Ruby is the interpreted scripting language for quick and easy object-oriented pr
 It has many features to process text files and to do system management tasks (as in Perl).
 It is simple, straight-forward, and extensible.
 
-This container image includes a npm utility, so users can use it to install JavaScript
+This container image includes an npm utility, so users can use it to install JavaScript
 modules for their web applications. There is no guarantee for any specific npm or nodejs
 version, that is included in the image; those versions can be changed anytime and
 the nodejs itself is included just to make the npm work.
@@ -25,7 +27,7 @@ See [the Red Hat Enterprise Linux Application Streams Life Cycle page](https://a
 
 Usage in Openshift
 ------------------
-For this, we will assume that you are using the `ubi8/ruby-25 image`, available via `ruby:2.5` imagestream tag in Openshift.
+For this, we will assume that you are using the `registry.access.redhat.com/ubi8/ruby-25` image, available via `ruby:2.5` imagestream tag in Openshift.
 Building a simple [ruby-sample-app](https://github.com/sclorg/s2i-ruby-container/tree/master/2.5/test/puma-test-app) application
 in Openshift can be achieved with the following step:
 
@@ -41,7 +43,7 @@ $ oc exec <pod> -- curl 127.0.0.1:8080
 
 Source-to-Image framework and scripts
 -------------------------------------
-This image supports the [Source-to-Image](https://docs.openshift.com/container-platform/4.14/openshift_images/create-images.html#images-create-s2i_create-images)
+This image supports the [Source-to-Image](https://docs.openshift.com/container-platform/4.4/builds/build-strategies.html#images-create-s2i_build-strategies)
 (S2I) strategy in OpenShift. The Source-to-Image is an OpenShift framework
 which makes it easy to write images that take application source code as
 an input, use a builder image like this Ruby container image, and produce
@@ -64,10 +66,10 @@ To use the Ruby image in a Dockerfile, follow these steps:
 #### 1. Pull a base builder image to build on
 
 ```
-podman pull ubi8/ruby-25
+podman pull registry.access.redhat.com/ubi8/ruby-25
 ```
 
-An RHEL8 image `ubi8/ruby-25` is used in this example.
+The `registry.access.redhat.com/ubi8/ruby-25` container image is used in this example.
 
 #### 2. Pull and application code
 
@@ -89,7 +91,7 @@ For all these three parts, users can use the Source-to-Image scripts inside the 
 
 ##### 3.1 To use the Source-to-Image scripts and build an image using a Dockerfile, create a Dockerfile with this content:
 ```
-FROM ubi8/ruby-25
+FROM registry.access.redhat.com/ubi8/ruby-25
 
 # Add application sources to a directory that the assemble scriptexpects them
 # and set permissions so that the container runs without root access
@@ -110,7 +112,7 @@ CMD /usr/libexec/s2i/run
 The s2i scripts are used to set-up and run common Ruby applications. More information about the scripts can be found in [Source-to-Image](#source-to-image-framework-and-scripts) section.
 ##### 3.2 To use your own setup, create a Dockerfile with this content:
 ```
-FROM ubi8/ruby-25
+FROM registry.access.redhat.com/ubi8/ruby-25
 
 USER 0
 ADD app-src ./
@@ -225,4 +227,6 @@ See also
 --------
 Dockerfile and other sources are available on https://github.com/sclorg/s2i-ruby-container.
 In that repository you also can find another versions of Ruby environment Dockerfiles.
-The Dockerfile for RHEL8 is called `Dockerfile.rhel8`.
+Dockerfile for RHEL8 is called `Dockerfile.rhel8`, for RHEL9 it's `Dockerfile.rhel9`,
+for CentOS Stream 9 it's `Dockerfile.c9s`, for CentOS Stream 10 it's `Dockerfile.c10s`,
+and the Fedora Dockerfile is called `Dockerfile.fedora`.
